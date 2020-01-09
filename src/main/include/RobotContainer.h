@@ -10,6 +10,9 @@
 #include <frc2/command/Command.h>
 
 #include "subsystems/Drivetrain.h"
+#include "commands/DriveJoystick.h"
+#include "subsystems/OI.h"
+
 
 /**
  * This class is where the bulk of the robot should be declared.  Since
@@ -27,6 +30,9 @@ class RobotContainer {
  private:
   // The robot's subsystems and commands are defined here...
   Drivetrain drivetrain;
+  OI oi;
+  
+  DriveJoystick drivejoy;
 
   void ConfigureButtonBindings();
 };

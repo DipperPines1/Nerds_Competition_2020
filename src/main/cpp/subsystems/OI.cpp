@@ -10,11 +10,15 @@
 #include "Constants.h"
 
 
-OI::OI() : 
+OI::OI() :
     driver(JOY_DRIVER),
-    driver_A(driver, BUTTON_A)
+    driver_A(&driver, BUTTON_A)
 {}
 
 // This method will be called once per scheduler run
 void OI::Periodic() {}
+
+double OI::GetAxis(int axis) {
+    return driver.GetRawAxis(axis);
+}
 

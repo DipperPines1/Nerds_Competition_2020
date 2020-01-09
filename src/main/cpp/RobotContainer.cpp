@@ -7,11 +7,14 @@
 
 #include "RobotContainer.h"
 
-RobotContainer::RobotContainer() {
-  // Initialize all of your commands and subsystems here
-
-  // Configure the button bindings
+RobotContainer::RobotContainer()
+  : drivetrain(),
+    oi(),
+    drivejoy(&drivetrain, &oi) {
   ConfigureButtonBindings();
+
+  // Set default commands
+  drivetrain.SetDefaultCommand(drivejoy);
 }
 
 void RobotContainer::ConfigureButtonBindings() {
