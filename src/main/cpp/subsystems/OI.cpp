@@ -5,14 +5,16 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
-#pragma once
+#include "subsystems/OI.h"
 
-// CAN Devices
-constexpr int CAN_DRIVE_FRONT_LEFT = 2;
-constexpr int CAN_DRIVE_FRONT_RIGHT = 3;
-constexpr int CAN_DRIVE_BACK_LEFT = 4;
-constexpr int CAN_DRIVE_BACK_RIGHT = 5;
+#include "Constants.h"
 
-// Controller const
-constexpr int JOY_DRIVER = 0;
-constexpr int BUTTON_A = 1;
+
+OI::OI() : 
+    driver(JOY_DRIVER),
+    driver_A(driver, BUTTON_A)
+{}
+
+// This method will be called once per scheduler run
+void OI::Periodic() {}
+
