@@ -7,9 +7,12 @@
 
 #include "commands/DriveJoystick.h"
 
+#include <cmath>
 #include "subsystems/Drivetrain.h"
 #include "subsystems/OI.h"
 #include "Constants.h"
+
+#include "Robot.h"
 
 DriveJoystick::DriveJoystick(Drivetrain* drivetrain, OI* oi)
   : drivetrain_(drivetrain),
@@ -23,9 +26,12 @@ void DriveJoystick::Initialize() {}
 
 // Called repeatedly when this Command is scheduled to run
 void DriveJoystick::Execute() {
-  double speed = oi_->GetAxis(AXIS_LEFT_Y);
-  double turn = oi_->GetAxis(AXIS_LEFT_X);
-  drivetrain_->ArcadeDrive(speed, turn, false);
+  double speed = applyDeadzone(DriveJoystick::oi_->GetAxis(AXIS_LEFT_Y), .05);
+  double turn = applyDeadzone(DriveJoystick::oi_->GetAxis(AXIS_RIGHT_X), .05);
+  drivetrain_->ArcadeDrive(
+    driveProfile(speed, 0.25, .8),
+    driveProfile(turn, 0.25, .8),
+    false);
 }
 
 // Called once the command ends or is interrupted.
@@ -36,4 +42,27 @@ void DriveJoystick::End(bool interrupted) {
 // Returns true when the command should end.
 bool DriveJoystick::IsFinished() {
   return false;
+}
+
+double DriveJoystick::driveProfile(double input, double min, double max) {
+  if (input == 0) {
+    return 0;
+  }
+
+  double slope = max-min;
+  double output = slope *std::pow(std::abs(input), 2) + min;
+
+  if (input < 0) {
+    output *=-1;
+  }
+
+  return output;
+}
+
+double DriveJoystick::applyDeadzone(double input, double deadzone) {
+  if (abs(input) < abs(deadzone)) {
+    return 0;
+  }
+
+  return input;
 }

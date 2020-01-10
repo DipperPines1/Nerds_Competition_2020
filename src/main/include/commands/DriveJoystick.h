@@ -33,8 +33,10 @@ class DriveJoystick
 
   bool IsFinished() override;
 
-  private:
+ private:
   Drivetrain* drivetrain_;
   OI* oi_;
+  double driveProfile(double, double, double);
+  double applyDeadzone(double, double);
 
 };
