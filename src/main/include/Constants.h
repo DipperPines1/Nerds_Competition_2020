@@ -19,8 +19,8 @@ constexpr int BUTTON_A = 1;
 
 //axis ID
 constexpr int AXIS_LEFT_X = 0;
-constexpr int AXIS_RIGHT_X = 1;
-constexpr int AXIS_LEFT_Y = 2;
-constexpr int AXIS_RIGHT_Y = 3;
-constexpr int BUMPER_LEFT = 4;
-constexpr int BUMPER_RIGHT = 5;
+constexpr int AXIS_RIGHT_X = 4;
+constexpr int AXIS_LEFT_Y = 1;
+constexpr int AXIS_RIGHT_Y = 5;
+constexpr int BUMPER_LEFT = 2;
+constexpr int BUMPER_RIGHT = 3;
