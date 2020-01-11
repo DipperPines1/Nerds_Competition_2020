@@ -24,3 +24,12 @@ constexpr int AXIS_LEFT_Y = 1;
 constexpr int AXIS_RIGHT_Y = 5;
 constexpr int BUMPER_LEFT = 2;
 constexpr int BUMPER_RIGHT = 3;
+
+// serial ports
+constexpr int SERIAL_GYRO = 0;
+
+// Digital IOs
+constexpr int DIO_ENCODER_LEFT_A = 0;
+constexpr int DIO_ENCODER_LEFT_B = 1;
+constexpr int DIO_ENCODER_RIGHT_A = 2;
+constexpr int DIO_ENCODER_RIGHT_B = 3;
