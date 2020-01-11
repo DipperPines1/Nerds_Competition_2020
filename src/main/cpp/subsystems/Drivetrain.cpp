@@ -7,6 +7,8 @@
 
 #include "subsystems/Drivetrain.h"
 
+#include <frc/SerialPort.h>
+
 #include "Constants.h"
 
 
@@ -17,7 +19,10 @@ Drivetrain::Drivetrain() :
     back_right_(CAN_DRIVE_BACK_RIGHT),
     left_(front_left_, back_left_),
     right_(front_right_, back_right_),
-    drive_(left_, right_)
+    drive_(left_, right_),
+    gyro(frc::SerialPort::Port::kUSB1),
+    encoder_left(DIO_ENCODER_LEFT_A, DIO_ENCODER_LEFT_B, false),
+    encoder_right(DIO_ENCODER_RIGHT_A, DIO_ENCODER_RIGHT_B, true)
 {}
 
 // This method will be called once per scheduler run
@@ -25,4 +30,20 @@ void Drivetrain::Periodic() {}
 
 void Drivetrain::ArcadeDrive(double speed, double turn, bool squared) {
     drive_.ArcadeDrive(speed, turn, squared);
+}
+
+double Drivetrain::GetHeading() {
+    return gyro.GetCompassHeading();
+}
+
+double Drivetrain::GetDistanceLeft() {
+    return encoder_left.GetDistance();
+}
+
+double Drivetrain::GetDistanceRight() {
+    return encoder_right.GetDistance();
+}
+
+double Drivetrain::AverageDistance() {
+    return (encoder_left.GetDistance() + encoder_right.GetDistance()) / 2.0;
 }

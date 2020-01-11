@@ -12,7 +12,8 @@
 #include <ctre/phoenix/motorcontrol/can/WPI_VictorSPX.h>
 #include <frc/drive/DifferentialDrive.h>
 #include <frc/SpeedControllerGroup.h>
-
+#include <AHRS.h>
+#include <frc/Encoder.h>
 
 class Drivetrain : public frc2::SubsystemBase {
  public:
@@ -34,9 +35,35 @@ class Drivetrain : public frc2::SubsystemBase {
    */
   void ArcadeDrive(double speed, double turn, bool squared);
 
+  /**
+   * @brief Get the heading of the gyro on the drivetrain
+   * 
+   * @return double The robot's current heading
+   */
+  double GetHeading();
+
+  /**
+   * @brief get the distance the robot has travelled on the left side
+   * 
+   * @return double how far the robot has gone on the left side
+   */
+  double GetDistanceLeft();
+
+  /**
+   * @brief get the distance the robot has travelled on the right side
+   * 
+   * @return double how far the robot has gone on the right side
+   */
+  double GetDistanceRight();
+
+/**
+ * @brief takes the average of the distance the robot has travelled on the left and right sides
+ * 
+ * @return double how far the robot has gone
+ */
+  double AverageDistance();
+
  private:
-  // Components (e.g. motor controllers and sensors) should generally be
-  // declared private and exposed only through public methods.
   ctre::phoenix::motorcontrol::can::WPI_VictorSPX front_left_;
   ctre::phoenix::motorcontrol::can::WPI_VictorSPX front_right_;
   ctre::phoenix::motorcontrol::can::WPI_VictorSPX back_left_;
@@ -46,4 +73,9 @@ class Drivetrain : public frc2::SubsystemBase {
   frc::SpeedControllerGroup right_;
 
   frc::DifferentialDrive drive_;
+
+  AHRS gyro;
+
+  frc::Encoder encoder_left;
+  frc::Encoder encoder_right;
 };
