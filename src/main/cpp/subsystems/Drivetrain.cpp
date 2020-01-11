@@ -11,10 +11,10 @@
 
 
 Drivetrain::Drivetrain() :
-    front_left(CAN_DRIVE_FRONT_LEFT),
-    front_right(CAN_DRIVE_FRONT_RIGHT),
-    back_left(CAN_DRIVE_BACK_LEFT),
-    back_right(CAN_DRIVE_BACK_RIGHT),
+    front_left(PWM_DRIVE_FRONT_LEFT),
+    front_right(PWM_DRIVE_FRONT_RIGHT),
+    back_left(PWM_DRIVE_BACK_LEFT),
+    back_right(PWM_DRIVE_BACK_RIGHT),
     left(front_left, back_left),
     right(front_right, back_right),
     drive(left, right)

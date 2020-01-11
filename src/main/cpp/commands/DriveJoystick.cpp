@@ -26,8 +26,8 @@ void DriveJoystick::Initialize() {}
 
 // Called repeatedly when this Command is scheduled to run
 void DriveJoystick::Execute() {
-  double speed = applyDeadzone(DriveJoystick::oi_->GetAxis(AXIS_LEFT_Y), .05);
-  double turn = applyDeadzone(DriveJoystick::oi_->GetAxis(AXIS_RIGHT_X), .05);
+  double speed = applyDeadzone(DriveJoystick::oi_->GetAxis(AXIS_LEFT_Y), 1.5);
+  double turn = applyDeadzone(DriveJoystick::oi_->GetAxis(AXIS_RIGHT_X), 1.5);
   drivetrain_->ArcadeDrive(
     driveProfile(speed, 0.25, .8),
     driveProfile(turn, 0.25, .8),
