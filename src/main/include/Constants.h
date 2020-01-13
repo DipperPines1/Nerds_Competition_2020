@@ -17,7 +17,7 @@ constexpr int CAN_DRIVE_BACK_RIGHT = 5;
 constexpr int JOY_DRIVER = 0;
 constexpr int BUTTON_A = 1;
 
-//axis ID
+// axis ID
 constexpr int AXIS_LEFT_X = 0;
 constexpr int AXIS_RIGHT_X = 1;
 constexpr int AXIS_LEFT_Y = 2;
