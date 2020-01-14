@@ -38,5 +38,4 @@ class DriveJoystick
   OI* oi_;
   double driveProfile(double, double, double);
   double applyDeadzone(double, double);
-
 };

@@ -37,10 +37,10 @@ class Drivetrain : public frc2::SubsystemBase {
  private:
   // Components (e.g. motor controllers and sensors) should generally be
   // declared private and exposed only through public methods.
-  ctre::phoenix::motorcontrol::can::VictorSPX front_left;
-  ctre::phoenix::motorcontrol::can::VictorSPX front_right;
-  ctre::phoenix::motorcontrol::can::VictorSPX back_left;
-  ctre::phoenix::motorcontrol::can::VictorSPX back_right;
+  ctre::phoenix::motorcontrol::can::WPI_VictorSPX front_left;
+  ctre::phoenix::motorcontrol::can::WPI_VictorSPX front_right;
+  ctre::phoenix::motorcontrol::can::WPI_VictorSPX back_left;
+  ctre::phoenix::motorcontrol::can::WPI_VictorSPX back_right;
 
   frc::SpeedControllerGroup left;
   frc::SpeedControllerGroup right;
