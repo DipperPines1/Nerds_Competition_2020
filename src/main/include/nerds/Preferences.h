@@ -5,6 +5,8 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
+#include <string>
+
 #pragma once
 namespace nerd {
 
@@ -24,6 +26,9 @@ class Preferences {
   // Delete copy constructor and assignment operator
   Preferences(Preferences const&) = delete;
   void operator=(Preferences const&) = delete;
+
+  template<typename T>
+  bool AddListener(std::string key, T* value);
  private:
   Preferences();
 };
