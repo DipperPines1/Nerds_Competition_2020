@@ -36,6 +36,14 @@ class DriveJoystick
  private:
   Drivetrain* drivetrain_;
   OI* oi_;
+
+  double drive_max_speed_;
+  double drive_min_speed_;
+  double turn_max_speed_;
+  double turn_min_speed_;
+  double drive_deadzone_;
+  bool reverse_forward_;
+
   double driveProfile(double, double, double);
   double applyDeadzone(double, double);
 };

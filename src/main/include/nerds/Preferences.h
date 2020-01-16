@@ -17,7 +17,7 @@ class Preferences {
    * 
    * @return Preferences& The instance of Preferences
    */
-  static Preferences& getInstance() {
+  static Preferences& GetInstance() {
     static Preferences instance;
 
     return instance;
@@ -27,8 +27,32 @@ class Preferences {
   Preferences(Preferences const&) = delete;
   void operator=(Preferences const&) = delete;
 
+  /**
+   * @brief Add listeners to automatically update the value when the specified key changes with the value paired with the key
+   * 
+   * @tparam T The type of the value
+   * @param key A string that specifies a network table entry
+   * @param value a pointer to a variable that is updated when the value in the key changes
+   * 
+   * @return true when a listener is successfully added
+   * @return false when a listener is not created
+   */
   template<typename T>
-  bool AddListener(std::string key, T* value);
+  bool AddListener(std::string key, T *const value);
+
+  /**
+   * @brief add or update an entry in the preferences table
+   * 
+   * @tparam T the type of the value
+   * @param key A string that specifies a networktable entry
+   * @param value The value stored in the networktable entry
+   * @param overwrite if true, overwrites preexisting entries with the same key.
+   * @return true Successfully created or updated an entry
+   * @return false Failed to create or update an entry
+   */
+  template<typename T>
+  bool AddPreference(std::string key, T value, bool overwrite);
+
  private:
   Preferences();
 };

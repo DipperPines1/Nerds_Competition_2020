@@ -11,6 +11,8 @@
 #include "subsystems/Drivetrain.h"
 #include "subsystems/OI.h"
 #include "Constants.h"
+#include "Config.h"
+#include "nerds/Preferences.h"
 
 #include "Robot.h"
 
@@ -19,6 +21,25 @@ DriveJoystick::DriveJoystick(Drivetrain* drivetrain, OI* oi)
     oi_(oi) {
   // Use addRequirements() here to declare subsystem dependencies.
   AddRequirements({drivetrain_, oi_});
+
+  nerd::Preferences::GetInstance().AddListener<double>(
+    JOYSTICK_DRIVE_MAX.key,
+    &drive_max_speed_);
+  nerd::Preferences::GetInstance().AddListener<double>(
+    JOYSTICK_DRIVE_MIN.key,
+    &drive_min_speed_);
+  nerd::Preferences::GetInstance().AddListener<double>(
+    JOYSTICKS_TURN_MAX.key,
+    &turn_max_speed_);
+  nerd::Preferences::GetInstance().AddListener<double>(
+    JOYSTICKS_TURN_MIN.key,
+    &turn_min_speed_);
+  nerd::Preferences::GetInstance().AddListener<double>(
+    JOYSTICKS_DRIVE_DEADZONE.key,
+    &drive_deadzone_);
+  nerd::Preferences::GetInstance().AddListener<bool>(
+    JOYSTICKS_REVERSE_FORWARD.key,
+    &reverse_forward_);
 }
 
 // Called when the command is initially scheduled.
@@ -26,11 +47,13 @@ void DriveJoystick::Initialize() {}
 
 // Called repeatedly when this Command is scheduled to run
 void DriveJoystick::Execute() {
-  double speed = applyDeadzone(DriveJoystick::oi_->GetAxis(AXIS_LEFT_Y), 1);
-  double turn = applyDeadzone(DriveJoystick::oi_->GetAxis(AXIS_RIGHT_X), 1);
+  double speed = applyDeadzone(DriveJoystick::oi_->GetAxis(AXIS_LEFT_Y),
+    drive_deadzone_);
+  double turn = applyDeadzone(DriveJoystick::oi_->GetAxis(AXIS_RIGHT_X),
+    drive_deadzone_);
   drivetrain_->ArcadeDrive(
-    driveProfile(speed, 0.25, .8),
-    driveProfile(turn, 0.25, .8),
+    driveProfile(speed, drive_min_speed_, drive_max_speed_),
+    driveProfile(turn, turn_min_speed_, turn_max_speed_),
     false);
 }
 

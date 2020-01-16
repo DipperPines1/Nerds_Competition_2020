@@ -13,7 +13,8 @@
 nerd::Preferences::Preferences() {}
 
 template<>
-bool nerd::Preferences::AddListener<double>(std::string key, double* value) {
+bool nerd::Preferences::AddListener<double>(std::string key,
+    double *const value) {
     auto instance = nt::NetworkTableInstance::GetDefault();
     auto table = instance.GetTable("Preferences");
 
@@ -35,7 +36,7 @@ bool nerd::Preferences::AddListener<double>(std::string key, double* value) {
 template<>
 bool nerd::Preferences::AddListener<std::string>(
     std::string key,
-    std::string* value) {
+    std::string *const value) {
     auto instance = nt::NetworkTableInstance::GetDefault();
     auto table = instance.GetTable("Preferences");
 
@@ -55,7 +56,8 @@ bool nerd::Preferences::AddListener<std::string>(
     }
 
 template<>
-bool nerd::Preferences::AddListener<bool>(std::string key, bool* value) {
+bool nerd::Preferences::AddListener<bool>(std::string key,
+    bool *const value) {
     auto instance = nt::NetworkTableInstance::GetDefault();
     auto table = instance.GetTable("Preferences");
 
@@ -73,3 +75,52 @@ bool nerd::Preferences::AddListener<bool>(std::string key, bool* value) {
 
     return true;
     }
+
+template<>
+bool nerd::Preferences::AddPreference<double>(std::string key,
+    double value,
+    bool overwrite) {
+    auto instance = nt::NetworkTableInstance::GetDefault();
+    auto table = instance.GetTable("Preference");
+
+    if (!overwrite) {
+        if (table->ContainsKey(key)) {
+            return false;
+        }
+    }
+
+    return table->PutNumber(key, value);
+}
+
+template<>
+bool nerd::Preferences::AddPreference<std::string>(
+    std::string key,
+    std::string value,
+    bool overwrite) {
+    auto instance = nt::NetworkTableInstance::GetDefault();
+    auto table = instance.GetTable("Preference");
+
+    if (!overwrite) {
+        if (table->ContainsKey(key)) {
+            return false;
+        }
+    }
+
+    return table->PutString(key, value);
+}
+
+template<>
+bool nerd::Preferences::AddPreference<bool>(std::string key,
+    bool value,
+    bool overwrite) {
+    auto instance = nt::NetworkTableInstance::GetDefault();
+    auto table = instance.GetTable("Preference");
+
+    if (!overwrite) {
+        if (table->ContainsKey(key)) {
+            return false;
+        }
+    }
+
+    return table ->PutBoolean(key, value);
+}
