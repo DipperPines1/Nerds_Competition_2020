@@ -38,7 +38,7 @@ class Drivetrain : public frc2::SubsystemBase {
   /**
    * @brief Get the heading of the gyro on the drivetrain
    * 
-   * @return double The robot's current heading
+   * @return double The robot's current heading in degrees from 0 to 360
    */
   double GetHeading();
 

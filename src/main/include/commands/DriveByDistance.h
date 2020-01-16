@@ -10,12 +10,14 @@
 #include <frc2/command/CommandBase.h>
 #include <frc2/command/CommandHelper.h>
 
+#include "subsystems/Drivetrain.h"
+
 class Drivetrain;
 
 class DriveByDistance
     : public frc2::CommandHelper<frc2::CommandBase, DriveByDistance> {
  public:
-  explicit DriveByDistance(Drivetrain*);
+  DriveByDistance(double distance, Drivetrain*);
 
   void Initialize() override;
 

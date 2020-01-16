@@ -17,15 +17,35 @@ DriveByDistance::DriveByDistance(double distance, Drivetrain* drivetrain)
 
 // Called when the command is initially scheduled.
 void DriveByDistance::Initialize() {
-  initial_heading_ = drivetrain_->GetCompassHeading();
-  final_distance_ = drivetrain_->AverageDistance() + distance;
+  double initial_heading_ = drivetrain_->GetHeading();
+  double final_distance_ = drivetrain_->AverageDistance() + distance_;
 }
 
 // Called repeatedly when this Command is scheduled to run
-void DriveByDistance::Execute() {}
+void DriveByDistance::Execute() {
+  double current_Heading = drivetrain_->GetHeading();
+  if (current_Heading == initial_heading_) {
+    drivetrain_->ArcadeDrive(.8, 0, false);
+  } else if (current_Heading <= initial_heading_ + 180 ||
+    current_Heading > initial_heading_) {
+    drivetrain_->ArcadeDrive(.4, -.8, false);
+  } else if (current_Heading > initial_heading_ - 180 ||
+    current_Heading < initial_heading_) {
+    drivetrain_->ArcadeDrive(.4, .8, false);
+  } else {
+    drivetrain_->ArcadeDrive(0, 0, false);
+  }
+}
 
 // Called once the command ends or is interrupted.
-void DriveByDistance::End(bool interrupted) {}
+void DriveByDistance::End(bool interrupted) {
+  drivetrain_->ArcadeDrive(0, 0, false);
+}
 
 // Returns true when the command should end.
-bool DriveByDistance::IsFinished() { return false; }
+bool DriveByDistance::IsFinished() {
+  if (final_distance_ == drivetrain_->AverageDistance()) {
+    return true;
+  }
+  return false;
+}

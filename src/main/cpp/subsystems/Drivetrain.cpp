@@ -7,6 +7,8 @@
 
 #include "subsystems/Drivetrain.h"
 
+#include <frc/SerialPort.h>
+
 #include "Constants.h"
 
 
@@ -18,7 +20,7 @@ Drivetrain::Drivetrain() :
     left_(front_left_, back_left_),
     right_(front_right_, back_right_),
     drive_(left_, right_),
-    gyro(SERIAL_GYRO),
+    gyro(frc::SerialPort::Port::kUSB1),
     encoder_left(DIO_ENCODER_LEFT_A, DIO_ENCODER_LEFT_B, false),
     encoder_right(DIO_ENCODER_RIGHT_A, DIO_ENCODER_RIGHT_B, true)
 {}
@@ -31,15 +33,15 @@ void Drivetrain::ArcadeDrive(double speed, double turn, bool squared) {
 }
 
 double Drivetrain::GetHeading() {
-    return gyro.GetCompassHeading()
+    return gyro.GetCompassHeading();
 }
 
 double Drivetrain::GetDistanceLeft() {
-    return encoder_left.GetDistance()
+    return encoder_left.GetDistance();
 }
 
 double Drivetrain::GetDistanceRight() {
-    return encoder_right.GetDistance()
+    return encoder_right.GetDistance();
 }
 
 double Drivetrain::AverageDistance() {
