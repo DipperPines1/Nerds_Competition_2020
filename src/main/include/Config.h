@@ -38,4 +38,3 @@ const nerd::ConfigKey<double> JOYSTICKS_DRIVE_DEADZONE{
 const nerd::ConfigKey<bool> JOYSTICKS_REVERSE_FORWARD{
   "Joysticks/Drive/Reverse",
   false};
-  
