@@ -12,5 +12,9 @@
     "**/.project": true,
     "**/.settings": true,
     "**/.factorypath": true
+  },
+  "files.associations": {
+    "iosfwd": "cpp",
+    "ostream": "cpp"
   }
 }
