@@ -7,9 +7,12 @@
 
 #include "RobotContainer.h"
 
+#include <frc/smartdashboard/SmartDashboard.h>
+
 RobotContainer::RobotContainer()
   : drivetrain(),
     oi(),
+    apply_config(),
     drivejoy(&drivetrain, &oi) {
   ConfigureButtonBindings();
 
@@ -18,7 +21,7 @@ RobotContainer::RobotContainer()
 }
 
 void RobotContainer::ConfigureButtonBindings() {
-  // Configure your button bindings here
+  frc::SmartDashboard::PutData("Commands/Load Config", &apply_config);
 }
 
 frc2::Command* RobotContainer::GetAutonomousCommand() {
