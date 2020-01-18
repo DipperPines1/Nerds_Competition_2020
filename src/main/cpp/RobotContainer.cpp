@@ -16,7 +16,8 @@ RobotContainer::RobotContainer()
   : drivetrain_(),
     oi_(),
     apply_config_(),
-    drive_joy_(&drivetrain_, &oi_) {
+    drive_joy_(&drivetrain_, &oi_),
+    auto_drive(6, &drivetrain) {
   ConfigureButtonBindings();
 
   // Set default commands
@@ -25,6 +26,7 @@ RobotContainer::RobotContainer()
 
 void RobotContainer::ConfigureButtonBindings() {
   frc::SmartDashboard::PutData("Commands/Load Config", &apply_config_);
+  frc::SmartDashboard::PutData("Commands/Auto Drive", &auto_drive);
 
   oi_.BindCommandButton(BUTTON_A, new SpeedSwitch());
 }
