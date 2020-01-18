@@ -23,7 +23,10 @@ Drivetrain::Drivetrain() :
     gyro(frc::SerialPort::Port::kUSB1),
     encoder_left(DIO_ENCODER_LEFT_A, DIO_ENCODER_LEFT_B, false),
     encoder_right(DIO_ENCODER_RIGHT_A, DIO_ENCODER_RIGHT_B, true)
-{}
+{
+    encoder_left.SetDistancePerPulse(K_ENCODER_DISTANCE_PER_PULSE);
+    encoder_right.SetDistancePerPulse(K_ENCODER_DISTANCE_PER_PULSE);
+}
 
 // This method will be called once per scheduler run
 void Drivetrain::Periodic() {}
@@ -46,4 +49,12 @@ double Drivetrain::GetDistanceRight() {
 
 double Drivetrain::AverageDistance() {
     return (encoder_left.GetDistance() + encoder_right.GetDistance()) / 2.0;
+}
+
+double Drivetrain::WheelSpeed() {
+    return (encoder_left.GetRate()), (encoder_right.GetRate());
+}
+
+double Drivetrain::GetHeading() {
+  return std::remainder(gyro.GetAngle(), 360) * (K_GYRO_REVERSED ? -1.0 : 1.0);
 }
