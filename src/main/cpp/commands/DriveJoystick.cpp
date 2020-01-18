@@ -62,6 +62,7 @@ void DriveJoystick::Execute() {
   if (*reverse_forward_) {
     speed *= -1;
   }
+
   drivetrain_->ArcadeDrive(
     driveProfile(speed, *drive_min_speed_, *drive_max_speed_),
     driveProfile(turn, *turn_min_speed_, *turn_max_speed_),
@@ -94,7 +95,7 @@ double DriveJoystick::driveProfile(double input, double min, double max) {
 }
 
 double DriveJoystick::applyDeadzone(double input, double deadzone) {
-  if (abs(input) < abs(deadzone)) {
+  if (std::abs(input) < std::abs(deadzone)) {
     return 0;
   }
 
