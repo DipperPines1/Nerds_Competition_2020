@@ -17,8 +17,8 @@ DriveByDistance::DriveByDistance(double distance, Drivetrain* drivetrain)
 
 // Called when the command is initially scheduled.
 void DriveByDistance::Initialize() {
-  initial_heading_ = drivetrain_->GetCompassHeading();
-  final_distance_ = drivetrain_->AverageDistance() + distance;
+  initial_heading_ = drivetrain_->GetHeading();
+  final_distance_ = drivetrain_->AverageDistance() + distance_;
 }
 
 // Called repeatedly when this Command is scheduled to run

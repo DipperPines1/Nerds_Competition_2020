@@ -7,6 +7,8 @@
 
 #pragma once
 
+#include <frc/kinematics/DifferentialDriveKinematics.h>
+
 // CAN Devices
 constexpr int CAN_DRIVE_FRONT_RIGHT = 3;
 constexpr int CAN_DRIVE_BACK_RIGHT = 4;
@@ -36,9 +38,9 @@ constexpr int DIO_ENCODER_RIGHT_B = 3;
 
 // Feedforward/Feedback Gains
 // Units are in inches
-constexpr double KS = 0.688;
-constexpr double KA = 0.00502;
-constexpr double KV = 0.0811;
+constexpr auto KS = 0.688_V;
+constexpr auto KA = 0.00502 * 1_V * 1_s * 1_s / 1_m;
+constexpr auto KV = 0.0811 * 1_V * 1_s / 1_m;
 constexpr double KP_DRIVE_VELOCITY = 0.213;
 constexpr double K_TRACK_WIDTH = 25.12;
 extern const frc::DifferentialDriveKinematics K_DRIVE_KINEMATICS;

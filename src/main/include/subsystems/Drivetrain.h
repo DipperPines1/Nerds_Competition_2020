@@ -14,6 +14,8 @@
 #include <frc/SpeedControllerGroup.h>
 #include <AHRS.h>
 #include <frc/Encoder.h>
+#include <frc/kinematics/DifferentialDriveOdometry.h>
+#include <units/units.h>
 
 class Drivetrain : public frc2::SubsystemBase {
  public:
@@ -56,12 +58,35 @@ class Drivetrain : public frc2::SubsystemBase {
    */
   double GetDistanceRight();
 
-/**
- * @brief takes the average of the distance the robot has travelled on the left and right sides
- * 
- * @return double how far the robot has gone
- */
+  /**
+   * @brief takes the average of the distance the robot has travelled on the left and right sides
+   * 
+   * @return double how far the robot has gone
+   */
   double AverageDistance();
+
+  /**
+   * @brief Gets the speed of the wheels
+   * 
+   * @return double 
+   */
+  double WheelSpeed();
+
+  /**
+   * @brief Gets the Pose object
+   * 
+   * @return frc::Pose2d 
+   */
+  frc::Pose2d GetPose();
+
+  /**
+   * @brief Sets the voltage on both motors
+   * 
+   * @param left The left motors
+   * 
+   * @param right The right motors
+   */
+  void TankDriveVolts(units::volt_t left, units::volt_t right);
 
  private:
   ctre::phoenix::motorcontrol::can::WPI_VictorSPX front_left_;
@@ -78,4 +103,6 @@ class Drivetrain : public frc2::SubsystemBase {
 
   frc::Encoder encoder_left;
   frc::Encoder encoder_right;
+
+  frc::DifferentialDriveOdometry odometry;
 };

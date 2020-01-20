@@ -15,7 +15,7 @@ class Drivetrain;
 class DriveByDistance
     : public frc2::CommandHelper<frc2::CommandBase, DriveByDistance> {
  public:
-  explicit DriveByDistance(Drivetrain*);
+  explicit DriveByDistance(double distance, Drivetrain*);
 
   void Initialize() override;
 
