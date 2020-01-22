@@ -59,8 +59,9 @@ double Drivetrain::AverageDistance() {
     return (encoder_left.GetDistance() + encoder_right.GetDistance()) / 2.0;
 }
 
-double Drivetrain::WheelSpeed() {
-    return (encoder_left.GetRate()), (encoder_right.GetRate());
+frc::DifferentialDriveWheelSpeeds Drivetrain::WheelSpeed() {
+    return {units::meters_per_second_t(encoder_left.GetRate()),
+        units::meters_per_second_t(encoder_right.GetRate())};
 }
 
 double Drivetrain::GetHeading() {

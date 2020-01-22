@@ -16,7 +16,7 @@
 #include <frc/trajectory/TrajectoryConfig.h>
 #include <frc/trajectory/TrajectoryGenerator.h>
 #include <frc2/command/RamseteCommand.h>
-#include <frc/controller/PIDController.h>
+#include <frc/PIDController.h>
 #include <units/units.h>
 
 #include "Constants.h"
@@ -41,9 +41,9 @@ void RobotContainer::ConfigureButtonBindings() {
 frc2::Command* RobotContainer::GetAutonomousCommand() {
   // Create a voltage constraint to ensure we don't accelerate too fast
   frc::DifferentialDriveVoltageConstraint autoVoltageConstraint(
-      frc::SimpleMotorFeedforward<units::inch_t>(KS, KV, KA),
+      frc::SimpleMotorFeedforward<units::meters>(KS, KV, KA),
       K_DRIVE_KINEMATICS,
-      10);
+      10_V);
 
   // Set up config for trajectory
   frc::TrajectoryConfig config(
@@ -59,29 +59,31 @@ frc2::Command* RobotContainer::GetAutonomousCommand() {
   // An example trajectory to follow.  All units in meters.
   auto exampleTrajectory = frc::TrajectoryGenerator::GenerateTrajectory(
       // Start at the origin facing the +X direction
-      frc::Pose2d(0, 0, frc::Rotation2d(0)),
+      frc::Pose2d(0_m, 0_m, frc::Rotation2d()),
       // Pass through these two interior waypoints, making an 's' curve path
-      {frc::Translation2d(1, 1), frc::Translation2d(2, -1)},
+      {frc::Translation2d(1_m, 1_m), frc::Translation2d(2_m, -1_m)},
       // End 3 meters straight ahead of where we started, facing forward
-      frc::Pose2d(3, 0, frc::Rotation2d(0)), config);
+      frc::Pose2d(3_m, 0_m, frc::Rotation2d()), config);
 
-  frc2::RamseteCommand* ramseteCommand(
-      exampleTrajectory, [this]() {
+void RobotContainer::DriveThroughPath(){
+      exampleTrajectory,
+      [this]() {
         return drivetrain.GetPose();
       },
-      frc::RamseteController(kRamseteB, kRamseteZeta),
-      frc::SimpleMotorFeedforward<>(
-        KS, KV, KA),
-        K_DRIVE_KINEMATICS,
+      frc::RamseteController(K_RAMSETE_B, K_RAMSETE_ZETA),
+      frc::SimpleMotorFeedforward<units::meters>(KS, KV, KA),
+      K_DRIVE_KINEMATICS,
       [this] {
-        return drivetrain.GetWheelSpeeds();
+        return drivetrain.WheelSpeed();
       },
-      frc::PIDController(KP_DRIVE_VELOCITY, 0, 0),
-      frc::PIDController(KP_DRIVE_VELOCITY, 0, 0),
+      frc2::PIDController(KP_DRIVE_VELOCITY, 0.0, 0.0),
+      frc2::PIDController(KP_DRIVE_VELOCITY, 0.0, 0.0),
       [this](auto left, auto right) {
         drivetrain.TankDriveVolts(left, right);
       },
       {&drivetrain});
-
-  return ramseteCommand;
 }
+
+  void RobotContainer::StopAutoDrive(){
+    autonomous_drive->cancel();
+  }

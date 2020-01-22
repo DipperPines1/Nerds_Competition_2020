@@ -8,6 +8,7 @@
 #pragma once
 
 #include <frc/kinematics/DifferentialDriveKinematics.h>
+#include <units/units.h>
 
 // CAN Devices
 constexpr int CAN_DRIVE_FRONT_RIGHT = 3;
@@ -42,10 +43,10 @@ constexpr auto KS = 0.688_V;
 constexpr auto KA = 0.00502 * 1_V * 1_s * 1_s / 1_m;
 constexpr auto KV = 0.0811 * 1_V * 1_s / 1_m;
 constexpr double KP_DRIVE_VELOCITY = 0.213;
-constexpr double K_TRACK_WIDTH = 25.12;
-extern const frc::DifferentialDriveKinematics K_DRIVE_KINEMATICS;
-constexpr double K_MAX_SPEED = 1;
-constexpr double K_MAX_ACCELERATION = 1;
+constexpr units::meter_t K_TRACK_WIDTH = 25.12_m;
+const frc::DifferentialDriveKinematics K_DRIVE_KINEMATICS(K_TRACK_WIDTH);
+constexpr auto K_MAX_SPEED = 1_mps;
+constexpr auto K_MAX_ACCELERATION = 1_mps_sq;
 constexpr double K_RAMSETE_B = 78.7402;
 constexpr double K_RAMSETE_ZETA = 27.5591;
 constexpr double K_ENCODER_DISTANCE_PER_PULSE = 3.14159 / 60;

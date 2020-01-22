@@ -9,6 +9,8 @@
 
 #include <frc2/command/Command.h>
 
+#include <memory>
+
 #include "commands/ApplyConfig.h"
 #include "commands/DriveJoystick.h"
 #include "subsystems/Drivetrain.h"
@@ -27,6 +29,19 @@ class RobotContainer {
 
   frc2::Command* GetAutonomousCommand();
 
+  /**
+   * @brief Automatically schedule the robot to drive through the specified path
+   * 
+   * @param path The path the robot will attempt to automatically drive through
+   */
+  void DriveThroughPath(frc::Trajectory path);
+
+  /**
+   * @brief Stop the robot's current autonomous driving command
+   * 
+   */
+  void StopAutoDrive();
+  
  private:
   // The robot's subsystems and commands are defined here...
   Drivetrain drivetrain_;
@@ -34,6 +49,8 @@ class RobotContainer {
 
   ApplyConfig apply_config_;
   DriveJoystick drive_joy_;
+
+  std::shared_ptr<frc2::RamseteCommand> autonomous_drive;
 
   void ConfigureButtonBindings();
 };

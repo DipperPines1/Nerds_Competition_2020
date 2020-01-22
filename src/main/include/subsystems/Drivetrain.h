@@ -68,9 +68,9 @@ class Drivetrain : public frc2::SubsystemBase {
   /**
    * @brief Gets the speed of the wheels
    * 
-   * @return double 
+   * @return frc::DifferentialDriveWheelSpeeds 
    */
-  double WheelSpeed();
+  frc::DifferentialDriveWheelSpeeds WheelSpeed();
 
   /**
    * @brief Gets the Pose object
