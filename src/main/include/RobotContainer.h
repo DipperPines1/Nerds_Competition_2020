@@ -10,6 +10,9 @@
 #include <frc2/command/Command.h>
 
 #include <memory>
+#include <frc/trajectory/Trajectory.h>
+#include <frc2/command/RamseteCommand.h>
+#include <frc/trajectory/constraint/DifferentialDriveVoltageConstraint.h>
 
 #include "commands/ApplyConfig.h"
 #include "commands/DriveJoystick.h"
@@ -41,6 +44,20 @@ class RobotContainer {
    * 
    */
   void StopAutoDrive();
+
+/**
+ * @brief Get the Pose object
+ * 
+ * @return frc::Pose2d 
+ */
+  frc::Pose2d GetPose();
+
+/**
+ * @brief Creates a Voltage Constraint for auto
+ * 
+ * @return frc::DifferentialDriveVoltageConstraint 
+ */
+  frc::DifferentialDriveVoltageConstraint autoVoltageConstraint();
   
  private:
   // The robot's subsystems and commands are defined here...

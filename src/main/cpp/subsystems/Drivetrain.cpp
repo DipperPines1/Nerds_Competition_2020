@@ -29,6 +29,9 @@ Drivetrain::Drivetrain() :
 {
     encoder_left.SetDistancePerPulse(K_ENCODER_DISTANCE_PER_PULSE);
     encoder_right.SetDistancePerPulse(K_ENCODER_DISTANCE_PER_PULSE);
+
+    encoder_left.SetReverseDirection(true);
+    encoder_right.SetReverseDirection(true);
 }
 
 // This method will be called once per scheduler run

@@ -9,6 +9,13 @@
 
 #include <frc2/command/CommandScheduler.h>
 #include <frc/smartdashboard/SmartDashboard.h>
+#include <units/units.h>
+#include <frc/trajectory/TrajectoryConfig.h>
+#include <frc/trajectory/TrajectoryGenerator.h>
+#include <frc2/command/RamseteCommand.h>
+#include <frc/trajectory/constraint/DifferentialDriveVoltageConstraint.h>
+
+#include "Constants.h"
 
 void Robot::RobotInit() {}
 
@@ -36,11 +43,35 @@ void Robot::DisabledPeriodic() {}
  * RobotContainer} class.
  */
 void Robot::AutonomousInit() {
-  m_autonomousCommand = m_container.GetAutonomousCommand();
+  std::cout << "I got this far" << std::endl;
+  frc::TrajectoryConfig config(
+  K_MAX_SPEED,
+  K_MAX_ACCELERATION);
 
-  if (m_autonomousCommand != nullptr) {
-    m_autonomousCommand->Schedule();
-  }
+  config.SetKinematics(K_DRIVE_KINEMATICS);
+
+  frc::DifferentialDriveVoltageConstraint autoVoltageConstraint(
+  frc::SimpleMotorFeedforward<units::meters>(KS, KV, KA),
+  K_DRIVE_KINEMATICS,
+  10_V);
+
+  config.AddConstraint(autoVoltageConstraint);
+
+  std::vector<frc::Translation2d> waypoints{{1_m, 1_m}};
+  frc::Pose2d initialPose(0_m, 0_m, 0_rad);
+  frc::Pose2d endPose(1_m, 2_m, 0_rad);
+
+  std::cout << "I got this far 2" << std::endl;
+
+  frc::Trajectory path = frc::TrajectoryGenerator::GenerateTrajectory(
+    initialPose,
+    waypoints,
+    endPose,
+    config);
+
+  std::cout << "I got this far 3" << std::endl;
+
+  m_container.DriveThroughPath(path);
 }
 
 void Robot::AutonomousPeriodic() {}

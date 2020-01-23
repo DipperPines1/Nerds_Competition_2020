@@ -18,6 +18,7 @@
 #include <frc2/command/RamseteCommand.h>
 #include <frc/PIDController.h>
 #include <units/units.h>
+#include <frc/smartdashboard/SmartDashboard.h>
 
 #include "Constants.h"
 #include "commands/SpeedSwitch.h"
@@ -39,51 +40,36 @@ void RobotContainer::ConfigureButtonBindings() {
   oi_.BindCommandButton(BUTTON_A, new SpeedSwitch());
 }
 frc2::Command* RobotContainer::GetAutonomousCommand() {
-  // Create a voltage constraint to ensure we don't accelerate too fast
-  frc::DifferentialDriveVoltageConstraint autoVoltageConstraint(
-      frc::SimpleMotorFeedforward<units::meters>(KS, KV, KA),
-      K_DRIVE_KINEMATICS,
-      10_V);
-
-  // Set up config for trajectory
-  frc::TrajectoryConfig config(
-    K_MAX_SPEED,
-    K_MAX_ACCELERATION);
-
-  // Add kinematics to ensure max speed is actually obeyed
-  config.SetKinematics(K_DRIVE_KINEMATICS);
-
-  // Apply the voltage constraint
-  config.AddConstraint(autoVoltageConstraint);
-
-  // An example trajectory to follow.  All units in meters.
-  auto exampleTrajectory = frc::TrajectoryGenerator::GenerateTrajectory(
-      // Start at the origin facing the +X direction
-      frc::Pose2d(0_m, 0_m, frc::Rotation2d()),
-      // Pass through these two interior waypoints, making an 's' curve path
-      {frc::Translation2d(1_m, 1_m), frc::Translation2d(2_m, -1_m)},
-      // End 3 meters straight ahead of where we started, facing forward
-      frc::Pose2d(3_m, 0_m, frc::Rotation2d()), config);
-
-void RobotContainer::DriveThroughPath(){
-      exampleTrajectory,
-      [this]() {
-        return drivetrain.GetPose();
-      },
-      frc::RamseteController(K_RAMSETE_B, K_RAMSETE_ZETA),
-      frc::SimpleMotorFeedforward<units::meters>(KS, KV, KA),
-      K_DRIVE_KINEMATICS,
-      [this] {
-        return drivetrain.WheelSpeed();
-      },
-      frc2::PIDController(KP_DRIVE_VELOCITY, 0.0, 0.0),
-      frc2::PIDController(KP_DRIVE_VELOCITY, 0.0, 0.0),
-      [this](auto left, auto right) {
-        drivetrain.TankDriveVolts(left, right);
-      },
-      {&drivetrain});
+  return nullptr;
 }
 
-  void RobotContainer::StopAutoDrive(){
-    autonomous_drive->cancel();
-  }
+
+void RobotContainer::DriveThroughPath(frc::Trajectory path) {
+  autonomous_drive.reset(new frc2::RamseteCommand(
+    path,
+    [this]() {
+      return drivetrain.GetPose();
+    },
+    frc::RamseteController(K_RAMSETE_B, K_RAMSETE_ZETA),
+    frc::SimpleMotorFeedforward<units::meters>(KS, KV, KA),
+    K_DRIVE_KINEMATICS,
+    [this] {
+      return drivetrain.WheelSpeed();
+    },
+    frc2::PIDController(KP_DRIVE_VELOCITY, 0.0, 0.0),
+    frc2::PIDController(KP_DRIVE_VELOCITY, 0.0, 0.0),
+    [this](auto left, auto right) {
+      drivetrain.TankDriveVolts(left, right);
+    },
+    {&drivetrain}));
+
+  frc::SmartDashboard::PutData("Commands/Ramsete", autonomous_drive.get());
+}
+
+void RobotContainer::StopAutoDrive() {
+  autonomous_drive->Cancel();
+}
+  
+frc::Pose2d RobotContainer::GetPose() {
+  return drivetrain.GetPose();
+}
