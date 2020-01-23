@@ -9,11 +9,10 @@
 
 #include <frc2/command/Command.h>
 
-#include "subsystems/Drivetrain.h"
-#include "subsystems/OI.h"
-
 #include "commands/ApplyConfig.h"
 #include "commands/DriveJoystick.h"
+#include "subsystems/Drivetrain.h"
+#include "subsystems/OI.h"
 
 /**
  * This class is where the bulk of the robot should be declared.  Since

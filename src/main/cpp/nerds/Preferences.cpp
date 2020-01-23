@@ -7,11 +7,11 @@
 
 #include "nerds/Preferences.h"
 
+#include <sstream>
+
 #include <frc/DriverStation.h>
 #include <networktables/EntryListenerFlags.h>
 #include <networktables/NetworkTableInstance.h>
-
-#include <sstream>
 
 nerd::Preferences::Preferences() {}
 
