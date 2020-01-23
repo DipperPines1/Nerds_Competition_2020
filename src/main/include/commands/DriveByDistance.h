@@ -34,4 +34,6 @@ class DriveByDistance
 
   double initial_heading_;
   double final_distance_;
+  double initial_distance_;
+  int max_speed_;
 };

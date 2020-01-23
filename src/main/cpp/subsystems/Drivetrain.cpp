@@ -23,7 +23,14 @@ Drivetrain::Drivetrain() :
     gyro(frc::SerialPort::Port::kUSB1),
     encoder_left(DIO_ENCODER_LEFT_A, DIO_ENCODER_LEFT_B, false),
     encoder_right(DIO_ENCODER_RIGHT_A, DIO_ENCODER_RIGHT_B, true)
-{}
+{
+    encoder_left.SetDistancePerPulse(WHEEL_DIAMETER * PI / PULSES_PER_REVOLUTION);
+    encoder_right.SetDistancePerPulse(WHEEL_DIAMETER * PI / PULSES_PER_REVOLUTION);
+
+    encoder_left.SetReverseDirection(true);
+    encoder_right.SetReverseDirection(false);
+
+}
 
 // This method will be called once per scheduler run
 void Drivetrain::Periodic() {}
