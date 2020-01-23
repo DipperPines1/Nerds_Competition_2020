@@ -5,12 +5,26 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
-#include "subsystems/ExampleSubsystem.h"
+#pragma once
 
-ExampleSubsystem::ExampleSubsystem() {
-  // Implementation of subsystem constructor goes here.
-}
+#include <frc2/command/CommandBase.h>
+#include <frc2/command/CommandHelper.h>
 
-void ExampleSubsystem::Periodic() {
-  // Implementation of subsystem periodic method goes here.
-}
+/**
+ * @brief Allow the robot to apply configurations from NetworkTable to the 
+ * instances specified in ApplyConfig
+ * 
+ */
+class ApplyConfig
+    : public frc2::CommandHelper<frc2::CommandBase, ApplyConfig> {
+ public:
+  ApplyConfig();
+
+  void Initialize() override;
+
+  void Execute() override;
+
+  void End(bool interrupted) override;
+
+  bool IsFinished() override;
+};

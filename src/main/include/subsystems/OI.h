@@ -9,16 +9,30 @@
 
 #include <frc2/command/SubsystemBase.h>
 
-class ExampleSubsystem : public frc2::SubsystemBase {
+#include <frc2/command/button/JoystickButton.h>
+#include <frc/Joystick.h>
+
+
+
+class OI : public frc2::SubsystemBase {
  public:
-  ExampleSubsystem();
+  OI();
 
   /**
    * Will be called periodically whenever the CommandScheduler runs.
    */
-  void Periodic() override;
+  void Periodic();
+
+  /**
+   * @brief Get the Axis value
+   * 
+   * @param axis The selected axis on the joystick.
+   * 
+   * @return double The value of the selected axis.
+   */
+  double GetAxis(int axis);
 
  private:
-  // Components (e.g. motor controllers and sensors) should generally be
-  // declared private and exposed only through public methods.
+  frc::Joystick driver_;
+  frc2::JoystickButton driver_A_;
 };

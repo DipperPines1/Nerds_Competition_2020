@@ -9,7 +9,7 @@
 
 #include <frc2/command/SubsystemBase.h>
 
-#include <ctre/phoenix/motorcontrol/can/WPI_TalonSRX.h>
+#include <ctre/phoenix/motorcontrol/can/WPI_VictorSPX.h>
 #include <frc/drive/DifferentialDrive.h>
 #include <frc/SpeedControllerGroup.h>
 
@@ -32,18 +32,16 @@ class Drivetrain : public frc2::SubsystemBase {
    * 
    * @param squared If true, inputs are squared.
    */
-  void ArcadeDrive(double, double, bool);
+  void ArcadeDrive(double speed, double turn, bool squared);
 
  private:
-  // Components (e.g. motor controllers and sensors) should generally be
-  // declared private and exposed only through public methods.
-  ctre::phoenix::motorcontrol::can::WPI_TalonSRX front_left;
-  ctre::phoenix::motorcontrol::can::WPI_TalonSRX front_right;
-  ctre::phoenix::motorcontrol::can::WPI_TalonSRX back_left;
-  ctre::phoenix::motorcontrol::can::WPI_TalonSRX back_right;
+  ctre::phoenix::motorcontrol::can::WPI_VictorSPX front_left_;
+  ctre::phoenix::motorcontrol::can::WPI_VictorSPX front_right_;
+  ctre::phoenix::motorcontrol::can::WPI_VictorSPX back_left_;
+  ctre::phoenix::motorcontrol::can::WPI_VictorSPX back_right_;
 
-  frc::SpeedControllerGroup left;
-  frc::SpeedControllerGroup right;
+  frc::SpeedControllerGroup left_;
+  frc::SpeedControllerGroup right_;
 
-  frc::DifferentialDrive drive;
+  frc::DifferentialDrive drive_;
 };

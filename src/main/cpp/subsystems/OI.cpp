@@ -5,7 +5,20 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
-#include "commands/ExampleCommand.h"
+#include "subsystems/OI.h"
 
-ExampleCommand::ExampleCommand(ExampleSubsystem* subsystem)
-    : m_subsystem{subsystem} {}
+#include "Constants.h"
+
+
+OI::OI() :
+    driver_(JOY_DRIVER),
+    driver_A_(&driver_, BUTTON_A)
+{}
+
+// This method will be called once per scheduler run
+void OI::Periodic() {}
+
+double OI::GetAxis(int axis) {
+    return driver_.GetRawAxis(axis);
+}
+

@@ -12,5 +12,10 @@
     "**/.project": true,
     "**/.settings": true,
     "**/.factorypath": true
-  }
+  },
+  "files.associations": {
+    "iosfwd": "cpp",
+    "ostream": "cpp"
+  },
+  "C_Cpp.default.configurationProvider": "vscode-wpilib"
 }

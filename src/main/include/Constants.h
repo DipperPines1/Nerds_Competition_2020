@@ -8,8 +8,19 @@
 #pragma once
 
 // CAN Devices
-constexpr int CAN_DRIVE_FRONT_LEFT = 2;
 constexpr int CAN_DRIVE_FRONT_RIGHT = 3;
-constexpr int CAN_DRIVE_BACK_LEFT = 4;
-constexpr int CAN_DRIVE_BACK_RIGHT = 5;
+constexpr int CAN_DRIVE_BACK_RIGHT = 4;
+constexpr int CAN_DRIVE_FRONT_LEFT = 5;
+constexpr int CAN_DRIVE_BACK_LEFT = 6;
 
+// Controller const
+constexpr int JOY_DRIVER = 0;
+constexpr int BUTTON_A = 1;
+
+// axis ID
+constexpr int AXIS_LEFT_X = 0;
+constexpr int AXIS_RIGHT_X = 4;
+constexpr int AXIS_LEFT_Y = 1;
+constexpr int AXIS_RIGHT_Y = 5;
+constexpr int BUMPER_LEFT = 2;
+constexpr int BUMPER_RIGHT = 3;
