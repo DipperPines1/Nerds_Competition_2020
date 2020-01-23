@@ -30,11 +30,11 @@ class RobotContainer {
 
  private:
   // The robot's subsystems and commands are defined here...
-  Drivetrain drivetrain;
-  OI oi;
+  Drivetrain drivetrain_;
+  OI Oi_;
 
-  ApplyConfig apply_config;
-  DriveJoystick drivejoy;
+  ApplyConfig apply_config_;
+  DriveJoystick drive_joy_;
 
   void ConfigureButtonBindings();
 };

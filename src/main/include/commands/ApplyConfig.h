@@ -11,11 +11,9 @@
 #include <frc2/command/CommandHelper.h>
 
 /**
- * An example command.
- *
- * <p>Note that this extends CommandHelper, rather extending CommandBase
- * directly; this is crucially important, or else the decorator functions in
- * Command will *not* work!
+ * @brief Allow the robot to apply configurations from NetworkTable to the 
+ * instances specified in ApplyConfig
+ * 
  */
 class ApplyConfig
     : public frc2::CommandHelper<frc2::CommandBase, ApplyConfig> {

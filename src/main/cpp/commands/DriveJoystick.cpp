@@ -54,9 +54,9 @@ void DriveJoystick::Initialize() {}
 
 // Called repeatedly when this Command is scheduled to run
 void DriveJoystick::Execute() {
-  double speed = applyDeadzone(DriveJoystick::oi_->GetAxis(AXIS_LEFT_Y),
+  double speed = -ApplyDeadzone(DriveJoystick::oi_->GetAxis(AXIS_LEFT_Y),
     *drive_deadzone_);
-  double turn = applyDeadzone(DriveJoystick::oi_->GetAxis(AXIS_RIGHT_X),
+  double turn = ApplyDeadzone(DriveJoystick::oi_->GetAxis(AXIS_RIGHT_X),
     *drive_deadzone_);
 
   if (*reverse_forward_) {
@@ -64,8 +64,8 @@ void DriveJoystick::Execute() {
   }
 
   drivetrain_->ArcadeDrive(
-    driveProfile(speed, *drive_min_speed_, *drive_max_speed_),
-    driveProfile(turn, *turn_min_speed_, *turn_max_speed_),
+    DriveProfile(speed, *drive_min_speed_, *drive_max_speed_),
+    DriveProfile(turn, *turn_min_speed_, *turn_max_speed_),
     false);
 }
 
@@ -79,7 +79,7 @@ bool DriveJoystick::IsFinished() {
   return false;
 }
 
-double DriveJoystick::driveProfile(double input, double min, double max) {
+double DriveJoystick::DriveProfile(double input, double min, double max) {
   if (input == 0) {
     return 0;
   }
@@ -94,7 +94,7 @@ double DriveJoystick::driveProfile(double input, double min, double max) {
   return output;
 }
 
-double DriveJoystick::applyDeadzone(double input, double deadzone) {
+double DriveJoystick::ApplyDeadzone(double input, double deadzone) {
   if (std::abs(input) < std::abs(deadzone)) {
     return 0;
   }

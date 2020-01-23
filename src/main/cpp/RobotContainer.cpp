@@ -10,18 +10,18 @@
 #include <frc/smartdashboard/SmartDashboard.h>
 
 RobotContainer::RobotContainer()
-  : drivetrain(),
-    oi(),
-    apply_config(),
-    drivejoy(&drivetrain, &oi) {
+  : drivetrain_(),
+    Oi_(),
+    apply_config_(),
+    drive_joy_(&drivetrain_, &Oi_) {
   ConfigureButtonBindings();
 
   // Set default commands
-  drivetrain.SetDefaultCommand(drivejoy);
+  drivetrain_.SetDefaultCommand(drive_joy_);
 }
 
 void RobotContainer::ConfigureButtonBindings() {
-  frc::SmartDashboard::PutData("Commands/Load Config", &apply_config);
+  frc::SmartDashboard::PutData("Commands/Load Config", &apply_config_);
 }
 
 frc2::Command* RobotContainer::GetAutonomousCommand() {

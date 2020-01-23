@@ -14,11 +14,7 @@ class Drivetrain;
 class OI;
 
 /**
- * An example command.
- *
- * <p>Note that this extends CommandHelper, rather extending CommandBase
- * directly; this is crucially important, or else the decorator functions in
- * Command will *not* work!
+ * @brief Allow the robot to be driven by Joystick 
  */
 class DriveJoystick
     : public frc2::CommandHelper<frc2::CommandBase, DriveJoystick> {
@@ -44,6 +40,6 @@ class DriveJoystick
   double* drive_deadzone_;
   bool* reverse_forward_;
 
-  double driveProfile(double, double, double);
-  double applyDeadzone(double, double);
+  double DriveProfile(double, double, double);
+  double ApplyDeadzone(double, double);
 };

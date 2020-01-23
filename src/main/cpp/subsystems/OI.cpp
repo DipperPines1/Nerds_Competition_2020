@@ -11,14 +11,14 @@
 
 
 OI::OI() :
-    driver(JOY_DRIVER),
-    driver_A(&driver, BUTTON_A)
+    driver_(JOY_DRIVER),
+    driver_A_(&driver_, BUTTON_A)
 {}
 
 // This method will be called once per scheduler run
 void OI::Periodic() {}
 
 double OI::GetAxis(int axis) {
-    return driver.GetRawAxis(axis);
+    return driver_.GetRawAxis(axis);
 }
 

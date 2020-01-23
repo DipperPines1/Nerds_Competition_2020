@@ -30,9 +30,9 @@ class OI : public frc2::SubsystemBase {
    * 
    * @return double The value of the selected axis.
    */
-  double GetAxis(int);
+  double GetAxis(int axis);
 
  private:
-  frc::Joystick driver;
-  frc2::JoystickButton driver_A;
+  frc::Joystick driver_;
+  frc2::JoystickButton driver_A_;
 };
