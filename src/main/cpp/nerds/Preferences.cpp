@@ -8,8 +8,8 @@
 #include "nerds/Preferences.h"
 
 #include <frc/DriverStation.h>
-#include <networktables/NetworkTableInstance.h>
 #include <networktables/EntryListenerFlags.h>
+#include <networktables/NetworkTableInstance.h>
 
 #include <sstream>
 

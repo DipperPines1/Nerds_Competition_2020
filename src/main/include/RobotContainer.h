@@ -12,8 +12,8 @@
 #include "subsystems/Drivetrain.h"
 #include "subsystems/OI.h"
 
-#include "commands/DriveJoystick.h"
 #include "commands/ApplyConfig.h"
+#include "commands/DriveJoystick.h"
 
 /**
  * This class is where the bulk of the robot should be declared.  Since

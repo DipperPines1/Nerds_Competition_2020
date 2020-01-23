@@ -9,8 +9,8 @@
 
 #include <frc2/command/SubsystemBase.h>
 
-#include <frc/Joystick.h>
 #include <frc2/command/button/JoystickButton.h>
+#include <frc/Joystick.h>
 
 
 

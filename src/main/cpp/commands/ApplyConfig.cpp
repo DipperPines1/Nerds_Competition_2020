@@ -7,8 +7,9 @@
 
 #include "commands/ApplyConfig.h"
 
-#include "nerds/Preferences.h"
 #include "Config.h"
+#include "nerds/Preferences.h"
+
 
 ApplyConfig::ApplyConfig() {
 }

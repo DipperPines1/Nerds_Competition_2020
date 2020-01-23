@@ -8,13 +8,13 @@
 #include "commands/DriveJoystick.h"
 
 #include <cmath>
+
+#include "Config.h"
+#include "Constants.h"
+#include "nerds/Preferences.h"
+#include "Robot.h"
 #include "subsystems/Drivetrain.h"
 #include "subsystems/OI.h"
-#include "Constants.h"
-#include "Config.h"
-#include "nerds/Preferences.h"
-
-#include "Robot.h"
 
 DriveJoystick::DriveJoystick(Drivetrain* drivetrain, OI* oi)
   : drivetrain_(drivetrain),
