@@ -15,9 +15,9 @@ Drivetrain::Drivetrain() :
     front_right(PWM_DRIVE_FRONT_RIGHT),
     back_left(PWM_DRIVE_BACK_LEFT),
     back_right(PWM_DRIVE_BACK_RIGHT),
-    left(front_left, back_left),
-    right(front_right, back_right),
-    drive(left, right)
+    left_(front_left, back_left),
+    right_(front_right, back_right),
+    drive_(left_, right_)
 {}
 
 // This method will be called once per scheduler run
