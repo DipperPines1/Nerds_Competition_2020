@@ -11,7 +11,6 @@
 #include <frc/geometry/Pose2D.h>
 #include <frc/geometry/Rotation2D.h>
 
-
 #include "Constants.h"
 
 Drivetrain::Drivetrain() :
@@ -25,7 +24,10 @@ Drivetrain::Drivetrain() :
     gyro(frc::SerialPort::Port::kUSB1),
     encoder_left(DIO_ENCODER_LEFT_A, DIO_ENCODER_LEFT_B, false),
     encoder_right(DIO_ENCODER_RIGHT_A, DIO_ENCODER_RIGHT_B, true),
-    odometry({}, {})
+    odometry({}, {}),
+    drive_kinematics(K_TRACK_WIDTH),
+    simple_motor_feedforward(KS, KV, KA),
+    trajectory_config(K_MAX_SPEED, K_MAX_ACCELERATION, voltage_constraint, false)
 {
     encoder_left.SetDistancePerPulse(K_ENCODER_DISTANCE_PER_PULSE);
     encoder_right.SetDistancePerPulse(K_ENCODER_DISTANCE_PER_PULSE);
@@ -76,6 +78,18 @@ frc::Pose2d Drivetrain::GetPose() {
 }
 
 void Drivetrain::TankDriveVolts(units::volt_t left, units::volt_t right) {
-  left_.SetVoltage(left);
-  right_.SetVoltage(-right);
+    left_.SetVoltage(left);
+    right_.SetVoltage(-right);
+    front_left.Feed();
+    front_right.Feed();
+    back_left.Feed();
+    back_right.Feed();
+}
+
+const frc::TrajectoryConfig& Drivetrain::GetTrajectoryConfig() {
+    return trajectory_config;
+}
+
+void SetTrajectoryReversed(bool reversed) {
+    return trajectory_config.SetReversed(reversed);
 }

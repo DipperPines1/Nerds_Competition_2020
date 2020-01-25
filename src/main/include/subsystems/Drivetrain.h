@@ -16,6 +16,7 @@
 #include <frc/Encoder.h>
 #include <frc/kinematics/DifferentialDriveOdometry.h>
 #include <units/units.h>
+#include <frc/constraints/DifferentialDriveVoltageConstraint.h>
 
 class Drivetrain : public frc2::SubsystemBase {
  public:
@@ -88,6 +89,20 @@ class Drivetrain : public frc2::SubsystemBase {
    */
   void TankDriveVolts(units::volt_t left, units::volt_t right);
 
+  /**
+   * @brief Gets the Trajectory Config object
+   * 
+   * @return frc::TrajectoryConfig 
+   */
+  const frc::TrajectoryConfig& GetTrajectoryConfig();
+
+/**
+ * @brief Makes the Trajectory reversed or not
+ * 
+ * @param reversed 
+ */
+  void SetTrajectoryReversed(bool reversed);
+
  private:
   ctre::phoenix::motorcontrol::can::WPI_VictorSPX front_left_;
   ctre::phoenix::motorcontrol::can::WPI_VictorSPX front_right_;
@@ -105,4 +120,9 @@ class Drivetrain : public frc2::SubsystemBase {
   frc::Encoder encoder_right;
 
   frc::DifferentialDriveOdometry odometry;
+
+  frc::DifferentialDriveKinematics drive_kinematics;
+  frc::SimpleMotorFeedforward simple_motor_feedforward;
+  frc::DifferentialDriveVoltageConstraint voltage_constraint;
+  frc::TrajectoryConfig trajectory_config;
 };

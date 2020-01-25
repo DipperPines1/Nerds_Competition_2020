@@ -44,7 +44,6 @@ constexpr auto KA = 0.00502 * 1_V * 1_s * 1_s / 1_m;
 constexpr auto KV = 0.0811 * 1_V * 1_s / 1_m;
 constexpr double KP_DRIVE_VELOCITY = 0.213;
 constexpr units::meter_t K_TRACK_WIDTH = 25.12_m;
-const frc::DifferentialDriveKinematics K_DRIVE_KINEMATICS(K_TRACK_WIDTH);
 constexpr auto K_MAX_SPEED = 1_mps;
 constexpr auto K_MAX_ACCELERATION = 1_mps_sq;
 constexpr double K_RAMSETE_B = 78.7402;
