@@ -53,6 +53,8 @@ class Preferences {
   template<typename T>
   bool AddPreference(std::string key, T value, bool overwrite);
 
+  
+
  private:
   Preferences();
 };

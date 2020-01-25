@@ -20,21 +20,40 @@ struct ConfigKey {
 }  // namespace nerd
 
 
-const nerd::ConfigKey<double> JOYSTICK_DRIVE_MAX{
-  "Joysticks/Drive/Max Speed",
+const nerd::ConfigKey<double> JOYSTICK_DRIVE_MAX_HIGH{
+  "Joysticks/Drive/Max Speed/High",
   1};
-const nerd::ConfigKey<double> JOYSTICK_DRIVE_MIN{
-  "Joysticks/Drive/Min Speed",
+const nerd::ConfigKey<double> JOYSTICK_DRIVE_MAX_LOW{
+  "Joysticks/Drive/Max Speed/Low",
+
+};
+const nerd::ConfigKey<double> JOYSTICK_DRIVE_MIN_HIGH{
+  "Joysticks/Drive/Min Speed/High",
   0.35};
-const nerd::ConfigKey<double> JOYSTICKS_TURN_MAX{
-  "Joysticks/Turn/Max Speed",
+const nerd::ConfigKey<double> JOYSTICK_DRIVE_MIN_LOW{
+  "Joysticks/Drive/Min Speed/Low",
+
+};
+const nerd::ConfigKey<double> JOYSTICK_TURN_MAX_HIGH{
+  "Joysticks/Turn/Max Speed/High",
   1};
-const nerd::ConfigKey<double> JOYSTICKS_TURN_MIN{
-  "Joysticks/Turn/Min Speed",
+const nerd::ConfigKey<double> JOYSTICK_TURN_MAX_LOW{
+  "Joysticks/Turn/Max Speed/Low",
+
+};
+const nerd::ConfigKey<double> JOYSTICK_TURN_MIN_HIGH{
+  "Joysticks/Turn/Min Speed/High",
   0.35};
+const nerd::ConfigKey<double> JOYSTICK_TURN_MIN_LOW{
+  "Joysticks/Turn/Min Speed/Low",
+  
+};
 const nerd::ConfigKey<double> JOYSTICKS_DRIVE_DEADZONE{
   "Joysticks/Drive/Deadzone",
   0.02};
 const nerd::ConfigKey<bool> JOYSTICKS_REVERSE_FORWARD{
   "Joysticks/Drive/Reverse",
+  false};
+const nerd::ConfigKey<bool> SWITCH_SPEED_PREFERENCES{
+  "Change Speed Preferences/True/False",
   false};

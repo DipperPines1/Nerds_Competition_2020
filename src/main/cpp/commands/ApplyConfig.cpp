@@ -17,20 +17,36 @@ ApplyConfig::ApplyConfig() {
 // Called when the command is initially scheduled.
 void ApplyConfig::Initialize() {
   nerd::Preferences::GetInstance().AddPreference(
-    JOYSTICK_DRIVE_MAX.key,
-    JOYSTICK_DRIVE_MAX.value,
+    JOYSTICK_DRIVE_MAX_HIGH.key,
+    JOYSTICK_DRIVE_MAX_HIGH.value,
     false);
   nerd::Preferences::GetInstance().AddPreference(
-    JOYSTICK_DRIVE_MIN.key,
-    JOYSTICK_DRIVE_MIN.value,
+    JOYSTICK_DRIVE_MAX_LOW.key,
+    JOYSTICK_DRIVE_MAX_LOW.value,
     false);
   nerd::Preferences::GetInstance().AddPreference(
-    JOYSTICKS_TURN_MAX.key,
-    JOYSTICKS_TURN_MAX.value,
+    JOYSTICK_DRIVE_MIN_HIGH.key,
+    JOYSTICK_DRIVE_MIN_HIGH.value,
     false);
   nerd::Preferences::GetInstance().AddPreference(
-    JOYSTICKS_TURN_MIN.key,
-    JOYSTICKS_TURN_MIN.value,
+    JOYSTICK_DRIVE_MIN_LOW.key,
+    JOYSTICK_DRIVE_MIN_LOW.value,
+    false);
+  nerd::Preferences::GetInstance().AddPreference(
+    JOYSTICK_TURN_MAX_HIGH.key,
+    JOYSTICK_TURN_MAX_HIGH.value,
+    false);
+  nerd::Preferences::GetInstance().AddPreference(
+    JOYSTICK_TURN_MAX_LOW.key,
+    JOYSTICK_TURN_MAX_LOW.value,
+    false);
+  nerd::Preferences::GetInstance().AddPreference(
+    JOYSTICK_TURN_MIN_HIGH.key,
+    JOYSTICK_TURN_MIN_HIGH.value,
+    false);
+  nerd::Preferences::GetInstance().AddPreference(
+    JOYSTICK_TURN_MIN_LOW.key,
+    JOYSTICK_TURN_MIN_LOW.value,
     false);
   nerd::Preferences::GetInstance().AddPreference(
     JOYSTICKS_DRIVE_DEADZONE.key,
@@ -40,6 +56,11 @@ void ApplyConfig::Initialize() {
     JOYSTICKS_REVERSE_FORWARD.key,
     JOYSTICKS_REVERSE_FORWARD.value,
     false);
+  nerd::Preferences::GetInstance().AddPreference(
+    SWITCH_SPEED_PREFERENCES.key,
+    SWITCH_SPEED_PREFERENCES.value,
+    false);
+ 
 }
 
 // Called repeatedly when this Command is scheduled to run
