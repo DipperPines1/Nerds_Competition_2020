@@ -37,7 +37,7 @@ class RobotContainer {
    * 
    * @param path The path the robot will attempt to automatically drive through
    */
-  void DriveThroughPath(frc::Trajectory path);
+  void DriveThroughPath(std::vector<frc::Translation2d> waypoints, frc::Pose2d end_pose);
 
   /**
    * @brief Stop the robot's current autonomous driving command
@@ -45,18 +45,18 @@ class RobotContainer {
    */
   void StopAutoDrive();
 
-/**
- * @brief Get the Pose object
- * 
- * @return frc::Pose2d 
- */
+  /**
+   * @brief Get the Pose object
+   * 
+   * @return frc::Pose2d 
+   */
   frc::Pose2d GetPose();
 
-/**
- * @brief Creates a Voltage Constraint for auto
- * 
- * @return frc::DifferentialDriveVoltageConstraint 
- */
+  /**
+   * @brief Creates a Voltage Constraint for auto
+   * 
+   * @return frc::DifferentialDriveVoltageConstraint 
+   */
   frc::DifferentialDriveVoltageConstraint autoVoltageConstraint();
   
  private:

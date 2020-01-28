@@ -16,7 +16,8 @@
 #include <frc/Encoder.h>
 #include <frc/kinematics/DifferentialDriveOdometry.h>
 #include <units/units.h>
-#include <frc/constraints/DifferentialDriveVoltageConstraint.h>
+#include <frc/trajectory/constraint/DifferentialDriveVoltageConstraint.h>
+#include <frc/trajectory/TrajectoryConfig.h>
 
 class Drivetrain : public frc2::SubsystemBase {
  public:
@@ -103,6 +104,13 @@ class Drivetrain : public frc2::SubsystemBase {
  */
   void SetTrajectoryReversed(bool reversed);
 
+/**
+ * @brief Get the Drive Kinematics object
+ * 
+ * @return const frc::DifferentialDriveKinematics& 
+ */
+  const frc::DifferentialDriveKinematics& GetDriveKinematics();
+
  private:
   ctre::phoenix::motorcontrol::can::WPI_VictorSPX front_left_;
   ctre::phoenix::motorcontrol::can::WPI_VictorSPX front_right_;
@@ -122,7 +130,7 @@ class Drivetrain : public frc2::SubsystemBase {
   frc::DifferentialDriveOdometry odometry;
 
   frc::DifferentialDriveKinematics drive_kinematics;
-  frc::SimpleMotorFeedforward simple_motor_feedforward;
+  frc::SimpleMotorFeedforward<units::meters> simple_motor_feedforward;
   frc::DifferentialDriveVoltageConstraint voltage_constraint;
   frc::TrajectoryConfig trajectory_config;
 };

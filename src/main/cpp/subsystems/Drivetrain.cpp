@@ -10,6 +10,8 @@
 #include <frc/SerialPort.h>
 #include <frc/geometry/Pose2D.h>
 #include <frc/geometry/Rotation2D.h>
+#include <frc/trajectory/constraint/DifferentialDriveVoltageConstraint.h>
+#include <frc/trajectory/TrajectoryConfig.h>
 
 #include "Constants.h"
 
@@ -27,13 +29,16 @@ Drivetrain::Drivetrain() :
     odometry({}, {}),
     drive_kinematics(K_TRACK_WIDTH),
     simple_motor_feedforward(KS, KV, KA),
-    trajectory_config(K_MAX_SPEED, K_MAX_ACCELERATION, voltage_constraint, false)
+    voltage_constraint(simple_motor_feedforward, drive_kinematics, 10_V),
+    trajectory_config(K_MAX_SPEED, K_MAX_ACCELERATION)
 {
     encoder_left.SetDistancePerPulse(K_ENCODER_DISTANCE_PER_PULSE);
     encoder_right.SetDistancePerPulse(K_ENCODER_DISTANCE_PER_PULSE);
 
     encoder_left.SetReverseDirection(true);
     encoder_right.SetReverseDirection(true);
+
+    trajectory_config.SetKinematics(drive_kinematics);
 }
 
 // This method will be called once per scheduler run
@@ -90,6 +95,10 @@ const frc::TrajectoryConfig& Drivetrain::GetTrajectoryConfig() {
     return trajectory_config;
 }
 
-void SetTrajectoryReversed(bool reversed) {
-    return trajectory_config.SetReversed(reversed);
+void Drivetrain::SetTrajectoryReversed(bool reversed) {
+    trajectory_config.SetReversed(reversed);
+}
+
+const frc::DifferentialDriveKinematics& Drivetrain::GetDriveKinematics() {
+    return drive_kinematics;
 }

@@ -44,7 +44,13 @@ frc2::Command* RobotContainer::GetAutonomousCommand() {
 }
 
 
-void RobotContainer::DriveThroughPath(frc::Trajectory path) {
+void RobotContainer::DriveThroughPath(std::vector<frc::Translation2d> waypoints, frc::Pose2d end_pose) {
+  auto path = frc::TrajectoryGenerator::GenerateTrajectory(
+    drivetrain.GetPose(),
+    waypoints,
+    end_pose,
+    drivetrain.GetTrajectoryConfig());
+
   autonomous_drive.reset(new frc2::RamseteCommand(
     path,
     [this]() {
@@ -52,7 +58,7 @@ void RobotContainer::DriveThroughPath(frc::Trajectory path) {
     },
     frc::RamseteController(K_RAMSETE_B, K_RAMSETE_ZETA),
     frc::SimpleMotorFeedforward<units::meters>(KS, KV, KA),
-    K_DRIVE_KINEMATICS,
+    drivetrain.GetDriveKinematics(),
     [this] {
       return drivetrain.WheelSpeed();
     },

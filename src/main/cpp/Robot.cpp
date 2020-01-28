@@ -46,35 +46,15 @@ void Robot::DisabledPeriodic() {}
  * RobotContainer} class.
  */
 void Robot::AutonomousInit() {
-  std::cout << "I got this far" << std::endl;
-  frc::TrajectoryConfig config(
-  K_MAX_SPEED,
-  K_MAX_ACCELERATION);
-
-  config.SetKinematics(K_DRIVE_KINEMATICS);
-
-  frc::DifferentialDriveVoltageConstraint autoVoltageConstraint(
-  frc::SimpleMotorFeedforward<units::meters>(KS, KV, KA),
-  K_DRIVE_KINEMATICS,
-  10_V);
-
-  config.AddConstraint(autoVoltageConstraint);
-
   std::vector<frc::Translation2d> waypoints{{frc::Translation2d(0.5_m, 0_m), frc::Translation2d(1_m, 0.75_m)}};
   frc::Pose2d initialPose{0_m, 0_m, frc::Rotation2d(0_rad)};
   frc::Pose2d endPose{1_m, 2_m, frc::Rotation2d(0_rad)};
 
+  std::cout << "I got this far 1" << std::endl;
+
+  m_container.DriveThroughPath(waypoints, endPose);
+
   std::cout << "I got this far 2" << std::endl;
-
-  auto path = frc::TrajectoryGenerator::GenerateTrajectory(
-    initialPose,
-    waypoints,
-    endPose,
-    config);
-
-  std::cout << "I got this far 3" << std::endl;
-
-  m_container.DriveThroughPath(path);
 }
 
 void Robot::AutonomousPeriodic() {}
