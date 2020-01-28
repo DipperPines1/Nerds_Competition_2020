@@ -9,6 +9,9 @@
 
 #include <frc/smartdashboard/SmartDashboard.h>
 
+#include "Constants.h"
+#include "commands/SpeedSwitch.h"
+
 RobotContainer::RobotContainer()
   : drivetrain_(),
     Oi_(),
@@ -22,6 +25,8 @@ RobotContainer::RobotContainer()
 
 void RobotContainer::ConfigureButtonBindings() {
   frc::SmartDashboard::PutData("Commands/Load Config", &apply_config_);
+
+  Oi_.BindCommandButton(BUTTON_A, new SpeedSwitch());
 }
 frc2::Command* RobotContainer::GetAutonomousCommand() {
   // An example command will be run in autonomous

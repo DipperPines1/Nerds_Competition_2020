@@ -73,3 +73,7 @@ void ApplyConfig::End(bool interrupted) {}
 bool ApplyConfig::IsFinished() {
   return true;
 }
+
+bool ApplyConfig::RunsWhenDisabled() {
+  return true;
+}

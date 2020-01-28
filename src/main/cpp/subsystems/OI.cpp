@@ -7,6 +7,10 @@
 
 #include "subsystems/OI.h"
 
+#include <sstream>
+
+#include <frc/DriverStation.h>
+
 #include "Constants.h"
 
 
@@ -22,3 +26,15 @@ double OI::GetAxis(int axis) {
     return driver_.GetRawAxis(axis);
 }
 
+void OI::BindCommandButton(int button, frc2::Command* command) {
+    switch(button){
+    case BUTTON_A:
+        bound_commands.push_back(command);
+        driver_A_.WhenPressed(command, true);
+        return;
+    default:
+        std::stringstream warning;
+        warning << "Button: " << button << " does not exist.";
+        frc::DriverStation::ReportWarning(warning.str());
+    }
+}

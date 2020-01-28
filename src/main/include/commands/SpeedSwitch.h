@@ -11,14 +11,16 @@
 #include <frc2/command/CommandHelper.h>
 
 /**
- * @brief Allow the robot to apply configurations from NetworkTable to the 
- * instances specified in ApplyConfig
- * 
+ * An example command.
+ *
+ * <p>Note that this extends CommandHelper, rather extending CommandBase
+ * directly; this is crucially important, or else the decorator functions in
+ * Command will *not* work!
  */
-class ApplyConfig
-    : public frc2::CommandHelper<frc2::CommandBase, ApplyConfig> {
+class SpeedSwitch
+    : public frc2::CommandHelper<frc2::CommandBase, SpeedSwitch> {
  public:
-  ApplyConfig();
+  SpeedSwitch();
 
   void Initialize() override;
 
@@ -27,6 +29,6 @@ class ApplyConfig
   void End(bool interrupted) override;
 
   bool IsFinished() override;
-
-  bool RunsWhenDisabled();
+ private:
+   void ConfigureButtonBindings();
 };
