@@ -40,7 +40,7 @@ void Drivetrain::ArcadeDrive(double speed, double turn, bool squared) {
 }
 
 double Drivetrain::GetHeading() {
-    return gyro.GetCompassHeading();
+    return gyro.GetYaw();
 }
 
 double Drivetrain::GetDistanceLeft() {
