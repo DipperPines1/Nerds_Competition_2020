@@ -46,9 +46,9 @@ void Robot::DisabledPeriodic() {}
  * RobotContainer} class.
  */
 void Robot::AutonomousInit() {
-  std::vector<frc::Translation2d> waypoints{{frc::Translation2d(0.5_m, 0_m), frc::Translation2d(1_m, 0.75_m)}};
+  std::vector<frc::Translation2d> waypoints{{frc::Translation2d(1_m, 0_m), frc::Translation2d(1_m, 1_m), frc::Translation2d(0_m, 1_m), frc::Translation2d(0_m, -1_m)}};
   frc::Pose2d initialPose{0_m, 0_m, frc::Rotation2d(0_rad)};
-  frc::Pose2d endPose{1_m, 2_m, frc::Rotation2d(0_rad)};
+  frc::Pose2d endPose{0_m, 0_m, frc::Rotation2d(0_rad)};
 
   std::cout << "I got this far 1" << std::endl;
 
