@@ -14,7 +14,10 @@ SpeedSwitch::SpeedSwitch() {
   // Use addRequirements() here to declare subsystem dependencies.
 }
 
-// Called when the command is initially scheduled.
+/**
+ * @brief The command that gets the preference from switch_speed, bound to button A
+ * 
+ */
 void SpeedSwitch::Initialize() {
   bool switch_speed = nerd::Preferences::GetInstance().GetPreference<bool>(SWITCH_SPEED_PREFERENCES.key, SWITCH_SPEED_PREFERENCES.value);
 

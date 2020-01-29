@@ -40,7 +40,7 @@ bool nerd::Preferences::AddListener<double>(std::string key,
             int flag) -> void {
                 *value = new_value->GetDouble();
             },
-        nt::EntryListenerFlags::kUpdate | nt::EntryListenerFlags::kNew);
+        nt::EntryListenerFlags::kUpdate | nt::EntryListenerFlags::kNew | nt::EntryListenerFlags::kLocal);
 
     return true;
 }
@@ -71,7 +71,7 @@ bool nerd::Preferences::AddListener<std::string>(
             int flag) -> void {
                 *value = new_value->GetString();
             },
-        nt::EntryListenerFlags::kUpdate | nt::EntryListenerFlags::kNew);
+        nt::EntryListenerFlags::kUpdate | nt::EntryListenerFlags::kNew | nt::EntryListenerFlags::kLocal);
 
     return true;
 }
@@ -101,7 +101,7 @@ bool nerd::Preferences::AddListener<bool>(std::string key,
             int flag) -> void {
                 *value = new_value->GetBoolean();
             },
-        nt::EntryListenerFlags::kUpdate | nt::EntryListenerFlags::kNew);
+        nt::EntryListenerFlags::kUpdate | nt::EntryListenerFlags::kNew | nt::EntryListenerFlags::kLocal);
 
     return true;
 }

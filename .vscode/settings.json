@@ -65,6 +65,5 @@
     "thread": "cpp",
     "cinttypes": "cpp",
     "typeinfo": "cpp"
-  },
-  "C_Cpp.default.configurationProvider": "vscode-wpilib"
+  }
 }

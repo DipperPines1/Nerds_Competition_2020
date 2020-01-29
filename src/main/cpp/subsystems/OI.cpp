@@ -10,9 +10,7 @@
 #include <sstream>
 
 #include <frc/DriverStation.h>
-
 #include "Constants.h"
-
 
 OI::OI() :
     driver_(JOY_DRIVER),
@@ -26,6 +24,12 @@ double OI::GetAxis(int axis) {
     return driver_.GetRawAxis(axis);
 }
 
+/**
+ * @brief bind the command in SpeedSwitch into button A
+ * 
+ * @param button the button specified in Constants.h
+ * @param command the command in SpeedSwitch.cpp
+ */
 void OI::BindCommandButton(int button, frc2::Command* command) {
     switch(button){
     case BUTTON_A:
