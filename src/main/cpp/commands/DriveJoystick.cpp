@@ -31,7 +31,8 @@ DriveJoystick::DriveJoystick(Drivetrain* drivetrain, OI* oi)
   turn_min_speed_high_ = new double (0);
   turn_min_speed_low_ = new double(0);
   drive_deadzone_ = new double(0);
-  reverse_forward_ = new bool(0);
+  reverse_forward_ = new bool(false);
+  low_speed_switch_ = new bool(false);
 
   nerd::Preferences::GetInstance().AddListener<double>(
     JOYSTICKS_DRIVE_DEADZONE.key,
@@ -39,6 +40,10 @@ DriveJoystick::DriveJoystick(Drivetrain* drivetrain, OI* oi)
   nerd::Preferences::GetInstance().AddListener<bool>(
     JOYSTICKS_REVERSE_FORWARD.key,
     reverse_forward_);
+  nerd::Preferences::GetInstance().AddListener<bool>(
+    SWITCH_SPEED_PREFERENCES.key,
+    low_speed_switch_
+  );
 
   //high listeners
   nerd::Preferences::GetInstance().AddListener<double>(
@@ -84,16 +89,16 @@ void DriveJoystick::Execute() {
     speed *= -1;
   }
 
-  double speed_max = *drive_max_speed_low_;
-  double speed_min = *drive_min_speed_low_;
-  double turn_max = *turn_max_speed_low_;
-  double turn_min = *turn_min_speed_low_;
+  double speed_max = *drive_max_speed_high_;
+  double speed_min = *drive_min_speed_high_;
+  double turn_max = *turn_max_speed_high_;
+  double turn_min = *turn_min_speed_high_;
 
-  if (*switch_speed_preferences_) {
-    speed_max = *drive_max_speed_high_;
-    speed_min = *drive_min_speed_high_;
-    turn_max = *turn_max_speed_high_;
-    turn_min = *turn_min_speed_high_;
+  if (*low_speed_switch_) {
+    speed_max = *drive_max_speed_low_;
+    speed_min = *drive_min_speed_low_;
+    turn_max = *turn_max_speed_low_;
+    turn_min = *turn_min_speed_low_;
   }
 
   drivetrain_->ArcadeDrive(

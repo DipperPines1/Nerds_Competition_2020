@@ -43,7 +43,7 @@ class DriveJoystick
   double* turn_min_speed_low_;
   double* drive_deadzone_;
   bool* reverse_forward_;
-  bool* switch_speed_preferences_;
+  bool* low_speed_switch_;
 
   double DriveProfile(double, double, double);
   double ApplyDeadzone(double, double);

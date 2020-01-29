@@ -61,6 +61,6 @@ const nerd::ConfigKey<bool> JOYSTICKS_REVERSE_FORWARD{
   false
 };
 const nerd::ConfigKey<bool> SWITCH_SPEED_PREFERENCES{
-  "Change Speed Preferences/True/False",
+  "Joysticks/Low Speed",
   false
 };
