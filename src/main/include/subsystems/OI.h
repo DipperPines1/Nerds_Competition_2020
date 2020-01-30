@@ -32,7 +32,18 @@ class OI : public frc2::SubsystemBase {
    */
   double GetAxis(int axis);
 
+  /**
+   * @brief Binds a command to a button
+   * 
+   * @param button The button which the command will be bound to
+   * 
+   * @param command The command which will run when the button is pressed
+   */
+  void BindCommandButton(int button, frc2::Command* command);
+
  private:
   frc::Joystick driver_;
   frc2::JoystickButton driver_A_;
+
+  std::vector<frc2::Command*> bound_commands_;
 };

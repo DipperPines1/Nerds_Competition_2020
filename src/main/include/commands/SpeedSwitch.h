@@ -10,15 +10,13 @@
 #include <frc2/command/CommandBase.h>
 #include <frc2/command/CommandHelper.h>
 
-/**
- * @brief Allow the robot to apply configurations from NetworkTable to the 
- * instances specified in ApplyConfig
+/** @brief change between high and low speed mode
  * 
  */
-class ApplyConfig
-    : public frc2::CommandHelper<frc2::CommandBase, ApplyConfig> {
+class SpeedSwitch
+    : public frc2::CommandHelper<frc2::CommandBase, SpeedSwitch> {
  public:
-  ApplyConfig();
+  SpeedSwitch();
 
   void Initialize() override;
 
@@ -27,6 +25,6 @@ class ApplyConfig
   void End(bool interrupted) override;
 
   bool IsFinished() override;
-
-  bool RunsWhenDisabled();
+ private:
+   void ConfigureButtonBindings();
 };

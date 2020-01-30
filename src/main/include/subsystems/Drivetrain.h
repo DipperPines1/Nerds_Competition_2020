@@ -35,6 +35,8 @@ class Drivetrain : public frc2::SubsystemBase {
   void ArcadeDrive(double speed, double turn, bool squared);
 
  private:
+  // Components (e.g. motor controllers and sensors) should generally be
+  // declared private and exposed only through public methods.
   ctre::phoenix::motorcontrol::can::WPI_VictorSPX front_left_;
   ctre::phoenix::motorcontrol::can::WPI_VictorSPX front_right_;
   ctre::phoenix::motorcontrol::can::WPI_VictorSPX back_left_;

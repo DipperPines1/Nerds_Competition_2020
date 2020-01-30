@@ -53,6 +53,9 @@ class Preferences {
   template<typename T>
   bool AddPreference(std::string key, T value, bool overwrite);
 
+  template<typename T>
+  T GetPreference(std::string key, T default_value);
+
  private:
   Preferences();
 };

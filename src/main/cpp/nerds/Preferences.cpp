@@ -40,7 +40,7 @@ bool nerd::Preferences::AddListener<double>(std::string key,
             int flag) -> void {
                 *value = new_value->GetDouble();
             },
-        nt::EntryListenerFlags::kUpdate | nt::EntryListenerFlags::kNew);
+        nt::EntryListenerFlags::kUpdate | nt::EntryListenerFlags::kNew | nt::EntryListenerFlags::kLocal);
 
     return true;
 }
@@ -71,7 +71,7 @@ bool nerd::Preferences::AddListener<std::string>(
             int flag) -> void {
                 *value = new_value->GetString();
             },
-        nt::EntryListenerFlags::kUpdate | nt::EntryListenerFlags::kNew);
+        nt::EntryListenerFlags::kUpdate | nt::EntryListenerFlags::kNew | nt::EntryListenerFlags::kLocal);
 
     return true;
 }
@@ -101,7 +101,7 @@ bool nerd::Preferences::AddListener<bool>(std::string key,
             int flag) -> void {
                 *value = new_value->GetBoolean();
             },
-        nt::EntryListenerFlags::kUpdate | nt::EntryListenerFlags::kNew);
+        nt::EntryListenerFlags::kUpdate | nt::EntryListenerFlags::kNew | nt::EntryListenerFlags::kLocal);
 
     return true;
 }
@@ -172,3 +172,48 @@ bool nerd::Preferences::AddPreference<bool>(std::string key,
 
     return success;
 }
+
+template<>
+double nerd::Preferences::GetPreference<double>(std::string key, double default_value) {
+    auto instance = nt::NetworkTableInstance::GetDefault();
+    auto table = instance.GetTable("Preference");
+
+    if (table->ContainsKey(key)) {
+        return table->GetNumber(key, 0.0);
+    } else {
+        std::stringstream warning;
+        warning << "Key: " << key << " does not exist. (Double)";
+        frc::DriverStation::ReportWarning(warning.str());
+        return default_value;
+    }
+}
+
+template<>
+std::string nerd::Preferences::GetPreference<std::string>(std::string key, std::string default_value) {
+    auto instance = nt::NetworkTableInstance::GetDefault();
+    auto table = instance.GetTable("Preference");
+
+    if (table->ContainsKey(key)) {
+        return table->GetString(key, "");
+    } else {
+        std::stringstream warning;
+        warning << "Key: " << key << " does not exist. (String)";
+        frc::DriverStation::ReportWarning(warning.str());
+        return default_value;
+    }
+}
+
+template<>
+bool nerd::Preferences::GetPreference<bool>(std::string key, bool default_value) {
+    auto instance = nt::NetworkTableInstance::GetDefault();
+    auto table = instance.GetTable("Preference");
+
+    if (table->ContainsKey(key)) {
+        return table->GetBoolean(key, false);
+    } else {
+        std::stringstream warning;
+        warning << "Key: " << key << " does not exist. (Bool)";
+        frc::DriverStation::ReportWarning(warning.str());
+        return default_value;
+    } 
+}    

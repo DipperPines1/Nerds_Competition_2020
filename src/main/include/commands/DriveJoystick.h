@@ -33,12 +33,17 @@ class DriveJoystick
   Drivetrain* drivetrain_;
   OI* oi_;
 
-  double* drive_max_speed_;
-  double* drive_min_speed_;
-  double* turn_max_speed_;
-  double* turn_min_speed_;
+  double* drive_max_speed_high_;
+  double* drive_max_speed_low_;
+  double* drive_min_speed_high_;
+  double* drive_min_speed_low_;
+  double* turn_max_speed_high_;
+  double* turn_max_speed_low_;
+  double* turn_min_speed_high_;
+  double* turn_min_speed_low_;
   double* drive_deadzone_;
   bool* reverse_forward_;
+  bool* low_speed_switch_;
 
   double DriveProfile(double, double, double);
   double ApplyDeadzone(double, double);
