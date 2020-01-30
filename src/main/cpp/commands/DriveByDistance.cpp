@@ -31,32 +31,10 @@ void DriveByDistance::Initialize() {
 
 // Called repeatedly when this Command is scheduled to run
 void DriveByDistance::Execute() {
-
   double speed = 0.3, turn = 0;
-  double current_Heading = drivetrain_->GetHeading();
+  double current_heading = drivetrain_->GetHeading();
 
-  std::cout << initial_heading_ << " " << current_Heading << std::endl;
-
-  if (current_Heading == initial_heading_) {
-    turn = 0;
-  } else if (current_Heading <= initial_heading_ + 180 ||
-    current_Heading > initial_heading_) {
-    turn = -.4;
-  } else if (current_Heading > initial_heading_ - 180 ||
-    current_Heading < initial_heading_) {
-    turn = .4;
-  }
-
-  double yaw_1 = initial_heading_ - current_Heading;
-  double yaw_2 = std::fabs(current_Heading + 180) + std::fabs(180 - initial_heading_);
-
-  if(yaw_1 < yaw_2){
-    turn = .4;
-  } else if (yaw_2 < yaw_1){
-    turn = -.4;
-  } else {
-    turn = 0;
-  }
+  turn = CalculateTurn(initial_heading_, current_heading, HEADING_ERROR_RAGE);
 
   double current_distance = drivetrain_->AverageDistance();
 
@@ -90,4 +68,25 @@ bool DriveByDistance::IsFinished() {
     return true;
   }
   return false;
+}
+
+double DriveByDistance::CalculateTurn(double target_heading,
+    double current_heading, double tolerance) {
+  double offset = current_heading - target_heading;
+
+  if (std::fabs(offset) < tolerance) {
+    return 0;
+  }
+
+  if (offset > 180) {
+    return 0.4;
+  } else if (offset < -180) {
+    return -0.4;
+  } else if (offset < 0) {
+    return 0.4;
+  } else if (offset > 0) {
+    return -0.4;
+  } else {
+    return 0;
+  }
 }

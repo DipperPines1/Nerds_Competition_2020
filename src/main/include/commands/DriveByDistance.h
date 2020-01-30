@@ -28,6 +28,16 @@ class DriveByDistance
   bool IsFinished() override;
 
  private:
+  /**
+   * @brief returns the rate at which the robot must turn to reach the target heading from the current heading
+   * 
+   * @param target_heading The target heading the robot should be turning towards
+   * @param current_heading The robot's current heading
+   * @param tolerance The tolerance range of the heading.
+   * @return double The rate at which the robot should turn to achieve the target heading
+   */
+  double CalculateTurn(double target_heading, double current_heading, double tolerance);
+
   Drivetrain* drivetrain_;
 
   double distance_;
