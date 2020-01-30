@@ -24,16 +24,10 @@ double OI::GetAxis(int axis) {
     return driver_.GetRawAxis(axis);
 }
 
-/**
- * @brief bind the command in SpeedSwitch into button A
- * 
- * @param button the button specified in Constants.h
- * @param command the command in SpeedSwitch.cpp
- */
 void OI::BindCommandButton(int button, frc2::Command* command) {
     switch(button){
     case BUTTON_A:
-        bound_commands.push_back(command);
+        bound_commands_.push_back(command);
         driver_A_.WhenPressed(command, true);
         return;
     default:
