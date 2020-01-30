@@ -10,12 +10,8 @@
 #include <frc2/command/CommandBase.h>
 #include <frc2/command/CommandHelper.h>
 
-/**
- * An example command.
- *
- * <p>Note that this extends CommandHelper, rather extending CommandBase
- * directly; this is crucially important, or else the decorator functions in
- * Command will *not* work!
+/** @brief change between high and low speed mode
+ * 
  */
 class SpeedSwitch
     : public frc2::CommandHelper<frc2::CommandBase, SpeedSwitch> {
