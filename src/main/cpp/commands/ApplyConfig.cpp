@@ -60,7 +60,26 @@ void ApplyConfig::Initialize() {
     SWITCH_SPEED_PREFERENCES.key,
     SWITCH_SPEED_PREFERENCES.value,
     false);
- 
+  nerd::Preferences::GetInstance().AddPreference(
+    LAUNCHER_CONTROLLER_P.key,
+    LAUNCHER_CONTROLLER_P.value,
+    false);
+  nerd::Preferences::GetInstance().AddPreference(
+    LAUNCHER_CONTROLLER_I.key,
+    LAUNCHER_CONTROLLER_I.value,
+    false);
+  nerd::Preferences::GetInstance().AddPreference(
+    LAUNCHER_CONTROLLER_D.key,
+    LAUNCHER_CONTROLLER_D.value,
+    false);
+  nerd::Preferences::GetInstance().AddPreference(
+    LAUNCHER_MAX_SPEED.key,
+    LAUNCHER_MIN_SPEED.value,
+    false);
+  nerd::Preferences::GetInstance().AddPreference(
+    LAUNCHER_MAX_SPEED.key,
+    LAUNCHER_MIN_SPEED.value,
+    false);
 }
 
 // Called repeatedly when this Command is scheduled to run

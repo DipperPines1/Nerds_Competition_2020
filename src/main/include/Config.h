@@ -64,3 +64,24 @@ const nerd::ConfigKey<bool> SWITCH_SPEED_PREFERENCES{
   "Joysticks/Low Speed",
   false
 };
+
+const nerd::ConfigKey<double> LAUNCHER_CONTROLLER_P{
+  "Launcher/Controller/P",
+  0.1
+};
+const nerd::ConfigKey<double> LAUNCHER_CONTROLLER_I{
+  "Launcher/Controller/I",
+  0.1
+};
+const nerd::ConfigKey<double> LAUNCHER_CONTROLLER_D{
+  "Launcher/Controller/D",
+  0.1
+};
+const nerd::ConfigKey<double> LAUNCHER_MAX_SPEED{
+  "Launcher/Controller/Max Speed",
+  0.8
+};
+const nerd::ConfigKey<double> LAUNCHER_MIN_SPEED{
+  "Launcher/Controller/Min Speed",
+  0.25
+};

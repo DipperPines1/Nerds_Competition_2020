@@ -106,6 +106,25 @@ bool nerd::Preferences::AddListener<bool>(std::string key,
     return true;
 }
 
+bool nerd::Preferences::AddFunctionListener(std::string key, nt::TableEntryListener function) {
+    auto instance = nt::NetworkTableInstance::GetDefault();
+    auto table = instance.GetTable("Preference");
+
+    if (!table->ContainsKey(key)) {
+        std::stringstream warning;
+        warning << "Key: " << key << " does not exist. (Function)";
+        frc::DriverStation::ReportWarning(warning.str());
+        return false;
+    }
+
+    table->AddEntryListener(
+        key,
+        function,
+        nt::EntryListenerFlags::kUpdate | nt::EntryListenerFlags::kNew | nt::EntryListenerFlags::kLocal
+    );
+    return true;
+}
+
 template<>
 bool nerd::Preferences::AddPreference<double>(std::string key,
     double value,
@@ -216,4 +235,4 @@ bool nerd::Preferences::GetPreference<bool>(std::string key, bool default_value)
         frc::DriverStation::ReportWarning(warning.str());
         return default_value;
     } 
-}    
+} 

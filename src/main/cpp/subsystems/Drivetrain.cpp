@@ -18,6 +18,7 @@ Drivetrain::Drivetrain() :
     left_(front_left_, back_left_),
     right_(front_right_, back_right_),
     drive_(left_, right_)
+
 {}
 
 // This method will be called once per scheduler run

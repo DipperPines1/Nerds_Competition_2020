@@ -5,9 +5,12 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
+#pragma once
+
 #include <string>
 
-#pragma once
+#include <networktables/TableEntryListener.h>
+
 namespace nerd {
 
 class Preferences {
@@ -39,6 +42,16 @@ class Preferences {
    */
   template<typename T>
   bool AddListener(std::string key, T *const value);
+
+  /**
+   * @brief Add a listener on the specified key which will run the function when a change is detected
+   * 
+   * @param key The key the listener is attached to
+   * @param function The function which will run when the key changes
+   * @return true The listener has been successfully attached
+   * @return false The listener failed to attach
+   */
+  bool AddFunctionListener(std::string key, nt::TableEntryListener function);
 
   /**
    * @brief add or update an entry in the preferences table
