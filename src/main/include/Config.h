@@ -85,3 +85,7 @@ const nerd::ConfigKey<double> LAUNCHER_MIN_SPEED{
   "Launcher/Controller/Min Speed",
   0.25
 };
+const nerd::ConfigKey<double> LAUNCHER_CURRENT_SPEED{
+  "Launcher/Current Speed",
+  5
+};

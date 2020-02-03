@@ -21,6 +21,20 @@ Launcher::Launcher() :
     slave_.Follow(master_, false);
 
     SetupListeners();
+
+    double p = nerd::Preferences::GetInstance().GetPreference(LAUNCHER_CONTROLLER_P.key, LAUNCHER_CONTROLLER_P.value);
+    double i = nerd::Preferences::GetInstance().GetPreference(LAUNCHER_CONTROLLER_I.key, LAUNCHER_CONTROLLER_I.value);
+    double d = nerd::Preferences::GetInstance().GetPreference(LAUNCHER_CONTROLLER_D.key, LAUNCHER_CONTROLLER_D.value);
+    double max = nerd::Preferences::GetInstance().GetPreference(LAUNCHER_MAX_SPEED.key, LAUNCHER_MAX_SPEED.value);
+    double min = nerd::Preferences::GetInstance().GetPreference(LAUNCHER_MIN_SPEED.key, LAUNCHER_MIN_SPEED.value);
+
+    rev::CANPIDController controller = master_.GetPIDController();
+
+    controller.SetP(p);
+    controller.SetI(i);
+    controller.SetD(d);
+    controller.SetSmartMotionMaxVelocity(max);
+    controller.SetSmartMotionMinOutputVelocity(min);
 }
 
 // This method will be called once per scheduler run

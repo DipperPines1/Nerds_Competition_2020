@@ -74,11 +74,15 @@ void ApplyConfig::Initialize() {
     false);
   nerd::Preferences::GetInstance().AddPreference(
     LAUNCHER_MAX_SPEED.key,
+    LAUNCHER_MAX_SPEED.value,
+    false);
+  nerd::Preferences::GetInstance().AddPreference(
+    LAUNCHER_MIN_SPEED.key,
     LAUNCHER_MIN_SPEED.value,
     false);
   nerd::Preferences::GetInstance().AddPreference(
-    LAUNCHER_MAX_SPEED.key,
-    LAUNCHER_MIN_SPEED.value,
+    LAUNCHER_CURRENT_SPEED.key,
+    LAUNCHER_CURRENT_SPEED.value,
     false);
 }
 
