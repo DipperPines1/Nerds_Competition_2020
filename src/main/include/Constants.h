@@ -63,3 +63,10 @@ constexpr double ACCELERATION_DISTANCE = 8;
 constexpr double MAX_SPEED = 0.6;
 constexpr double MIN_SPEED = .25;
 constexpr double HEADING_ERROR_RAGE = 2;
+
+//PCM ports
+constexpr int FORWARD_CHANNEL = 2;
+constexpr int REVERSE_CHANNEL = 3;
+
+//PWM channels
+constexpr int PWM_REEL = 0;
