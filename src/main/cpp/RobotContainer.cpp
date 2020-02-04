@@ -14,11 +14,13 @@
 #include "commands/SetLauncher.h"
 #include "commands/SetConveyor.h"
 #include "commands/SpeedSwitch.h"
+#include "commands/ToggleExtender.h"
 
 
 RobotContainer::RobotContainer()
   : drivetrain_(),
     launcher_(),
+    climber_(),
     oi_(),
     apply_config_(),
     drive_joy_(&drivetrain_, &oi_) {
@@ -32,6 +34,7 @@ void RobotContainer::ConfigureButtonBindings() {
   frc::SmartDashboard::PutData("Commands/Load Config", &apply_config_);
 
   oi_.BindCommandButton(BUTTON_A, new SpeedSwitch());
+  oi_.BindCommandButton(BUTTON_X, new ToggleExtender(&climber_));
   oi_.BindCommandButton(BUTTON_LB, new RunIntake(false, &launcher_));
   oi_.BindCommandButton(BUTTON_RB, new RunIntake(true, &launcher_));
   
