@@ -7,6 +7,7 @@
 
 #pragma once
 
+#include <frc/controller/PIDController.h>
 #include <frc2/command/CommandBase.h>
 #include <frc2/command/CommandHelper.h>
 
@@ -36,12 +37,26 @@ class DriveByDistance
    * @param tolerance The tolerance range of the heading.
    * @return double The rate at which the robot should turn to achieve the target heading
    */
-  double CalculateTurn(double target_heading, double current_heading, double tolerance);
+  double CalculateTurn(
+    double target_heading,
+    double current_heading,
+    double tolerance);
+
+  /**
+   * @brief Sets up the listeners for the PID controller
+   * 
+   */
+  void SetupListeners();
 
   Drivetrain* drivetrain_;
 
-  double distance_;
+  frc2::PIDController PID_;
 
+  double* p_;
+  double* i_;
+  double* d_;
+
+  double distance_;
   double initial_heading_;
   double final_distance_;
   double initial_distance_;

@@ -13,13 +13,23 @@
 #include <iostream>
 
 #include "subsystems/Drivetrain.h"
+#include "Config.h"
 #include "Constants.h"
+#include "nerds/Preferences.h"
 
 
 DriveByDistance::DriveByDistance(double distance, Drivetrain* drivetrain)
   : drivetrain_(drivetrain),
+    PID_(0, 0, 0),
     distance_(distance) {
   AddRequirements({drivetrain_});
+
+  p_ = new double(0);
+  i_ = new double(0);
+  d_ = new double(0);
+
+  SetupListeners();
+  PID_.EnableContinuousInput(-180, 180);
 }
 
 // Called when the command is initially scheduled.
@@ -27,6 +37,9 @@ void DriveByDistance::Initialize() {
   initial_heading_ = drivetrain_->GetHeading();
   final_distance_ = drivetrain_->AverageDistance() + distance_;
   initial_distance_ = drivetrain_->AverageDistance();
+
+  PID_.SetPID(*p_, *i_, *d_);
+  PID_.SetSetpoint(initial_heading_);
 }
 
 // Called repeatedly when this Command is scheduled to run
@@ -54,12 +67,15 @@ void DriveByDistance::Execute() {
 
   speed = std::min({initial_accel, final_accel, max}) * ((speed >= 0) ? 1 : -1);
 
+  turn = PID_.Calculate(current_heading);
+
   drivetrain_->ArcadeDrive(speed, turn, false);
 }
 
 // Called once the command ends or is interrupted.
 void DriveByDistance::End(bool interrupted) {
   drivetrain_->ArcadeDrive(0, 0, false);
+  PID_.Reset();
 }
 
 // Returns true when the command should end.
@@ -89,4 +105,10 @@ double DriveByDistance::CalculateTurn(double target_heading,
   } else {
     return 0;
   }
+}
+
+void DriveByDistance::SetupListeners() {
+  nerd::Preferences::GetInstance().AddListener(AUTO_TURN_P.key, p_);
+  nerd::Preferences::GetInstance().AddListener(AUTO_TURN_I.key, i_);
+  nerd::Preferences::GetInstance().AddListener(AUTO_TURN_P.key, p_);
 }

@@ -16,6 +16,7 @@ ApplyConfig::ApplyConfig() {
 
 // Called when the command is initially scheduled.
 void ApplyConfig::Initialize() {
+  // Joysticks
   nerd::Preferences::GetInstance().AddPreference(
     JOYSTICK_DRIVE_MAX_HIGH.key,
     JOYSTICK_DRIVE_MAX_HIGH.value,
@@ -60,7 +61,22 @@ void ApplyConfig::Initialize() {
     SWITCH_SPEED_PREFERENCES.key,
     SWITCH_SPEED_PREFERENCES.value,
     false);
- 
+  // End Joysticks
+
+  // Autonomous PID
+  nerd::Preferences::GetInstance().AddPreference(
+    AUTO_TURN_P.key,
+    AUTO_TURN_P.value,
+    false);
+  nerd::Preferences::GetInstance().AddPreference(
+    AUTO_TURN_I.key,
+    AUTO_TURN_I.value,
+    false);
+  nerd::Preferences::GetInstance().AddPreference(
+    AUTO_TURN_D.key,
+    AUTO_TURN_D.value,
+    false);
+  // End Autonomous PID
 }
 
 // Called repeatedly when this Command is scheduled to run

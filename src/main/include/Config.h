@@ -19,7 +19,7 @@ struct ConfigKey {
 
 }  // namespace nerd
 
-
+// Joysticks
 const nerd::ConfigKey<double> JOYSTICK_DRIVE_MAX_HIGH{
   "Joysticks/Drive/Max Speed/High",
   1
@@ -64,3 +64,19 @@ const nerd::ConfigKey<bool> SWITCH_SPEED_PREFERENCES{
   "Joysticks/Low Speed",
   false
 };
+// End Joysticks
+
+// Autonomous PID
+const nerd::ConfigKey<double> AUTO_TURN_P{
+  "Autonomous/Turn/P",
+  0.5
+};
+const nerd::ConfigKey<double> AUTO_TURN_I{
+  "Autonomous/Turn/I",
+  0
+};
+const nerd::ConfigKey<double> AUTO_TURN_D{
+  "Autonomous/Turn/D",
+  0
+};
+// End Autonomous PID

@@ -17,7 +17,7 @@ RobotContainer::RobotContainer()
     oi_(),
     apply_config_(),
     drive_joy_(&drivetrain_, &oi_),
-    auto_drive(6, &drivetrain) {
+    auto_drive(36, &drivetrain_) {
   ConfigureButtonBindings();
 
   // Set default commands

@@ -42,6 +42,6 @@ constexpr double PULSES_PER_REVOLUTION = 360;
 // Autonomous constants
 constexpr double DISTANCE_ERROR_RANGE = 0.25;
 constexpr double ACCELERATION_DISTANCE = 8;
-constexpr double MAX_SPEED = 0.5;
-constexpr double MIN_SPEED = .1;
+constexpr double MAX_SPEED = 0.6;
+constexpr double MIN_SPEED = .25;
 constexpr double HEADING_ERROR_RAGE = 2;
