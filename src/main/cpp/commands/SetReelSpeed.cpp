@@ -7,12 +7,23 @@
 
 #include "commands/SetReelSpeed.h"
 
-SetReelSpeed::SetReelSpeed() {
+#include "Config.h"
+#include "nerds/Preferences.h"
+#include "subsystems/Climber.h"
+
+SetReelSpeed::SetReelSpeed(Climber* climber) :
+  climber_(climber) {
   // Use addRequirements() here to declare subsystem dependencies.
+  AddRequirements({climber_});
 }
 
 // Called when the command is initially scheduled.
-void SetReelSpeed::Initialize() {}
+void SetReelSpeed::Initialize() {
+  double speed = nerd::Preferences::GetInstance().GetPreference(
+    SET_REEL_SPEED.key,
+    SET_REEL_SPEED.value);
+  climber_->SetReelSpeed(speed);
+}
 
 // Called repeatedly when this Command is scheduled to run
 void SetReelSpeed::Execute() {}
@@ -21,4 +32,4 @@ void SetReelSpeed::Execute() {}
 void SetReelSpeed::End(bool interrupted) {}
 
 // Returns true when the command should end.
-bool SetReelSpeed::IsFinished() { return false; }
+bool SetReelSpeed::IsFinished() { return true; }

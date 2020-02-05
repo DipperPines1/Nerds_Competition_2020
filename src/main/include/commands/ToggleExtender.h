@@ -31,7 +31,6 @@ class ToggleExtender
   void End(bool interrupted) override;
 
   bool IsFinished() override;
- 
  private:
   Climber* climber_;
 };

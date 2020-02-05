@@ -10,8 +10,7 @@
 #include "subsystems/Climber.h"
 
 ToggleExtender::ToggleExtender(Climber* climber) :
-  climber_(climber)
-{
+  climber_(climber) {
   // Use addRequirements() here to declare subsystem dependencies.
   AddRequirements({climber_});
 }

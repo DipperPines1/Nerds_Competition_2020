@@ -42,10 +42,9 @@ DriveJoystick::DriveJoystick(Drivetrain* drivetrain, OI* oi)
     reverse_forward_);
   nerd::Preferences::GetInstance().AddListener<bool>(
     SWITCH_SPEED_PREFERENCES.key,
-    low_speed_switch_
-  );
+    low_speed_switch_);
 
-  //high listeners
+  // high listeners
   nerd::Preferences::GetInstance().AddListener<double>(
     JOYSTICK_DRIVE_MAX_HIGH.key,
     drive_max_speed_high_);

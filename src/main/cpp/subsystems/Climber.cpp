@@ -11,8 +11,7 @@
 
 Climber::Climber() :
     extender_(FORWARD_CHANNEL, REVERSE_CHANNEL),
-    reel_(PWM_REEL)
-{
+    reel_(PWM_REEL) {
     SetExtender(false);
 }
 

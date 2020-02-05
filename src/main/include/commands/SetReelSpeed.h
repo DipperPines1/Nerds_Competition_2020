@@ -10,6 +10,8 @@
 #include <frc2/command/CommandBase.h>
 #include <frc2/command/CommandHelper.h>
 
+class Climber;
+
 /**
  * An example command.
  *
@@ -20,7 +22,7 @@
 class SetReelSpeed
     : public frc2::CommandHelper<frc2::CommandBase, SetReelSpeed> {
  public:
-  SetReelSpeed();
+  SetReelSpeed(Climber* climber);
 
   void Initialize() override;
 
@@ -29,4 +31,7 @@ class SetReelSpeed
   void End(bool interrupted) override;
 
   bool IsFinished() override;
+ 
+ private:
+  Climber* climber_;
 };

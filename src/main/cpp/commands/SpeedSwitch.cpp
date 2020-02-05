@@ -19,15 +19,18 @@ SpeedSwitch::SpeedSwitch() {
  * 
  */
 void SpeedSwitch::Initialize() {
-  bool switch_speed_ = nerd::Preferences::GetInstance().GetPreference<bool>(SWITCH_SPEED_PREFERENCES.key, SWITCH_SPEED_PREFERENCES.value);
+  bool switch_speed_ = nerd::Preferences::GetInstance().GetPreference<bool>(
+    SWITCH_SPEED_PREFERENCES.key,
+    SWITCH_SPEED_PREFERENCES.value);
 
-  nerd::Preferences::GetInstance().AddPreference(SWITCH_SPEED_PREFERENCES.key, !switch_speed_, true);
+  nerd::Preferences::GetInstance().AddPreference(
+    SWITCH_SPEED_PREFERENCES.key,
+    !switch_speed_,
+    true);
 }
 
 // Called repeatedly when this Command is scheduled to run
-void SpeedSwitch::Execute() {
-
-}
+void SpeedSwitch::Execute() {}
 
 // Called once the command ends or is interrupted.
 void SpeedSwitch::End(bool interrupted) {}

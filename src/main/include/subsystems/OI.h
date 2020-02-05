@@ -58,6 +58,8 @@ class OI : public frc2::SubsystemBase {
   frc2::Button down_;
   frc2::Button left_;
   frc2::Button right_;
+  frc2::JoystickButton driver_START_;
+  frc2::JoystickButton driver_BACK_;
 
   std::vector<frc2::Command*> bound_commands_;
 };
