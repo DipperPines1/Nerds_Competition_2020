@@ -52,9 +52,20 @@ class DriveByDistance
 
   frc2::PIDController PID_;
 
+  // PID Listener Variables
   double* p_;
   double* i_;
   double* d_;
+
+  // Parameter Listener Variables
+  double* autonomous_drive_tolerance_;
+  double* autonomous_drive_acceleration_;
+  double* autonomous_drive_max_speed_;
+  double* autonomous_drive_min_speed_;
+  double* autonomous_turn_tolerance_;
+  double* autonomous_turn_max_speed_;
+  double* autonomous_turn_min_speed_;
+
 
   double distance_;
   double initial_heading_;

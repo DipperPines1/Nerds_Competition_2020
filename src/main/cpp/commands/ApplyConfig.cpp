@@ -77,7 +77,38 @@ void ApplyConfig::Initialize() {
     AUTO_TURN_D.value,
     false);
   // End Autonomous PID
-}
+
+  // Autonomous Preferences
+  nerd::Preferences::GetInstance().AddPreference(
+    AUTONOMOUS_DRIVE_TOLERANCE.key,
+    AUTONOMOUS_DRIVE_TOLERANCE.value,
+    false);
+  nerd::Preferences::GetInstance().AddPreference(
+    AUTONOMOUS_DRIVE_ACCELERATION.key,
+    AUTONOMOUS_DRIVE_ACCELERATION.value,
+    false);
+  nerd::Preferences::GetInstance().AddPreference(
+    AUTONOMOUS_DRIVE_MAX_SPEED.key,
+    AUTONOMOUS_DRIVE_MAX_SPEED.value,
+    false);
+  nerd::Preferences::GetInstance().AddPreference(
+    AUTONOMOUS_DRIVE_MIN_SPEED.key,
+    AUTONOMOUS_DRIVE_MIN_SPEED.value,
+    false);
+  nerd::Preferences::GetInstance().AddPreference(
+    AUTONOMOUS_TURN_TOLERANCE.key,
+    AUTONOMOUS_TURN_TOLERANCE.value,
+    false);
+  nerd::Preferences::GetInstance().AddPreference(
+    AUTONOMOUS_TURN_MAX_SPEED.key,
+    AUTONOMOUS_TURN_MAX_SPEED.value,
+    false);
+  nerd::Preferences::GetInstance().AddPreference(
+    AUTONOMOUS_TURN_MIN_SPEED.key,
+    AUTONOMOUS_TURN_MIN_SPEED.value,
+    false);
+  // End Autonomous Parameters
+  }
 
 // Called repeatedly when this Command is scheduled to run
 void ApplyConfig::Execute() {}

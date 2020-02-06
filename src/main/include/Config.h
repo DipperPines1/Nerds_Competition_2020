@@ -80,3 +80,34 @@ const nerd::ConfigKey<double> AUTO_TURN_D{
   0
 };
 // End Autonomous PID
+
+// Autonomous Parameters
+const nerd::ConfigKey<double> AUTONOMOUS_DRIVE_TOLERANCE {
+  "Autonomous/Drive/Tolerance",
+  0.25
+};
+const nerd::ConfigKey<double> AUTONOMOUS_DRIVE_ACCELERATION {
+  "Autonomous/Drive/Acceleration",
+  8
+};
+const nerd::ConfigKey<double> AUTONOMOUS_DRIVE_MAX_SPEED {
+  "Autonomous/Drive/Max Speed",
+  0.8
+};
+const nerd::ConfigKey<double> AUTONOMOUS_DRIVE_MIN_SPEED {
+  "Autonomous/Drive/Min Speed",
+  0.25
+};
+const nerd::ConfigKey<double> AUTONOMOUS_TURN_TOLERANCE {
+  "Autonomous/Turn/Tolerance",
+  2
+};
+const nerd::ConfigKey<double> AUTONOMOUS_TURN_MAX_SPEED {
+  "Autonomous/Turn/Max Speed",
+  0.8
+};
+const nerd::ConfigKey<double> AUTONOMOUS_TURN_MIN_SPEED {
+  "Autonomous/Turn/Min Speed",
+  0.25
+};
+// End Autonomous Parameters

@@ -10,8 +10,6 @@
 #include <algorithm>
 #include <cmath>
 
-#include <iostream>
-
 #include "subsystems/Drivetrain.h"
 #include "Config.h"
 #include "Constants.h"
@@ -27,6 +25,14 @@ DriveByDistance::DriveByDistance(double distance, Drivetrain* drivetrain)
   p_ = new double(0);
   i_ = new double(0);
   d_ = new double(0);
+
+  autonomous_drive_tolerance_ = new double(0);
+  autonomous_drive_acceleration_ = new double(0);
+  autonomous_drive_max_speed_ = new double(0);
+  autonomous_drive_min_speed_ = new double(0);
+  autonomous_turn_tolerance_ = new double(0);
+  autonomous_turn_max_speed_ = new double(0);
+  autonomous_turn_min_speed_ = new double(0);
 
   SetupListeners();
   PID_.EnableContinuousInput(-180, 180);
@@ -44,28 +50,36 @@ void DriveByDistance::Initialize() {
 
 // Called repeatedly when this Command is scheduled to run
 void DriveByDistance::Execute() {
-  double speed = 0.3, turn = 0;
   double current_heading = drivetrain_->GetHeading();
 
-  turn = CalculateTurn(initial_heading_, current_heading, HEADING_ERROR_RAGE);
+  double turn = CalculateTurn(
+    initial_heading_,
+    current_heading,
+    *autonomous_turn_tolerance_);
 
   double current_distance = drivetrain_->AverageDistance();
 
-  if (current_distance > final_distance_ + DISTANCE_ERROR_RANGE) {
-    speed *= -1;
-  } else if (current_distance < final_distance_ - DISTANCE_ERROR_RANGE) {
-  
+  double slope = *autonomous_drive_max_speed_ / *autonomous_drive_acceleration_;
+
+  double initial_error = std::fabs(current_distance - initial_distance_);
+  double initial_accel = initial_error * slope + *autonomous_drive_min_speed_;
+
+  double final_error = std::fabs(final_distance_ - current_distance);
+  double final_accel = final_error * slope + *autonomous_drive_min_speed_;
+
+  double max = std::fabs(*autonomous_drive_max_speed_);
+
+  double speed;
+
+  if (current_distance > final_distance_ + *autonomous_drive_tolerance_) {
+    speed = -1;
+  } else if (current_distance < final_distance_ - *autonomous_drive_tolerance_) {
+    speed = 1;
   } else {
     speed = 0;
   }
 
-  double slope = MAX_SPEED / ACCELERATION_DISTANCE;
-
-  double initial_accel = std::fabs(current_distance - initial_distance_) * slope + MIN_SPEED;
-  double final_accel = std::fabs(final_distance_ - current_distance) * slope + MIN_SPEED;
-  double max = std::fabs(MAX_SPEED);
-
-  speed = std::min({initial_accel, final_accel, max}) * ((speed >= 0) ? 1 : -1);
+  speed = std::min({initial_accel, final_accel, max}) * speed;
 
   turn = PID_.Calculate(current_heading);
 
@@ -80,7 +94,8 @@ void DriveByDistance::End(bool interrupted) {
 
 // Returns true when the command should end.
 bool DriveByDistance::IsFinished() {
-  if (final_distance_ == drivetrain_->AverageDistance()) {
+  double error = std::fabs(drivetrain_->AverageDistance() - final_distance_);
+  if (error < *autonomous_drive_tolerance_) {
     return true;
   }
   return false;
@@ -108,7 +123,31 @@ double DriveByDistance::CalculateTurn(double target_heading,
 }
 
 void DriveByDistance::SetupListeners() {
+  // PID
   nerd::Preferences::GetInstance().AddListener(AUTO_TURN_P.key, p_);
   nerd::Preferences::GetInstance().AddListener(AUTO_TURN_I.key, i_);
   nerd::Preferences::GetInstance().AddListener(AUTO_TURN_P.key, p_);
+
+  // Parameters
+  nerd::Preferences::GetInstance().AddListener(
+    AUTONOMOUS_DRIVE_TOLERANCE.key,
+    autonomous_drive_tolerance_);
+  nerd::Preferences::GetInstance().AddListener(
+    AUTONOMOUS_DRIVE_ACCELERATION.key,
+    autonomous_drive_acceleration_);
+  nerd::Preferences::GetInstance().AddListener(
+    AUTONOMOUS_DRIVE_MAX_SPEED.key,
+    autonomous_drive_max_speed_);
+  nerd::Preferences::GetInstance().AddListener(
+    AUTONOMOUS_DRIVE_MIN_SPEED.key,
+    autonomous_drive_min_speed_);
+  nerd::Preferences::GetInstance().AddListener(
+    AUTONOMOUS_TURN_TOLERANCE.key,
+    autonomous_turn_tolerance_);
+  nerd::Preferences::GetInstance().AddListener(
+    AUTONOMOUS_TURN_MAX_SPEED.key,
+    autonomous_turn_max_speed_);
+  nerd::Preferences::GetInstance().AddListener(
+    AUTONOMOUS_TURN_MIN_SPEED.key,
+    autonomous_turn_min_speed_);
 }
