@@ -13,6 +13,7 @@
 #include "commands/ApplyConfig.h"
 #include "commands/DriveByDistance.h"
 #include "commands/DriveJoystick.h"
+#include "commands/TurnByDegree.h"
 #include "subsystems/Drivetrain.h"
 #include "subsystems/OI.h"
 
@@ -36,7 +37,6 @@ class RobotContainer {
 
   ApplyConfig apply_config_;
   DriveJoystick drive_joy_;
-  DriveByDistance auto_drive;
 
   void ConfigureButtonBindings();
 };

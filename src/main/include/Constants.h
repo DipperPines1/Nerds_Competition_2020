@@ -16,6 +16,13 @@ constexpr int CAN_DRIVE_BACK_LEFT = 6;
 // Controller const
 constexpr int JOY_DRIVER = 0;
 constexpr int BUTTON_A = 1;
+constexpr int BUTTON_B = 2;
+constexpr int BUTTON_X = 3;
+constexpr int BUTTON_Y = 4;
+constexpr int BUTTON_LB = 5;
+constexpr int BUTTON_RB = 6;
+constexpr int BUTTON_BACK = 7;
+constexpr int BUTTON_START = 8;
 
 // axis ID
 constexpr int AXIS_LEFT_X = 0;
