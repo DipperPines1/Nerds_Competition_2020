@@ -26,7 +26,7 @@ Drivetrain::Drivetrain() :
     gyro(frc::SerialPort::Port::kUSB1),
     encoder_left(DIO_ENCODER_LEFT_A, DIO_ENCODER_LEFT_B, false),
     encoder_right(DIO_ENCODER_RIGHT_A, DIO_ENCODER_RIGHT_B, true),
-    odometry({}, {}),
+    odometry({units::degree_t(gyro.GetYaw())}),
     drive_kinematics(K_TRACK_WIDTH),
     simple_motor_feedforward(KS, KV, KA),
     voltage_constraint(simple_motor_feedforward, drive_kinematics, 10_V),
@@ -51,10 +51,6 @@ void Drivetrain::Periodic() {
 
 void Drivetrain::ArcadeDrive(double speed, double turn, bool squared) {
     drive_.ArcadeDrive(speed, turn, squared);
-}
-
-double Drivetrain::GetHeading() {
-    return gyro.GetCompassHeading();
 }
 
 double Drivetrain::GetDistanceLeft() {
@@ -83,12 +79,19 @@ frc::Pose2d Drivetrain::GetPose() {
 }
 
 void Drivetrain::TankDriveVolts(units::volt_t left, units::volt_t right) {
-    left_.SetVoltage(left);
-    right_.SetVoltage(-right);
-    front_left.Feed();
-    front_right.Feed();
-    back_left.Feed();
-    back_right.Feed();
+    front_left_.Set(
+        ctre::phoenix::motorcontrol::ControlMode::PercentOutput,
+        left.to<double>()/12);
+    back_left_.Set(
+        ctre::phoenix::motorcontrol::ControlMode::PercentOutput,
+        left.to<double>()/12);
+
+    front_right_.Set(
+        ctre::phoenix::motorcontrol::ControlMode::PercentOutput,
+        -(right.to<double>()/12));
+    back_right_.Set(
+        ctre::phoenix::motorcontrol::ControlMode::PercentOutput,
+        -(right.to<double>()/12));
 }
 
 const frc::TrajectoryConfig& Drivetrain::GetTrajectoryConfig() {

@@ -7,7 +7,6 @@
 
 #include "RobotContainer.h"
 
-#include <frc/smartdashboard/SmartDashboard.h>
 #include <frc/geometry/Pose2D.h>
 #include <frc/geometry/Rotation2D.h>
 #include <frc/geometry/Translation2D.h>
@@ -44,30 +43,32 @@ frc2::Command* RobotContainer::GetAutonomousCommand() {
 }
 
 
-void RobotContainer::DriveThroughPath(std::vector<frc::Translation2d> waypoints, frc::Pose2d end_pose) {
+void RobotContainer::DriveThroughPath(
+  std::vector<frc::Translation2d> waypoints,
+  frc::Pose2d end_pose) {
   auto path = frc::TrajectoryGenerator::GenerateTrajectory(
-    drivetrain.GetPose(),
+    drivetrain_.GetPose(),
     waypoints,
     end_pose,
-    drivetrain.GetTrajectoryConfig());
+    drivetrain_.GetTrajectoryConfig());
 
   autonomous_drive.reset(new frc2::RamseteCommand(
     path,
     [this]() {
-      return drivetrain.GetPose();
+      return drivetrain_.GetPose();
     },
     frc::RamseteController(K_RAMSETE_B, K_RAMSETE_ZETA),
     frc::SimpleMotorFeedforward<units::meters>(KS, KV, KA),
-    drivetrain.GetDriveKinematics(),
+    drivetrain_.GetDriveKinematics(),
     [this] {
-      return drivetrain.WheelSpeed();
+      return drivetrain_.WheelSpeed();
     },
     frc2::PIDController(KP_DRIVE_VELOCITY, 0.0, 0.0),
     frc2::PIDController(KP_DRIVE_VELOCITY, 0.0, 0.0),
     [this](auto left, auto right) {
-      drivetrain.TankDriveVolts(left, right);
+      drivetrain_.TankDriveVolts(left, right);
     },
-    {&drivetrain}));
+    {&drivetrain_}));
 
   frc::SmartDashboard::PutData("Commands/Ramsete", autonomous_drive.get());
 }
@@ -75,7 +76,7 @@ void RobotContainer::DriveThroughPath(std::vector<frc::Translation2d> waypoints,
 void RobotContainer::StopAutoDrive() {
   autonomous_drive->Cancel();
 }
-  
+
 frc::Pose2d RobotContainer::GetPose() {
-  return drivetrain.GetPose();
+  return drivetrain_.GetPose();
 }
