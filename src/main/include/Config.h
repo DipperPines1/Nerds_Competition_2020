@@ -19,7 +19,7 @@ struct ConfigKey {
 
 }  // namespace nerd
 
-
+// Joysticks
 const nerd::ConfigKey<double> JOYSTICK_DRIVE_MAX_HIGH{
   "Joysticks/Drive/Max Speed/High",
   1
@@ -63,4 +63,46 @@ const nerd::ConfigKey<bool> JOYSTICKS_REVERSE_FORWARD{
 const nerd::ConfigKey<bool> SWITCH_SPEED_PREFERENCES{
   "Joysticks/Low Speed",
   false
+};
+// end Joysticks
+
+// Ramsete
+const nerd::ConfigKey<double> FEEDFORWARD_KS {
+  "Ramsete/Feed Forward/KS",
+  0.1
+};
+
+const nerd::ConfigKey<double> FEEDFORWARD_KA {
+  "Ramsete/Feed Forward/KA",
+  0
+};
+
+const nerd::ConfigKey<double> FEEDFORWARD_KV {
+  "Ramsete/Feed Forward/KV",
+  0.0811
+};
+
+const nerd::ConfigKey<double> KP_DRIVE_VELOCITY {
+  "Ramsete/KP DRIVE VELOCITY",
+  0.05
+};
+
+const nerd::ConfigKey<double> K_MAX_SPEED {
+  "Ramsete/MAX SPEED",
+  1
+};
+
+const nerd::ConfigKey<double> K_MAX_ACCELERATION {
+  "Ramsete/K_MAX_ACCELERATION",
+  0.5
+};
+
+const nerd::ConfigKey<double> K_RAMSETE_B {
+  "Ramsete/K_RAMSETE_B",
+  2
+};
+
+const nerd::ConfigKey<double> K_RAMSETE_ZETA {
+  "Ramsete/K_RAMSETE_ZETA",
+  0.2
 };

@@ -65,12 +65,15 @@ void RobotContainer::DriveThroughPath(
     },
     frc2::PIDController(KP_DRIVE_VELOCITY, 0.0, 0.0),
     frc2::PIDController(KP_DRIVE_VELOCITY, 0.0, 0.0),
-    [this](auto left, auto right) {
+    [this](units::volt_t left, units::volt_t right) {
+      frc::SmartDashboard::PutNumber("Ramsete/left", left.to<double>());
+      frc::SmartDashboard::PutNumber("Ramsete/right", right.to<double>());
       drivetrain_.TankDriveVolts(left, right);
     },
     {&drivetrain_}));
 
   frc::SmartDashboard::PutData("Commands/Ramsete", autonomous_drive.get());
+  oi_.BindCommandButton(BUTTON_B, autonomous_drive.get());
 }
 
 void RobotContainer::StopAutoDrive() {

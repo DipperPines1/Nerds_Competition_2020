@@ -39,6 +39,8 @@ Drivetrain::Drivetrain() :
     encoder_right.SetReverseDirection(true);
 
     trajectory_config.SetKinematics(drive_kinematics);
+
+
 }
 
 // This method will be called once per scheduler run
@@ -79,19 +81,7 @@ frc::Pose2d Drivetrain::GetPose() {
 }
 
 void Drivetrain::TankDriveVolts(units::volt_t left, units::volt_t right) {
-    front_left_.Set(
-        ctre::phoenix::motorcontrol::ControlMode::PercentOutput,
-        left.to<double>()/12);
-    back_left_.Set(
-        ctre::phoenix::motorcontrol::ControlMode::PercentOutput,
-        left.to<double>()/12);
-
-    front_right_.Set(
-        ctre::phoenix::motorcontrol::ControlMode::PercentOutput,
-        -(right.to<double>()/12));
-    back_right_.Set(
-        ctre::phoenix::motorcontrol::ControlMode::PercentOutput,
-        -(right.to<double>()/12));
+    drive_.TankDrive(left.to<double>()/12, right.to<double>()/12, false);
 }
 
 const frc::TrajectoryConfig& Drivetrain::GetTrajectoryConfig() {
@@ -104,4 +94,8 @@ void Drivetrain::SetTrajectoryReversed(bool reversed) {
 
 const frc::DifferentialDriveKinematics& Drivetrain::GetDriveKinematics() {
     return drive_kinematics;
+}
+
+void Drivetrain::SetupListeners() {
+    nerd::Preferences::GetInstance().AddPreference()
 }

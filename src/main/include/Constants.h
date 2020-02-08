@@ -19,6 +19,7 @@ constexpr int CAN_DRIVE_BACK_LEFT = 6;
 // Controller const
 constexpr int JOY_DRIVER = 0;
 constexpr int BUTTON_A = 1;
+constexpr int BUTTON_B = 2;
 
 // Axis ID
 constexpr int AXIS_LEFT_X = 0;
@@ -38,15 +39,15 @@ constexpr int DIO_ENCODER_RIGHT_A = 2;
 constexpr int DIO_ENCODER_RIGHT_B = 3;
 
 // Feedforward/Feedback Gains
-// Units are in inches
-constexpr auto KS = 0.688_V;
-constexpr auto KA = 0.00502 * 1_V * 1_s * 1_s / 1_m;
+// Units are in meters
+constexpr auto KS = 0.1_V;
+constexpr auto KA = 0 * 1_V * 1_s * 1_s / 1_m;
 constexpr auto KV = 0.0811 * 1_V * 1_s / 1_m;
-constexpr double KP_DRIVE_VELOCITY = 0.213;
-constexpr units::meter_t K_TRACK_WIDTH = 25.12_m;
-constexpr auto K_MAX_SPEED = 0.5_mps;
+constexpr double KP_DRIVE_VELOCITY = 0.05;
+constexpr units::meter_t K_TRACK_WIDTH = 0.638048_m;
+constexpr auto K_MAX_SPEED = 1_mps;
 constexpr auto K_MAX_ACCELERATION = 0.5_mps_sq;
-constexpr double K_RAMSETE_B = 78.7402;
-constexpr double K_RAMSETE_ZETA = 27.5591;
+constexpr double K_RAMSETE_B = 2;
+constexpr double K_RAMSETE_ZETA = 0.2;
 constexpr double K_ENCODER_DISTANCE_PER_PULSE = 3.14159 / 60;
 constexpr bool K_GYRO_REVERSED = false;

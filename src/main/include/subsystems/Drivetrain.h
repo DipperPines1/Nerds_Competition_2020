@@ -112,6 +112,8 @@ class Drivetrain : public frc2::SubsystemBase {
   const frc::DifferentialDriveKinematics& GetDriveKinematics();
 
  private:
+  void SetupListeners();
+
   ctre::phoenix::motorcontrol::can::WPI_VictorSPX front_left_;
   ctre::phoenix::motorcontrol::can::WPI_VictorSPX front_right_;
   ctre::phoenix::motorcontrol::can::WPI_VictorSPX back_left_;
