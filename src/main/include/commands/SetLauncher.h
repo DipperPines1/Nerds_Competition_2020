@@ -7,6 +7,7 @@
 
 #pragma once
 
+#include <frc/VictorSP.h>
 #include <frc2/command/CommandBase.h>
 #include <frc2/command/CommandHelper.h>
 

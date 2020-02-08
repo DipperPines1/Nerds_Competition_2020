@@ -5,26 +5,20 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
-#pragma once
+#include "commands/RunIntake.h"
 
-#include <frc2/command/CommandBase.h>
-#include <frc2/command/CommandHelper.h>
+RunIntake::RunIntake() {
+  // Use addRequirements() here to declare subsystem dependencies.
+}
 
-/** @brief change between high and low speed mode
- * 
- */
-class SpeedSwitch
-    : public frc2::CommandHelper<frc2::CommandBase, SpeedSwitch> {
- public:
-  SpeedSwitch();
+// Called when the command is initially scheduled.
+void RunIntake::Initialize() {}
 
-  void Initialize() override;
+// Called repeatedly when this Command is scheduled to run
+void RunIntake::Execute() {}
 
-  void Execute() override;
+// Called once the command ends or is interrupted.
+void RunIntake::End(bool interrupted) {}
 
-  void End(bool interrupted) override;
-
-  bool IsFinished() override;
- private:
-  void ConfigureButtonBindings();
-};
+// Returns true when the command should end.
+bool RunIntake::IsFinished() { return false; }

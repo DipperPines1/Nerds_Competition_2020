@@ -15,20 +15,29 @@
 #include "nerds/Preferences.h"
 
 Launcher::Launcher() :
- master_(CAN_LAUNCHER_MASTER, rev::CANSparkMax::MotorType::kBrushless),
- slave_(CAN_LAUNCHER_SLAVE, rev::CANSparkMax::MotorType::kBrushless)
+    shooter_(CAN_LAUNCHER_MASTER, rev::CANSparkMax::MotorType::kBrushless),
+    intake_(),
+    conveyor__();
 {
-    slave_.Follow(master_, false);
-
     SetupListeners();
 
-    double p = nerd::Preferences::GetInstance().GetPreference(LAUNCHER_CONTROLLER_P.key, LAUNCHER_CONTROLLER_P.value);
-    double i = nerd::Preferences::GetInstance().GetPreference(LAUNCHER_CONTROLLER_I.key, LAUNCHER_CONTROLLER_I.value);
-    double d = nerd::Preferences::GetInstance().GetPreference(LAUNCHER_CONTROLLER_D.key, LAUNCHER_CONTROLLER_D.value);
-    double max = nerd::Preferences::GetInstance().GetPreference(LAUNCHER_MAX_SPEED.key, LAUNCHER_MAX_SPEED.value);
-    double min = nerd::Preferences::GetInstance().GetPreference(LAUNCHER_MIN_SPEED.key, LAUNCHER_MIN_SPEED.value);
+    double p = nerd::Preferences::GetInstance().GetPreference(
+        LAUNCHER_CONTROLLER_P.key,
+        LAUNCHER_CONTROLLER_P.value);
+    double i = nerd::Preferences::GetInstance().GetPreference(
+        LAUNCHER_CONTROLLER_I.key,
+        LAUNCHER_CONTROLLER_I.value);
+    double d = nerd::Preferences::GetInstance().GetPreference(
+        LAUNCHER_CONTROLLER_D.key,
+        LAUNCHER_CONTROLLER_D.value);
+    double max = nerd::Preferences::GetInstance().GetPreference(
+        LAUNCHER_MAX_SPEED.key,
+        LAUNCHER_MAX_SPEED.value);
+    double min = nerd::Preferences::GetInstance().GetPreference(
+        LAUNCHER_MIN_SPEED.key,
+        LAUNCHER_MIN_SPEED.value);
 
-    rev::CANPIDController controller = master_.GetPIDController();
+    rev::CANPIDController controller = shooter_.GetPIDController();
 
     controller.SetP(p);
     controller.SetI(i);
@@ -39,9 +48,9 @@ Launcher::Launcher() :
 
 // This method will be called once per scheduler run
 void Launcher::Periodic() {}
- 
+
 void Launcher::SetLauncherSpeed(double speed) {
-    rev::CANPIDController controller = master_.GetPIDController();
+    rev::CANPIDController controller = shooter_.GetPIDController();
 
     controller.SetReference(speed, rev::ControlType::kSmartVelocity);
 }
@@ -56,9 +65,8 @@ void Launcher::SetupListeners() {
                 auto new_value,
                 int flag) -> void {
                     double value = new_value->GetDouble();
-                    this->master_.GetPIDController().SetP(value);
-                }
-    );
+                    this->shooter_.GetPIDController().SetP(value);
+                });
 
      nerd::Preferences::GetInstance().AddFunctionListener(
             LAUNCHER_CONTROLLER_I.key,
@@ -69,9 +77,8 @@ void Launcher::SetupListeners() {
                 auto new_value,
                 int flag) -> void {
                     double value = new_value->GetDouble();
-                    this->master_.GetPIDController().SetI(value);
-                }
-    );
+                    this->shooter_.GetPIDController().SetI(value);
+                });
 
      nerd::Preferences::GetInstance().AddFunctionListener(
             LAUNCHER_CONTROLLER_D.key,
@@ -82,9 +89,8 @@ void Launcher::SetupListeners() {
                 auto new_value,
                 int flag) -> void {
                     double value = new_value->GetDouble();
-                    this->master_.GetPIDController().SetD(value);
-                }
-    );
+                    this->shooter_.GetPIDController().SetD(value);
+                });
 
      nerd::Preferences::GetInstance().AddFunctionListener(
             LAUNCHER_MAX_SPEED.key,
@@ -95,9 +101,8 @@ void Launcher::SetupListeners() {
                 auto new_value,
                 int flag) -> void {
                     double value = new_value->GetDouble();
-                    this->master_.GetPIDController().SetSmartMotionMaxVelocity(value);
-                }
-    );
+                    this->shooter_.GetPIDController().SetSmartMotionMaxVelocity(value);
+                });
 
     nerd::Preferences::GetInstance().AddFunctionListener(
             LAUNCHER_MIN_SPEED.key,
@@ -108,7 +113,18 @@ void Launcher::SetupListeners() {
                 auto new_value,
                 int flag) -> void {
                     double value = new_value->GetDouble();
-                    this->master_.GetPIDController().SetSmartMotionMinOutputVelocity(value);
-                }
-    );
+                    this->shooter_.GetPIDController().SetSmartMotionMinOutputVelocity(value);
+                });
+
+     nerd::Preferences::GetInstance().AddFunctionListener(
+            LAUNCHER_CONVEYOR_SPEED.key,
+            [this] (
+                auto table,
+                auto name,
+                auto entry,
+                auto new_value,
+                int flag) -> void {
+                    double value = new_value->GetDouble();
+                    this->conveyor_.GetPIDController().GetDouble(value);
+                });
 }

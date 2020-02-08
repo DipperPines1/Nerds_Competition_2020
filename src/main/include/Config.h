@@ -65,6 +65,7 @@ const nerd::ConfigKey<bool> SWITCH_SPEED_PREFERENCES{
   false
 };
 
+// Launcher values
 const nerd::ConfigKey<double> LAUNCHER_CONTROLLER_P{
   "Launcher/Controller/P",
   0.1
@@ -87,5 +88,13 @@ const nerd::ConfigKey<double> LAUNCHER_MIN_SPEED{
 };
 const nerd::ConfigKey<double> LAUNCHER_CURRENT_SPEED{
   "Launcher/Current Speed",
+  5
+};
+const nerd::ConfigKey<double> LAUNCHER_INTAKE_SPEED{
+  "Launcher/Intake Speed",
+  5
+};
+const nerd::ConfigKey<double> LAUNCHER_CONVEYOR_SPEED{
+  "Launcher/Conveyor Speed",
   5
 };

@@ -7,6 +7,8 @@
 
 #pragma once
 
+#include <ctre::phoenix::motorcontrol::can::WPI_TalonSRX.h>
+#include <frc/VictorSP.h>
 #include <frc2/command/SubsystemBase.h>
 #include <rev/CANSparkMax.h>
 
@@ -18,12 +20,13 @@ class Launcher : public frc2::SubsystemBase {
    * Will be called periodically whenever the CommandScheduler runs.
    */
   void Periodic();
-  
+
   void SetLauncherSpeed(double speed);
 
  private:
   void SetupListeners();
 
-  rev::CANSparkMax master_;
-  rev::CANSparkMax slave_;
+  rev::CANSparkMax shooter_;
+  ctre::phoenix::motorcontrol::can::WPI_TalonSRX intake_;
+  frc::VictorSP conveyor_;
 };

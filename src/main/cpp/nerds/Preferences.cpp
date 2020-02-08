@@ -234,5 +234,5 @@ bool nerd::Preferences::GetPreference<bool>(std::string key, bool default_value)
         warning << "Key: " << key << " does not exist. (Bool)";
         frc::DriverStation::ReportWarning(warning.str());
         return default_value;
-    } 
-} 
+    }
+}
