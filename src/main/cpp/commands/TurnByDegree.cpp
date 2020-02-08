@@ -7,7 +7,11 @@
 
 #include "commands/TurnByDegree.h"
 
+#include <frc/smartdashboard/SmartDashboard.h>
+
+#include "Config.h"
 #include "subsystems/Drivetrain.h"
+#include "nerds/Preferences.h"
 
 TurnByDegree::TurnByDegree(double degree, Drivetrain* drivetrain)
   : drivetrain_(drivetrain),
@@ -20,15 +24,22 @@ TurnByDegree::TurnByDegree(double degree, Drivetrain* drivetrain)
   autonomous_turn_max_speed_ = new double(0);
   autonomous_turn_min_speed_ = new double (0);
 
+  SetupListeners();
+
   AddRequirements({drivetrain_});
 }
 
 // Called when the command is initially scheduled.
 void TurnByDegree::Initialize() {
-  target_heading_ = drivetrain_->GetHeading() + degrees_;
+  double target_heading = drivetrain_->GetHeading() + degrees_;
+  if (target_heading > 180) {
+    target_heading = -180 + std::fmod(target_heading, 180);
+  } else if (target_heading < -180) {
+    target_heading = 180 + std::fmod(target_heading, 180);
+  }
 
   PID_.SetPID(*p_, *i_, *d_);
-  PID_.SetSetpoint(target_heading_);
+  PID_.SetSetpoint(target_heading);
   PID_.SetTolerance(*autonomous_turn_tolerance_);
 }
 
@@ -37,6 +48,8 @@ void TurnByDegree::Execute() {
   double current_heading = drivetrain_->GetHeading();
 
   double turn = PID_.Calculate(current_heading);
+
+  frc::SmartDashboard::PutNumber("Turn/Output", turn);
 
   drivetrain_->ArcadeDrive(0, turn, false);
 }
@@ -50,4 +63,20 @@ void TurnByDegree::End(bool interrupted) {
 // Returns true when the command should end.
 bool TurnByDegree::IsFinished() {
   return PID_.AtSetpoint();
+}
+
+void TurnByDegree::SetupListeners() {
+  nerd::Preferences::GetInstance().AddListener(AUTO_TURN_P.key, p_);
+  nerd::Preferences::GetInstance().AddListener(AUTO_TURN_I.key, i_);
+  nerd::Preferences::GetInstance().AddListener(AUTO_TURN_P.key, p_);
+
+  nerd::Preferences::GetInstance().AddListener(
+    AUTONOMOUS_TURN_TOLERANCE.key,
+    autonomous_turn_tolerance_);
+  nerd::Preferences::GetInstance().AddListener(
+    AUTONOMOUS_TURN_MAX_SPEED.key,
+    autonomous_turn_max_speed_);
+  nerd::Preferences::GetInstance().AddListener(
+    AUTONOMOUS_TURN_MIN_SPEED.key,
+    autonomous_turn_min_speed_);
 }

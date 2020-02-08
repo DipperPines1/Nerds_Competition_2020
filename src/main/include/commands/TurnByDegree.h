@@ -35,7 +35,7 @@ class TurnByDegree
   bool IsFinished() override;
 
  private:
-  void SetupListener();
+  void SetupListeners();
 
   Drivetrain* drivetrain_;
 
@@ -52,5 +52,4 @@ class TurnByDegree
   double* autonomous_turn_min_speed_;
 
   double degrees_;
-  double target_heading_;
 };

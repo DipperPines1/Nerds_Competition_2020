@@ -15,7 +15,8 @@
 
 OI::OI() :
     driver_(JOY_DRIVER),
-    driver_A_(&driver_, BUTTON_A)
+    driver_A_(&driver_, BUTTON_A),
+    driver_B_(&driver_, BUTTON_B)
 {}
 
 // This method will be called once per scheduler run
@@ -26,10 +27,14 @@ double OI::GetAxis(int axis) {
 }
 
 void OI::BindCommandButton(int button, frc2::Command* command) {
-    switch(button){
+    switch (button) {
     case BUTTON_A:
         bound_commands_.push_back(command);
         driver_A_.WhenPressed(command, true);
+        return;
+    case BUTTON_B:
+        bound_commands_.push_back(command);
+        driver_B_.WhenPressed(command, true);
         return;
     default:
         std::stringstream warning;
