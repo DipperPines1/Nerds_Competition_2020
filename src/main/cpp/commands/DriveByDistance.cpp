@@ -52,11 +52,6 @@ void DriveByDistance::Initialize() {
 void DriveByDistance::Execute() {
   double current_heading = drivetrain_->GetHeading();
 
-  double turn = CalculateTurn(
-    initial_heading_,
-    current_heading,
-    *autonomous_turn_tolerance_);
-
   double current_distance = drivetrain_->AverageDistance();
 
   double slope = *autonomous_drive_max_speed_ / *autonomous_drive_acceleration_;
@@ -81,7 +76,22 @@ void DriveByDistance::Execute() {
 
   speed = std::min({initial_accel, final_accel, max}) * speed;
 
-  turn = PID_.Calculate(current_heading);
+  double output = PID_.Calculate(current_heading);
+
+  double turn;
+
+  if (PID_.AtSetpoint()) {
+    turn = 0;
+  } else {
+    double slope = *autonomous_turn_max_speed_ - *autonomous_turn_min_speed_;
+    turn = slope * std::fabs(output) + *autonomous_turn_min_speed_;
+
+    if (turn > *autonomous_turn_max_speed_) {
+      turn = *autonomous_turn_max_speed_;
+    }
+
+    turn *= output > 0 ? 1 : -1;
+  }
 
   drivetrain_->ArcadeDrive(speed, turn, false);
 }
@@ -99,27 +109,6 @@ bool DriveByDistance::IsFinished() {
     return true;
   }
   return false;
-}
-
-double DriveByDistance::CalculateTurn(double target_heading,
-    double current_heading, double tolerance) {
-  double offset = current_heading - target_heading;
-
-  if (std::fabs(offset) < tolerance) {
-    return 0;
-  }
-
-  if (offset > 180) {
-    return 0.4;
-  } else if (offset < -180) {
-    return -0.4;
-  } else if (offset < 0) {
-    return 0.4;
-  } else if (offset > 0) {
-    return -0.4;
-  } else {
-    return 0;
-  }
 }
 
 void DriveByDistance::SetupListeners() {

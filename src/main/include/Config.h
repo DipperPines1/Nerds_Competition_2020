@@ -110,4 +110,8 @@ const nerd::ConfigKey<double> AUTONOMOUS_TURN_MIN_SPEED {
   "Autonomous/Turn/Min Speed",
   0.25
 };
+const nerd::ConfigKey<double> AUTONOMOUS_TURN_TIME_ON_TARGET {
+  "Autonomous/Turn/Time on Target",
+  1
+};
 // End Autonomous Parameters

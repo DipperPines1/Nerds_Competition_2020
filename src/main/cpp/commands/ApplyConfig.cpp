@@ -107,6 +107,10 @@ void ApplyConfig::Initialize() {
     AUTONOMOUS_TURN_MIN_SPEED.key,
     AUTONOMOUS_TURN_MIN_SPEED.value,
     false);
+  nerd::Preferences::GetInstance().AddPreference(
+    AUTONOMOUS_TURN_TIME_ON_TARGET.key,
+    AUTONOMOUS_TURN_TIME_ON_TARGET.value,
+    false);
   // End Autonomous Parameters
   }
 

@@ -8,6 +8,7 @@
 #include "commands/TurnByDegree.h"
 
 #include <frc/smartdashboard/SmartDashboard.h>
+#include <units/units.h>
 
 #include "Config.h"
 #include "subsystems/Drivetrain.h"
@@ -16,10 +17,12 @@
 TurnByDegree::TurnByDegree(double degree, Drivetrain* drivetrain)
   : drivetrain_(drivetrain),
     PID_(0, 0, 0),
-    degrees_(degree) {
+    degrees_(degree),
+    timer_() {
   p_ = new double(0);
   i_ = new double(0);
   d_ = new double(0);
+  time_on_target_ = new double(0);
   autonomous_turn_tolerance_ = new double(0);
   autonomous_turn_max_speed_ = new double(0);
   autonomous_turn_min_speed_ = new double (0);
@@ -39,15 +42,33 @@ void TurnByDegree::Initialize() {
   }
 
   PID_.SetPID(*p_, *i_, *d_);
+  PID_.EnableContinuousInput(-180, 180);
   PID_.SetSetpoint(target_heading);
   PID_.SetTolerance(*autonomous_turn_tolerance_);
+
+  timer_.Reset();
+  running_ = false;
 }
 
 // Called repeatedly when this Command is scheduled to run
 void TurnByDegree::Execute() {
   double current_heading = drivetrain_->GetHeading();
 
-  double turn = PID_.Calculate(current_heading);
+  double output = PID_.Calculate(current_heading);
+
+  double turn;
+  if (PID_.AtSetpoint()) {
+    turn = 0;
+  } else {
+    double slope = *autonomous_turn_max_speed_ - *autonomous_turn_min_speed_;
+    turn = slope * std::fabs(output) + *autonomous_turn_min_speed_;
+
+    if (turn > *autonomous_turn_max_speed_) {
+      turn = *autonomous_turn_max_speed_;
+    }
+
+    turn *= output > 0 ? 1 : -1;
+  }
 
   frc::SmartDashboard::PutNumber("Turn/Output", turn);
 
@@ -62,13 +83,28 @@ void TurnByDegree::End(bool interrupted) {
 
 // Returns true when the command should end.
 bool TurnByDegree::IsFinished() {
-  return PID_.AtSetpoint();
+  if (PID_.AtSetpoint()) {
+    if (!running_) {
+      timer_.Start();
+      running_ = true;
+    } else {
+      return timer_.Get().to<double>() > *time_on_target_;
+    }
+  } else if (running_) {
+    timer_.Reset();
+    running_ = false;
+  }
+
+  return false;
 }
 
 void TurnByDegree::SetupListeners() {
   nerd::Preferences::GetInstance().AddListener(AUTO_TURN_P.key, p_);
   nerd::Preferences::GetInstance().AddListener(AUTO_TURN_I.key, i_);
-  nerd::Preferences::GetInstance().AddListener(AUTO_TURN_P.key, p_);
+  nerd::Preferences::GetInstance().AddListener(AUTO_TURN_D.key, d_);
+  nerd::Preferences::GetInstance().AddListener(
+    AUTONOMOUS_TURN_TIME_ON_TARGET.key,
+    time_on_target_);
 
   nerd::Preferences::GetInstance().AddListener(
     AUTONOMOUS_TURN_TOLERANCE.key,

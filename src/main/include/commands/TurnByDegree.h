@@ -11,6 +11,7 @@
 #include <frc2/command/CommandHelper.h>
 
 #include <frc/controller/PIDController.h>
+#include <frc2/Timer.h>
 
 class Drivetrain;
 
@@ -45,6 +46,7 @@ class TurnByDegree
   double* p_;
   double* i_;
   double* d_;
+  double* time_on_target_;
 
   // Parameter Listener Variables
   double* autonomous_turn_tolerance_;
@@ -52,4 +54,7 @@ class TurnByDegree
   double* autonomous_turn_min_speed_;
 
   double degrees_;
+
+  frc2::Timer timer_;
+  bool running_;
 };
