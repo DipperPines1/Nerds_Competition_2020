@@ -21,6 +21,8 @@
 
 #include "Constants.h"
 #include "commands/SpeedSwitch.h"
+#include "Config.h"
+#include "nerds/Preferences.h"
 
 RobotContainer::RobotContainer()
   : drivetrain_(),
@@ -28,7 +30,8 @@ RobotContainer::RobotContainer()
     apply_config_(),
     drive_joy_(&drivetrain_, &oi_) {
   ConfigureButtonBindings();
-
+  SetupListeners();
+  
   // Set default commands
   drivetrain_.SetDefaultCommand(drive_joy_);
 }
@@ -44,31 +47,72 @@ frc2::Command* RobotContainer::GetAutonomousCommand() {
 
 
 void RobotContainer::DriveThroughPath(
-  std::vector<frc::Translation2d> waypoints,
-  frc::Pose2d end_pose) {
+    frc::Pose2d initial_pose,
+    std::vector<frc::Translation2d> waypoints,
+    frc::Pose2d end_pose) {
+  frc::RamseteController controller(
+    *k_ramsete_b_,
+    *k_ramsete_zeta_);
+
+  auto ks = *feed_forward_ks_ * 1_V;
+  auto kv = *feed_forward_kv_ * 1_V * 1_s / 1_m;
+  auto ka = *feed_forward_ka_ * 1_V * 1_s * 1_s / 1_m;
+
+  frc::SimpleMotorFeedforward<units::meters> feed_forward(ks, kv, ka);
+
+  auto max_speed = *k_max_speed_ * 1_mps;
+  auto max_acceleration = *k_max_acceleration_ * 1_mps_sq;
+
+  frc::TrajectoryConfig trajectory_config(
+    max_speed,
+    max_acceleration);
+
+  frc::DifferentialDriveKinematics kinematics(K_TRACK_WIDTH);
+
+  trajectory_config.SetKinematics(kinematics);
+
   auto path = frc::TrajectoryGenerator::GenerateTrajectory(
-    drivetrain_.GetPose(),
+    initial_pose,
     waypoints,
     end_pose,
-    drivetrain_.GetTrajectoryConfig());
+    trajectory_config);
+
+  double max = *ramsete_max_speed_;
+  double min = *ramsete_min_speed_;
 
   autonomous_drive.reset(new frc2::RamseteCommand(
     path,
     [this]() {
       return drivetrain_.GetPose();
     },
-    frc::RamseteController(K_RAMSETE_B, K_RAMSETE_ZETA),
-    frc::SimpleMotorFeedforward<units::meters>(KS, KV, KA),
-    drivetrain_.GetDriveKinematics(),
+    controller,
+    feed_forward,
+    kinematics,
     [this] {
       return drivetrain_.WheelSpeed();
     },
-    frc2::PIDController(KP_DRIVE_VELOCITY, 0.0, 0.0),
-    frc2::PIDController(KP_DRIVE_VELOCITY, 0.0, 0.0),
-    [this](units::volt_t left, units::volt_t right) {
+    frc2::PIDController(*kp_drive_velocity_, 0.0, 0.0),
+    frc2::PIDController(*kp_drive_velocity_, 0.0, 0.0),
+    [this, max, min](units::volt_t left, units::volt_t right) {
+      double left_input = left.to<double>()/12;
+      double right_input = right.to<double>()/12;
+
+      double left_speed = (max - min) * std::fabs(left_input) + min;
+      double right_speed = (max - min) * std::fabs(right_input) + min;
+
+      if (left_speed > max) {
+          left_speed = max;
+      }
+      if (right_speed > max) {
+          right_speed = max;
+      }
+
+      left_speed *= left_input > 0 ? 1 : -1;
+      right_speed *= right_input > 0 ? 1 : -1;
+
       frc::SmartDashboard::PutNumber("Ramsete/left", left.to<double>());
       frc::SmartDashboard::PutNumber("Ramsete/right", right.to<double>());
-      drivetrain_.TankDriveVolts(left, right);
+      drivetrain_.TankDrive(left_speed, right_speed);
     },
     {&drivetrain_}));
 
@@ -82,4 +126,47 @@ void RobotContainer::StopAutoDrive() {
 
 frc::Pose2d RobotContainer::GetPose() {
   return drivetrain_.GetPose();
+}
+
+void RobotContainer::SetupListeners() {
+  feed_forward_ks_ = new double(0);
+  nerd::Preferences::GetInstance().AddListener(
+    FEEDFORWARD_KS.key,
+    feed_forward_ks_);
+  feed_forward_ka_ = new double(0);
+  nerd::Preferences::GetInstance().AddListener(
+    FEEDFORWARD_KA.key,
+    feed_forward_ka_);
+  feed_forward_kv_ = new double(0);
+  nerd::Preferences::GetInstance().AddListener(
+    FEEDFORWARD_KV.key,
+    feed_forward_kv_);
+  kp_drive_velocity_ = new double(0);
+  nerd::Preferences::GetInstance().AddListener(
+    KP_DRIVE_VELOCITY.key,
+    kp_drive_velocity_);
+  k_max_speed_ = new double(0);
+  nerd::Preferences::GetInstance().AddListener(
+    K_MAX_SPEED.key,
+    k_max_speed_);
+  k_max_acceleration_ = new double(0);
+  nerd::Preferences::GetInstance().AddListener(
+    K_MAX_ACCELERATION.key,
+    k_max_acceleration_);
+  k_ramsete_b_ = new double(0);
+  nerd::Preferences::GetInstance().AddListener(
+    K_RAMSETE_B.key,
+    k_ramsete_b_);
+  k_ramsete_zeta_ = new double(0);
+  nerd::Preferences::GetInstance().AddListener(
+    K_RAMSETE_ZETA.key,
+    k_ramsete_zeta_);
+  ramsete_max_speed_ = new double(0);
+  nerd::Preferences::GetInstance().AddListener(
+    RAMSETE_DRIVE_MAX_SPEED.key,
+    ramsete_max_speed_);
+  ramsete_min_speed_ = new double(0);
+  nerd::Preferences::GetInstance().AddListener(
+    RAMSETE_DRIVE_MIN_SPEED.key,
+    ramsete_min_speed_);
 }

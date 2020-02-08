@@ -12,6 +12,7 @@
 #include <frc/geometry/Rotation2D.h>
 #include <frc/trajectory/constraint/DifferentialDriveVoltageConstraint.h>
 #include <frc/trajectory/TrajectoryConfig.h>
+#include <frc/smartdashboard/SmartDashboard.h>
 
 #include "Constants.h"
 
@@ -26,29 +27,26 @@ Drivetrain::Drivetrain() :
     gyro(frc::SerialPort::Port::kUSB1),
     encoder_left(DIO_ENCODER_LEFT_A, DIO_ENCODER_LEFT_B, false),
     encoder_right(DIO_ENCODER_RIGHT_A, DIO_ENCODER_RIGHT_B, true),
-    odometry({units::degree_t(gyro.GetYaw())}),
-    drive_kinematics(K_TRACK_WIDTH),
-    simple_motor_feedforward(KS, KV, KA),
-    voltage_constraint(simple_motor_feedforward, drive_kinematics, 10_V),
-    trajectory_config(K_MAX_SPEED, K_MAX_ACCELERATION)
+    odometry({units::degree_t(gyro.GetYaw())})
 {
     encoder_left.SetDistancePerPulse(K_ENCODER_DISTANCE_PER_PULSE);
     encoder_right.SetDistancePerPulse(K_ENCODER_DISTANCE_PER_PULSE);
 
     encoder_left.SetReverseDirection(true);
-    encoder_right.SetReverseDirection(true);
-
-    trajectory_config.SetKinematics(drive_kinematics);
-
-
+    encoder_right.SetReverseDirection(false);
 }
 
 // This method will be called once per scheduler run
 void Drivetrain::Periodic() {
+    double heading = gyro.GetAngle();
+    frc::Rotation2d heading_update(units::degree_t(std::remainder(heading, 360)));
+
+    frc::SmartDashboard::PutNumber("Odometry/Heading", std::remainder(heading, 360));
+
     odometry.Update(
-        frc::Rotation2d(units::degree_t(GetHeading())),
-        units::inch_t(GetDistanceLeft()),
-        units::inch_t(GetDistanceRight()));
+        heading_update,
+        units::meter_t(GetDistanceLeft() / 39.3701),
+        units::meter_t(GetDistanceRight() / 39.3701));
 }
 
 void Drivetrain::ArcadeDrive(double speed, double turn, bool squared) {
@@ -68,34 +66,22 @@ double Drivetrain::AverageDistance() {
 }
 
 frc::DifferentialDriveWheelSpeeds Drivetrain::WheelSpeed() {
-    return {units::meters_per_second_t(encoder_left.GetRate()),
-        units::meters_per_second_t(encoder_right.GetRate())};
+    double left_rate = encoder_left.GetRate();
+    double right_rate = encoder_right.GetRate();
+
+    return {units::meters_per_second_t(left_rate / 39.3701),
+        units::meters_per_second_t(right_rate / 39.3701)};
 }
 
 double Drivetrain::GetHeading() {
-  return std::remainder(gyro.GetAngle(), 360) * (K_GYRO_REVERSED ? -1.0 : 1.0);
+  return gyro.GetYaw();
+
 }
 
 frc::Pose2d Drivetrain::GetPose() {
     return odometry.GetPose();
 }
 
-void Drivetrain::TankDriveVolts(units::volt_t left, units::volt_t right) {
-    drive_.TankDrive(left.to<double>()/12, right.to<double>()/12, false);
-}
-
-const frc::TrajectoryConfig& Drivetrain::GetTrajectoryConfig() {
-    return trajectory_config;
-}
-
-void Drivetrain::SetTrajectoryReversed(bool reversed) {
-    trajectory_config.SetReversed(reversed);
-}
-
-const frc::DifferentialDriveKinematics& Drivetrain::GetDriveKinematics() {
-    return drive_kinematics;
-}
-
-void Drivetrain::SetupListeners() {
-    nerd::Preferences::GetInstance().AddPreference()
+void Drivetrain::TankDrive(double left, double right) {
+    drive_.TankDrive(left, right, false);
 }

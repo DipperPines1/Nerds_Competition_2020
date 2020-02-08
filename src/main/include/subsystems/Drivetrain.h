@@ -82,34 +82,13 @@ class Drivetrain : public frc2::SubsystemBase {
   frc::Pose2d GetPose();
 
   /**
-   * @brief Sets the voltage on both motors
+   * @brief Drives the robot using Tank controls
    * 
-   * @param left The left motors
+   * @param left The left motor speed
    * 
-   * @param right The right motors
+   * @param right The right motor speed
    */
-  void TankDriveVolts(units::volt_t left, units::volt_t right);
-
-  /**
-   * @brief Gets the Trajectory Config object
-   * 
-   * @return frc::TrajectoryConfig 
-   */
-  const frc::TrajectoryConfig& GetTrajectoryConfig();
-
-/**
- * @brief Makes the Trajectory reversed or not
- * 
- * @param reversed 
- */
-  void SetTrajectoryReversed(bool reversed);
-
-/**
- * @brief Get the Drive Kinematics object
- * 
- * @return const frc::DifferentialDriveKinematics& 
- */
-  const frc::DifferentialDriveKinematics& GetDriveKinematics();
+  void TankDrive(double left, double right);
 
  private:
   void SetupListeners();
@@ -130,9 +109,4 @@ class Drivetrain : public frc2::SubsystemBase {
   frc::Encoder encoder_right;
 
   frc::DifferentialDriveOdometry odometry;
-
-  frc::DifferentialDriveKinematics drive_kinematics;
-  frc::SimpleMotorFeedforward<units::meters> simple_motor_feedforward;
-  frc::DifferentialDriveVoltageConstraint voltage_constraint;
-  frc::TrajectoryConfig trajectory_config;
 };

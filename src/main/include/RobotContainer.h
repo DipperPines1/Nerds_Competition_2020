@@ -37,7 +37,7 @@ class RobotContainer {
    * 
    * @param path The path the robot will attempt to automatically drive through
    */
-  void DriveThroughPath(std::vector<frc::Translation2d> waypoints, frc::Pose2d end_pose);
+  void DriveThroughPath(frc::Pose2d initial_pose, std::vector<frc::Translation2d> waypoints, frc::Pose2d end_pose);
 
   /**
    * @brief Stop the robot's current autonomous driving command
@@ -60,7 +60,8 @@ class RobotContainer {
   frc::DifferentialDriveVoltageConstraint autoVoltageConstraint();
   
  private:
-  // The robot's subsystems and commands are defined here...
+  void SetupListeners();
+
   Drivetrain drivetrain_;
   OI oi_;
 
@@ -68,6 +69,18 @@ class RobotContainer {
   DriveJoystick drive_joy_;
 
   std::shared_ptr<frc2::RamseteCommand> autonomous_drive;
+
+  // Ramsete Listener Pointers
+  double* feed_forward_ks_;
+  double* feed_forward_ka_;
+  double* feed_forward_kv_;
+  double* kp_drive_velocity_;
+  double* k_max_speed_;
+  double* k_max_acceleration_;
+  double* k_ramsete_b_;
+  double* k_ramsete_zeta_;
+  double* ramsete_max_speed_;
+  double* ramsete_min_speed_;
 
   void ConfigureButtonBindings();
 };

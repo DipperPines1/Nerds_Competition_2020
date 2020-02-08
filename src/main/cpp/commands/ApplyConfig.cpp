@@ -16,6 +16,7 @@ ApplyConfig::ApplyConfig() {
 
 // Called when the command is initially scheduled.
 void ApplyConfig::Initialize() {
+  // Joysticks
   nerd::Preferences::GetInstance().AddPreference(
     JOYSTICK_DRIVE_MAX_HIGH.key,
     JOYSTICK_DRIVE_MAX_HIGH.value,
@@ -60,7 +61,50 @@ void ApplyConfig::Initialize() {
     SWITCH_SPEED_PREFERENCES.key,
     SWITCH_SPEED_PREFERENCES.value,
     false);
- 
+  // end Joysticks
+
+  // Ramsete
+  nerd::Preferences::GetInstance().AddPreference(
+    FEEDFORWARD_KS.key,
+    FEEDFORWARD_KS.value,
+    false);
+  nerd::Preferences::GetInstance().AddPreference(
+    FEEDFORWARD_KA.key,
+    FEEDFORWARD_KA.value,
+    false);
+  nerd::Preferences::GetInstance().AddPreference(
+    FEEDFORWARD_KV.key,
+    FEEDFORWARD_KV.value,
+    false);
+  nerd::Preferences::GetInstance().AddPreference(
+    KP_DRIVE_VELOCITY.key,
+    KP_DRIVE_VELOCITY.value,
+    false);
+  nerd::Preferences::GetInstance().AddPreference(
+    K_MAX_SPEED.key,
+    K_MAX_SPEED.value,
+    false);
+  nerd::Preferences::GetInstance().AddPreference(
+    K_MAX_ACCELERATION.key,
+    K_MAX_ACCELERATION.value,
+    false);
+  nerd::Preferences::GetInstance().AddPreference(
+    K_RAMSETE_B.key,
+    K_RAMSETE_B.value,
+    false);
+  nerd::Preferences::GetInstance().AddPreference(
+    K_RAMSETE_ZETA.key,
+    K_RAMSETE_ZETA.value,
+    false);
+  nerd::Preferences::GetInstance().AddPreference(
+    RAMSETE_DRIVE_MAX_SPEED.key,
+    RAMSETE_DRIVE_MAX_SPEED.value,
+    false);
+  nerd::Preferences::GetInstance().AddPreference(
+    RAMSETE_DRIVE_MIN_SPEED.key,
+    RAMSETE_DRIVE_MIN_SPEED.value,
+    false);
+  // end Ramsete
 }
 
 // Called repeatedly when this Command is scheduled to run

@@ -83,26 +83,37 @@ const nerd::ConfigKey<double> FEEDFORWARD_KV {
 };
 
 const nerd::ConfigKey<double> KP_DRIVE_VELOCITY {
-  "Ramsete/KP DRIVE VELOCITY",
+  "Ramsete/Drive/Velocity",
   0.05
 };
 
 const nerd::ConfigKey<double> K_MAX_SPEED {
-  "Ramsete/MAX SPEED",
+  "Ramsete/Trajectory/Max Speed",
   1
 };
 
 const nerd::ConfigKey<double> K_MAX_ACCELERATION {
-  "Ramsete/K_MAX_ACCELERATION",
+  "Ramsete/Trajectory/Max Acceleration",
   0.5
 };
 
 const nerd::ConfigKey<double> K_RAMSETE_B {
-  "Ramsete/K_RAMSETE_B",
+  "Ramsete/Controller/B",
   2
 };
 
 const nerd::ConfigKey<double> K_RAMSETE_ZETA {
-  "Ramsete/K_RAMSETE_ZETA",
+  "Ramsete/Controller/Zeta",
   0.2
 };
+
+const nerd::ConfigKey<double> RAMSETE_DRIVE_MAX_SPEED {
+  "Ramsete/Drive/Max Speed",
+  0.85
+};
+
+const nerd::ConfigKey<double> RAMSETE_DRIVE_MIN_SPEED {
+  "Ramsete/Drive/Min Speed",
+  0.25
+};
+// end Ramsete
