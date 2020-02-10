@@ -26,7 +26,8 @@ RobotContainer::RobotContainer()
 void RobotContainer::ConfigureButtonBindings() {
   frc::SmartDashboard::PutData("Commands/Load Config", &apply_config_);
 
-  oi_.BindCommandButton(BUTTON_A, new SpeedSwitch());
+  oi_.BindCommandButton(BUTTON_A, new DriveByDistance(120, &drivetrain_));
+  oi_.BindCommandButton(BUTTON_B, new TurnByDegree(90, &drivetrain_));
 }
 frc2::Command* RobotContainer::GetAutonomousCommand() {
   // An example command will be run in autonomous

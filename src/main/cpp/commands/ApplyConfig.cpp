@@ -16,6 +16,7 @@ ApplyConfig::ApplyConfig() {
 
 // Called when the command is initially scheduled.
 void ApplyConfig::Initialize() {
+  // Joysticks
   nerd::Preferences::GetInstance().AddPreference(
     JOYSTICK_DRIVE_MAX_HIGH.key,
     JOYSTICK_DRIVE_MAX_HIGH.value,
@@ -60,8 +61,58 @@ void ApplyConfig::Initialize() {
     SWITCH_SPEED_PREFERENCES.key,
     SWITCH_SPEED_PREFERENCES.value,
     false);
- 
-}
+  // End Joysticks
+
+  // Autonomous PID
+  nerd::Preferences::GetInstance().AddPreference(
+    AUTO_TURN_P.key,
+    AUTO_TURN_P.value,
+    false);
+  nerd::Preferences::GetInstance().AddPreference(
+    AUTO_TURN_I.key,
+    AUTO_TURN_I.value,
+    false);
+  nerd::Preferences::GetInstance().AddPreference(
+    AUTO_TURN_D.key,
+    AUTO_TURN_D.value,
+    false);
+  // End Autonomous PID
+
+  // Autonomous Preferences
+  nerd::Preferences::GetInstance().AddPreference(
+    AUTONOMOUS_DRIVE_TOLERANCE.key,
+    AUTONOMOUS_DRIVE_TOLERANCE.value,
+    false);
+  nerd::Preferences::GetInstance().AddPreference(
+    AUTONOMOUS_DRIVE_ACCELERATION.key,
+    AUTONOMOUS_DRIVE_ACCELERATION.value,
+    false);
+  nerd::Preferences::GetInstance().AddPreference(
+    AUTONOMOUS_DRIVE_MAX_SPEED.key,
+    AUTONOMOUS_DRIVE_MAX_SPEED.value,
+    false);
+  nerd::Preferences::GetInstance().AddPreference(
+    AUTONOMOUS_DRIVE_MIN_SPEED.key,
+    AUTONOMOUS_DRIVE_MIN_SPEED.value,
+    false);
+  nerd::Preferences::GetInstance().AddPreference(
+    AUTONOMOUS_TURN_TOLERANCE.key,
+    AUTONOMOUS_TURN_TOLERANCE.value,
+    false);
+  nerd::Preferences::GetInstance().AddPreference(
+    AUTONOMOUS_TURN_MAX_SPEED.key,
+    AUTONOMOUS_TURN_MAX_SPEED.value,
+    false);
+  nerd::Preferences::GetInstance().AddPreference(
+    AUTONOMOUS_TURN_MIN_SPEED.key,
+    AUTONOMOUS_TURN_MIN_SPEED.value,
+    false);
+  nerd::Preferences::GetInstance().AddPreference(
+    AUTONOMOUS_TURN_TIME_ON_TARGET.key,
+    AUTONOMOUS_TURN_TIME_ON_TARGET.value,
+    false);
+  // End Autonomous Parameters
+  }
 
 // Called repeatedly when this Command is scheduled to run
 void ApplyConfig::Execute() {}

@@ -7,10 +7,13 @@
 
 #pragma once
 
+#include <frc/smartdashboard/SmartDashboard.h>
 #include <frc2/command/Command.h>
 
 #include "commands/ApplyConfig.h"
+#include "commands/DriveByDistance.h"
 #include "commands/DriveJoystick.h"
+#include "commands/TurnByDegree.h"
 #include "subsystems/Drivetrain.h"
 #include "subsystems/OI.h"
 
