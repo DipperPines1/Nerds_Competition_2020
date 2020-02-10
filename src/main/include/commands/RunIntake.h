@@ -33,5 +33,5 @@ class RunIntake
   bool IsFinished() override;
 
  private:
-  
+  Launcher* launcher_;
 };

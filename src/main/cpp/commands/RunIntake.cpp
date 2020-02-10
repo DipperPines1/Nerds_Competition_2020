@@ -7,8 +7,12 @@
 
 #include "commands/RunIntake.h"
 
-RunIntake::RunIntake() {
+#include "subsystems/Launcher.h"
+
+RunIntake::RunIntake(launcher* launcher) :
+launcher_(launcher) {
   // Use addRequirements() here to declare subsystem dependencies.
+  AddRequirements()
 }
 
 // Called when the command is initially scheduled.
