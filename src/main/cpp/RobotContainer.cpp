@@ -11,6 +11,7 @@
 
 #include "Constants.h"
 #include "commands/SpeedSwitch.h"
+#include "commands/AlignWithTarget.h"
 
 RobotContainer::RobotContainer()
   : drivetrain_(),
@@ -27,7 +28,7 @@ void RobotContainer::ConfigureButtonBindings() {
   frc::SmartDashboard::PutData("Commands/Load Config", &apply_config_);
 
   oi_.BindCommandButton(BUTTON_A, new DriveByDistance(120, &drivetrain_));
-  oi_.BindCommandButton(BUTTON_B, new TurnByDegree(90, &drivetrain_));
+  oi_.BindCommandButton(BUTTON_B, new AlignWithTarget(&drivetrain_));
 }
 frc2::Command* RobotContainer::GetAutonomousCommand() {
   // An example command will be run in autonomous

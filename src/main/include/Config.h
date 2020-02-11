@@ -115,3 +115,14 @@ const nerd::ConfigKey<double> AUTONOMOUS_TURN_TIME_ON_TARGET {
   1
 };
 // End Autonomous Parameters
+
+// Start Of Vision Parameters
+const nerd::ConfigKey<double> VISION_CENTER_X {
+  "Vision/Center/X",
+  0
+};
+const nerd::ConfigKey<double> VISION_CENTER_Y {
+  "Vision/Center/Y",
+  0
+};
+// End Vision Parameters
