@@ -7,7 +7,7 @@
 
 #pragma once
 
-#include <ctre::phoenix::motorcontrol::can::WPI_TalonSRX.h>
+#include <ctre/phoenix/motorcontrol/can/WPI_TalonSRX.h>
 #include <frc/VictorSP.h>
 #include <frc2/command/SubsystemBase.h>
 #include <rev/CANSparkMax.h>
@@ -22,6 +22,8 @@ class Launcher : public frc2::SubsystemBase {
   void Periodic();
 
   void SetLauncherSpeed(double speed);
+  void RunIntake(double speed);
+  void RunConveyor(double speed);
 
  private:
   void SetupListeners();

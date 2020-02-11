@@ -5,20 +5,33 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
-#include "commands/SetConveyorSpeed.h"
+#include "commands/SetConveyor.h"
 
-SetConveyorSpeed::SetConveyorSpeed() {
+#include "Config.h"
+#include "nerds/Preferences.h"
+#include "subsystems/Launcher.h"
+
+SetConveyor::SetConveyor(Launcher* launcher) :
+  launcher_(launcher) {
   // Use addRequirements() here to declare subsystem dependencies.
+  AddRequirements({launcher_});
 }
 
 // Called when the command is initially scheduled.
-void SetConveyorSpeed::Initialize() {}
+void SetConveyor::Initialize() {}
 
 // Called repeatedly when this Command is scheduled to run
-void SetConveyorSpeed::Execute() {}
+void SetConveyor::Execute() {
+  double speed = nerd::Preferences::GetInstance().GetPreference(
+    LAUNCHER_CONVEYOR_SPEED.key,
+    LAUNCHER_CONVEYOR_SPEED.value);
+  launcher_->RunConveyor(speed);
+}
 
 // Called once the command ends or is interrupted.
-void SetConveyorSpeed::End(bool interrupted) {}
+void SetConveyor::End(bool interrupted) {
+  launcher_->RunConveyor(0);
+}
 
 // Returns true when the command should end.
-bool SetConveyorSpeed::IsFinished() { return false; }
+bool SetConveyor::IsFinished() { return true; }

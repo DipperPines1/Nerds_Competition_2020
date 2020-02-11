@@ -10,6 +10,8 @@
 #include <frc2/command/CommandBase.h>
 #include <frc2/command/CommandHelper.h>
 
+class Launcher;
+
 /**
  * An example command.
  *
@@ -17,10 +19,10 @@
  * directly; this is crucially important, or else the decorator functions in
  * Command will *not* work!
  */
-class SetConveyorSpeed
-    : public frc2::CommandHelper<frc2::CommandBase, SetConveyorSpeed> {
+class SetConveyor
+    : public frc2::CommandHelper<frc2::CommandBase, SetConveyor> {
  public:
-  SetConveyorSpeed();
+  SetConveyor(Launcher* launcher);
 
   void Initialize() override;
 
@@ -29,4 +31,7 @@ class SetConveyorSpeed
   void End(bool interrupted) override;
 
   bool IsFinished() override;
+
+ private:
+ Launcher* launcher_;
 };

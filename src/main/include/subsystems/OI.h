@@ -40,11 +40,18 @@ class OI : public frc2::SubsystemBase {
    * @param command The command which will run when the button is pressed
    */
   void BindCommandButton(int button, frc2::Command* command);
+  void BindCommandTrigger(int trigger, frc2::Command* command);
 
  private:
   frc::Joystick driver_;
   frc2::JoystickButton driver_A_;
   frc2::JoystickButton driver_B_;
+  frc2::JoystickButton driver_X_;
+  frc2::JoystickButton driver_Y_;
+  frc2::JoystickButton driver_LB_;
+  frc2::JoystickButton driver_RB_;
+  frc2::Trigger trigger_left_;
+  frc2::Trigger trigger_right_;
 
   std::vector<frc2::Command*> bound_commands_;
 };

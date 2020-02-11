@@ -33,7 +33,7 @@ class RobotContainer {
   Drivetrain drivetrain_;
   Launcher launcher_;
   OI oi_;
-  
+
   ApplyConfig apply_config_;
   DriveJoystick drive_joy_;
 

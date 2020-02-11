@@ -21,7 +21,9 @@ SetLauncher::SetLauncher(Launcher* launcher) :
 
 // Called when the command is initially scheduled.
 void SetLauncher::Initialize() {
-  double speed = nerd::Preferences::GetInstance().GetPreference(LAUNCHER_CURRENT_SPEED.key, LAUNCHER_CURRENT_SPEED.value);
+  double speed = nerd::Preferences::GetInstance().GetPreference(
+    LAUNCHER_CURRENT_SPEED.key,
+    LAUNCHER_CURRENT_SPEED.value);
   launcher_->SetLauncherSpeed(speed);
 }
 

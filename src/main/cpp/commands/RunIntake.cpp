@@ -7,22 +7,31 @@
 
 #include "commands/RunIntake.h"
 
+#include "Config.h"
+#include "nerds/Preferences.h"
 #include "subsystems/Launcher.h"
 
-RunIntake::RunIntake(launcher* launcher) :
+RunIntake::RunIntake(Launcher* launcher) :
 launcher_(launcher) {
   // Use addRequirements() here to declare subsystem dependencies.
-  AddRequirements()
+  AddRequirements({launcher_});
 }
 
 // Called when the command is initially scheduled.
 void RunIntake::Initialize() {}
 
 // Called repeatedly when this Command is scheduled to run
-void RunIntake::Execute() {}
+void RunIntake::Execute() {
+  double speed = nerd::Preferences::GetInstance().GetPreference(
+    LAUNCHER_INTAKE_SPEED.key,
+    LAUNCHER_INTAKE_SPEED.value);
+  launcher_->RunIntake(speed);
+}
 
 // Called once the command ends or is interrupted.
-void RunIntake::End(bool interrupted) {}
+void RunIntake::End(bool interrupted) {
+  launcher_->RunIntake(0);
+}
 
 // Returns true when the command should end.
-bool RunIntake::IsFinished() { return false; }
+bool RunIntake::IsFinished() { return true; }

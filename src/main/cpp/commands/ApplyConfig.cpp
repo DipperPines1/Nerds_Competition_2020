@@ -16,6 +16,7 @@ ApplyConfig::ApplyConfig() {
 
 // Called when the command is initially scheduled.
 void ApplyConfig::Initialize() {
+  // Joysticks
   nerd::Preferences::GetInstance().AddPreference(
     JOYSTICK_DRIVE_MAX_HIGH.key,
     JOYSTICK_DRIVE_MAX_HIGH.value,
@@ -60,6 +61,9 @@ void ApplyConfig::Initialize() {
     SWITCH_SPEED_PREFERENCES.key,
     SWITCH_SPEED_PREFERENCES.value,
     false);
+  // End Joysticks
+
+  // Launcher
   nerd::Preferences::GetInstance().AddPreference(
     LAUNCHER_CONTROLLER_P.key,
     LAUNCHER_CONTROLLER_P.value,
@@ -84,6 +88,15 @@ void ApplyConfig::Initialize() {
     LAUNCHER_CURRENT_SPEED.key,
     LAUNCHER_CURRENT_SPEED.value,
     false);
+  nerd::Preferences::GetInstance().AddPreference(
+    LAUNCHER_CONVEYOR_SPEED.key,
+    LAUNCHER_CONVEYOR_SPEED.value,
+    false);
+  nerd::Preferences::GetInstance().AddPreference(
+    LAUNCHER_INTAKE_SPEED.key,
+    LAUNCHER_INTAKE_SPEED.value,
+    false);
+  // End Launcher
 }
 
 // Called repeatedly when this Command is scheduled to run

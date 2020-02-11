@@ -22,7 +22,7 @@ class Launcher;
 class RunIntake
     : public frc2::CommandHelper<frc2::CommandBase, RunIntake> {
  public:
-  RunIntake();
+  RunIntake(Launcher* launcher);
 
   void Initialize() override;
 

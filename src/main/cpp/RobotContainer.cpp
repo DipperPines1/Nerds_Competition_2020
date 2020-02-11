@@ -10,7 +10,9 @@
 #include <frc/smartdashboard/SmartDashboard.h>
 
 #include "Constants.h"
+#include "commands/RunIntake.h"
 #include "commands/SetLauncher.h"
+#include "commands/SetConveyor.h"
 #include "commands/SpeedSwitch.h"
 
 
@@ -30,7 +32,9 @@ void RobotContainer::ConfigureButtonBindings() {
   frc::SmartDashboard::PutData("Commands/Load Config", &apply_config_);
 
   oi_.BindCommandButton(BUTTON_A, new SpeedSwitch());
-  oi_.BindCommandButton(BUTTON_B, new SetLauncher(&launcher_));
+  oi_.BindCommandTrigger(TRIGGER_RIGHT, new SetLauncher(&launcher_));
+  oi_.BindCommandButton(BUTTON_LB, new RunIntake(&launcher_));
+  oi_.BindCommandTrigger(TRIGGER_LEFT, new SetConveyor(&launcher_));
 }
 frc2::Command* RobotContainer::GetAutonomousCommand() {
   // An example command will be run in autonomous
