@@ -14,7 +14,7 @@
 RunIntake::RunIntake(Launcher* launcher) :
 launcher_(launcher) {
   // Use addRequirements() here to declare subsystem dependencies.
-  AddRequirements({launcher_});
+  //AddRequirements({launcher_});
 }
 
 // Called when the command is initially scheduled.
@@ -34,4 +34,4 @@ void RunIntake::End(bool interrupted) {
 }
 
 // Returns true when the command should end.
-bool RunIntake::IsFinished() { return true; }
+bool RunIntake::IsFinished() { return false; }

@@ -58,7 +58,11 @@ void OI::BindCommandButton(int button, frc2::Command* command) {
         return;
     case BUTTON_LB:
         bound_commands_.push_back(command);
-        driver_LB_.WhileHeld(command, true);
+        driver_LB_.WhenHeld(command, true);
+        return;
+    case BUTTON_RB:
+        bound_commands_.push_back(command);
+        driver_RB_.WhenHeld(command, true);
         return;
     default:
         std::stringstream warning;
@@ -71,11 +75,11 @@ void OI::BindCommandTrigger(int trigger, frc2::Command* command) {
     switch (trigger) {
     case TRIGGER_LEFT:
         bound_commands_.push_back(command);
-        trigger_left_.WhileActiveContinous(command, true);
+        trigger_left_.WhenHeld(command, true);
         return;
     case TRIGGER_RIGHT:
         bound_commands_.push_back(command);
-        trigger_right_.WhileActiveContinous(command, true);
+        trigger_right_.WhenHeld(command, true);
     return;
     default:
         std::stringstream warning;

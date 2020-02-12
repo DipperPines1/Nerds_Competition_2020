@@ -16,22 +16,26 @@ SetLauncher::SetLauncher(Launcher* launcher) :
   launcher_(launcher)
 {
   // Use addRequirements() here to declare subsystem dependencies.
-  AddRequirements({launcher});
+  // AddRequirements({launcher});
 }
 
 // Called when the command is initially scheduled.
-void SetLauncher::Initialize() {
+void SetLauncher::Initialize() {}
+
+// Called repeatedly when this Command is scheduled to run
+void SetLauncher::Execute() { 
   double speed = nerd::Preferences::GetInstance().GetPreference(
     LAUNCHER_CURRENT_SPEED.key,
     LAUNCHER_CURRENT_SPEED.value);
   launcher_->SetLauncherSpeed(speed);
+  std::cout << "Start Launcher" << std::endl;
 }
 
-// Called repeatedly when this Command is scheduled to run
-void SetLauncher::Execute() {}
-
 // Called once the command ends or is interrupted.
-void SetLauncher::End(bool interrupted) {}
+void SetLauncher::End(bool interrupted) {
+  launcher_->SetLauncherSpeed(0);
+  std::cout << "End Launcher" << std::endl;
+}
 
 // Returns true when the command should end.
-bool SetLauncher::IsFinished() { return true; }
+bool SetLauncher::IsFinished() { return false; }

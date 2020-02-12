@@ -7,6 +7,7 @@
 
 #include "subsystems/Launcher.h"
 
+#include <frc/smartdashboard/SmartDashboard.h>
 #include <rev/CANPIDController.h>
 #include <rev/ControlType.h>
 
@@ -41,17 +42,25 @@ Launcher::Launcher() :
   controller.SetP(p);
   controller.SetI(i);
   controller.SetD(d);
-  controller.SetSmartMotionMaxVelocity(max);
-  controller.SetSmartMotionMinOutputVelocity(min);
+  // controller.SetOutputRange(min, max);
 }
 
 // This method will be called once per scheduler run
-void Launcher::Periodic() {}
+void Launcher::Periodic() {
+  auto encoder = shooter_.GetEncoder();
+  frc::SmartDashboard::PutNumber(
+    "SparkMax/Encoder/Velocity",
+    encoder.GetVelocity());
+  frc::SmartDashboard::PutNumber(
+    "SparkMax/Duty Cycle",
+    shooter_.GetAppliedOutput());
+}
 
 void Launcher::SetLauncherSpeed(double speed) {
   rev::CANPIDController controller = shooter_.GetPIDController();
 
-  controller.SetReference(speed, rev::ControlType::kSmartVelocity);
+  // controller.SetReference(speed, rev::ControlType::kVelocity);
+  shooter_.Set(speed);
 }
 
 void Launcher::RunIntake(double speed) {
@@ -108,7 +117,8 @@ void Launcher::SetupListeners() {
       auto new_value,
       int flag) -> void {
         double value = new_value->GetDouble();
-        this->shooter_.GetPIDController().SetSmartMotionMaxVelocity(value);
+        auto controller = this->shooter_.GetPIDController();
+        //controller.SetOutputRange(controller.GetOutputMin(), value);
       });
 
   nerd::Preferences::GetInstance().AddFunctionListener(
@@ -120,6 +130,7 @@ void Launcher::SetupListeners() {
       auto new_value,
       int flag) -> void {
         double value = new_value->GetDouble();
-        this->shooter_.GetPIDController().SetSmartMotionMinOutputVelocity(value);
+        auto controller = this->shooter_.GetPIDController();
+        //controller.SetOutputRange(value, controller.GetOutputMax());
       });
 }

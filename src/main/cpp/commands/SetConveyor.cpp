@@ -14,7 +14,7 @@
 SetConveyor::SetConveyor(Launcher* launcher) :
   launcher_(launcher) {
   // Use addRequirements() here to declare subsystem dependencies.
-  AddRequirements({launcher_});
+  //AddRequirements({launcher_});
 }
 
 // Called when the command is initially scheduled.
@@ -25,7 +25,7 @@ void SetConveyor::Execute() {
   double speed = nerd::Preferences::GetInstance().GetPreference(
     LAUNCHER_CONVEYOR_SPEED.key,
     LAUNCHER_CONVEYOR_SPEED.value);
-  launcher_->RunConveyor(speed);
+  launcher_->RunConveyor(-speed);
 }
 
 // Called once the command ends or is interrupted.
@@ -34,4 +34,4 @@ void SetConveyor::End(bool interrupted) {
 }
 
 // Returns true when the command should end.
-bool SetConveyor::IsFinished() { return true; }
+bool SetConveyor::IsFinished() { return false; }
