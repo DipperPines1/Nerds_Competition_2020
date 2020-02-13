@@ -47,5 +47,6 @@ class Climber : public frc2::SubsystemBase {
   // Components (e.g. motor controllers and sensors) should generally be
   // declared private and exposed only through public methods.
   frc::DoubleSolenoid extender_;
-  frc::VictorSP reel_;
+  frc::VictorSP reel_left_;
+  frc::VictorSP reel_right_;
 };

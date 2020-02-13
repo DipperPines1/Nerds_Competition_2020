@@ -147,6 +147,11 @@ void ApplyConfig::Initialize() {
     AUTONOMOUS_TURN_TIME_ON_TARGET.value,
     false);
   // End Autonomous Parameters
+  nerd::Preferences::GetInstance().AddPreference(
+    SET_REEL_SPEED.key,
+    SET_REEL_SPEED.value,
+    false);
+
 }
 
 // Called repeatedly when this Command is scheduled to run

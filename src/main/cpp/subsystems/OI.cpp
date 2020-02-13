@@ -76,7 +76,7 @@ void OI::BindCommandButton(int button, frc2::Command* command) {
         return;
     case BUTTON_Y:
         bound_commands_.push_back(command);
-        driver_Y_.WhenPressed(command, true);
+        driver_Y_.WhenHeld(command, true);
         return;
     case BUTTON_LB:
         bound_commands_.push_back(command);

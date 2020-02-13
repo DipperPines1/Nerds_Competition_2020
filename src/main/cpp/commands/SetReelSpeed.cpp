@@ -18,18 +18,20 @@ SetReelSpeed::SetReelSpeed(Climber* climber) :
 }
 
 // Called when the command is initially scheduled.
-void SetReelSpeed::Initialize() {
-  double speed = nerd::Preferences::GetInstance().GetPreference(
+void SetReelSpeed::Initialize() {}
+
+// Called repeatedly when this Command is scheduled to run
+void SetReelSpeed::Execute() {
+   double speed = nerd::Preferences::GetInstance().GetPreference(
     SET_REEL_SPEED.key,
     SET_REEL_SPEED.value);
   climber_->SetReelSpeed(speed);
 }
 
-// Called repeatedly when this Command is scheduled to run
-void SetReelSpeed::Execute() {}
-
 // Called once the command ends or is interrupted.
-void SetReelSpeed::End(bool interrupted) {}
+void SetReelSpeed::End(bool interrupted) {
+  climber_->SetReelSpeed(0);
+}
 
 // Returns true when the command should end.
-bool SetReelSpeed::IsFinished() { return true; }
+bool SetReelSpeed::IsFinished() { return false; }

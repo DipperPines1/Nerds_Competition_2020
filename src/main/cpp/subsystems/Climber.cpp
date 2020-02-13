@@ -11,7 +11,8 @@
 
 Climber::Climber() :
     extender_(FORWARD_CHANNEL, REVERSE_CHANNEL),
-    reel_(PWM_REEL) {
+    reel_left_(PWM_REEL_LEFT),
+    reel_right_(PWM_REEL_RIGHT) {
     SetExtender(false);
 }
 
@@ -31,5 +32,6 @@ bool Climber::GetExtender() {
 }
 
 void Climber::SetReelSpeed(double speed) {
-    reel_.Set(speed);
+    reel_left_.Set(speed);
+    reel_right_.Set(speed);
 }
