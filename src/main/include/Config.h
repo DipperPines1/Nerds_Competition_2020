@@ -19,7 +19,7 @@ struct ConfigKey {
 
 }  // namespace nerd
 
-
+// Joysticks
 const nerd::ConfigKey<double> JOYSTICK_DRIVE_MAX_HIGH{
   "Joysticks/Drive/Max Speed/High",
   1
@@ -64,6 +64,7 @@ const nerd::ConfigKey<bool> SWITCH_SPEED_PREFERENCES{
   "Joysticks/Low Speed",
   false
 };
+// End Joysticks
 
 // Launcher values
 const nerd::ConfigKey<double> LAUNCHER_CONTROLLER_P{
@@ -98,3 +99,54 @@ const nerd::ConfigKey<double> LAUNCHER_CONVEYOR_SPEED{
   "Launcher/Conveyor Speed",
   5
 };
+// End Launcher
+
+// Autonomous PID
+const nerd::ConfigKey<double> AUTO_TURN_P{
+  "Autonomous/Turn/P",
+  0.5
+};
+const nerd::ConfigKey<double> AUTO_TURN_I{
+  "Autonomous/Turn/I",
+  0
+};
+const nerd::ConfigKey<double> AUTO_TURN_D{
+  "Autonomous/Turn/D",
+  0
+};
+// End Autonomous PID
+
+// Autonomous Parameters
+const nerd::ConfigKey<double> AUTONOMOUS_DRIVE_TOLERANCE {
+  "Autonomous/Drive/Tolerance",
+  0.25
+};
+const nerd::ConfigKey<double> AUTONOMOUS_DRIVE_ACCELERATION {
+  "Autonomous/Drive/Acceleration",
+  8
+};
+const nerd::ConfigKey<double> AUTONOMOUS_DRIVE_MAX_SPEED {
+  "Autonomous/Drive/Max Speed",
+  0.8
+};
+const nerd::ConfigKey<double> AUTONOMOUS_DRIVE_MIN_SPEED {
+  "Autonomous/Drive/Min Speed",
+  0.25
+};
+const nerd::ConfigKey<double> AUTONOMOUS_TURN_TOLERANCE {
+  "Autonomous/Turn/Tolerance",
+  2
+};
+const nerd::ConfigKey<double> AUTONOMOUS_TURN_MAX_SPEED {
+  "Autonomous/Turn/Max Speed",
+  0.8
+};
+const nerd::ConfigKey<double> AUTONOMOUS_TURN_MIN_SPEED {
+  "Autonomous/Turn/Min Speed",
+  0.25
+};
+const nerd::ConfigKey<double> AUTONOMOUS_TURN_TIME_ON_TARGET {
+  "Autonomous/Turn/Time on Target",
+  1
+};
+// End Autonomous Parameters

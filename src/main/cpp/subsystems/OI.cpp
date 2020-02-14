@@ -31,7 +31,7 @@ OI::OI() :
     }),
     up_([this] () -> bool {
         int pov = this->GetPOV();
-        return pov >= 315 || (pov >= 0 && pov <= DPAD_UP + 45));
+        return pov >= 315 || (pov >= 0 && pov <= DPAD_UP + 45);
     }),
     down_([this] () -> bool {
         int pov = this->GetPOV();
