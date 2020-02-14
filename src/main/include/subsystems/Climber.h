@@ -9,6 +9,7 @@
 
 #include <frc2/command/SubsystemBase.h>
 #include <frc/DoubleSolenoid.h>
+#include <frc/Solenoid.h>
 #include <frc/VictorSP.h>
 
 
@@ -36,6 +37,9 @@ class Climber : public frc2::SubsystemBase {
    */
   bool GetExtender();
 
+  void SetStopper(bool extended);
+  bool GetStopper();
+
   /**
    * @brief Set reeling speed
    * 
@@ -47,6 +51,8 @@ class Climber : public frc2::SubsystemBase {
   // Components (e.g. motor controllers and sensors) should generally be
   // declared private and exposed only through public methods.
   frc::DoubleSolenoid extender_;
+  frc::Solenoid stopper_left_;
+  frc::Solenoid stopper_right_;
   frc::VictorSP reel_left_;
   frc::VictorSP reel_right_;
 };

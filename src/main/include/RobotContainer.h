@@ -15,6 +15,7 @@
 #include "commands/DriveJoystick.h"
 #include "commands/TurnByDegree.h"
 #include "commands/ToggleExtender.h"
+#include "commands/ToggleStopper.h"
 #include "subsystems/Climber.h"
 #include "subsystems/Drivetrain.h"
 #include "subsystems/Launcher.h"

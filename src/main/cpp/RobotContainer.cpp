@@ -16,6 +16,7 @@
 #include "commands/SetReelSpeed.h"
 #include "commands/SpeedSwitch.h"
 #include "commands/ToggleExtender.h"
+#include "commands/ToggleStopper.h"
 
 
 RobotContainer::RobotContainer()
@@ -43,6 +44,7 @@ void RobotContainer::ConfigureButtonBindings() {
   oi_.BindCommandTrigger(TRIGGER_LEFT, new SetConveyor(false, &launcher_));
   oi_.BindCommandTrigger(DPAD_LEFT, new SetConveyor(true, &launcher_));
   oi_.BindCommandButton(BUTTON_Y, new SetReelSpeed(&climber_));
+  oi_.BindCommandButton(BUTTON_B, new ToggleStopper(&climber_));
 }
 frc2::Command* RobotContainer::GetAutonomousCommand() {
   // An example command will be run in autonomous

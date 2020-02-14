@@ -67,6 +67,8 @@ constexpr double HEADING_ERROR_RAGE = 2;
 // PCM ports
 constexpr int FORWARD_CHANNEL = 0;
 constexpr int REVERSE_CHANNEL = 1;
+constexpr int LEFT_CHANNEL = 2;
+constexpr int RIGHT_CHANNEL = 3;
 
 // PWM channels
 constexpr int PWM_REEL_LEFT = 0;
