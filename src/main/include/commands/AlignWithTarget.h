@@ -34,4 +34,6 @@ class AlignWithTarget
 
  private:
   Drivetrain* drivetrain_;
+  double* tolerence_;
+  double* turn_;
 };

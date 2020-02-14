@@ -112,6 +112,15 @@ void ApplyConfig::Initialize() {
     AUTONOMOUS_TURN_TIME_ON_TARGET.value,
     false);
   // End Autonomous Parameters
+  
+  // Start Vision Parameters
+    nerd::Preferences::GetInstance().AddPreference(
+    VISION_TURN_SPEED.key,
+    VISION_TURN_SPEED.value,
+    false);  nerd::Preferences::GetInstance().AddPreference(
+    VISION_TOLERANCE.key,
+    VISION_TOLERANCE.value,
+    false);
   }
 
 // Called repeatedly when this Command is scheduled to run

@@ -125,4 +125,12 @@ const nerd::ConfigKey<double> VISION_CENTER_Y {
   "Vision/Center/Y",
   0
 };
+const nerd::ConfigKey<double> VISION_TURN_SPEED  {
+  "Vision/Turn/speed",
+  0
+};
+const nerd::ConfigKey<double> VISION_TOLERANCE {
+  "Vision/Turn/Tolerence",
+  0
+};
 // End Vision Parameters

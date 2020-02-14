@@ -10,11 +10,23 @@
 #include <frc/SmartDashboard/SmartDashboard.h>
 #include "Config.h"
 #include "subsystems/Drivetrain.h"
+#include "nerds/Preferences.h"
 
 AlignWithTarget::AlignWithTarget(Drivetrain* drivetrain)
-  : drivetrain_(drivetrain)
-{
-  // Use addRequirements() here to declare subsystem dependencies.
+  : drivetrain_(drivetrain) {
+  // Use AddRequirements() here to declare subsystem dependencies.
+  AddRequirements({drivetrain_});
+
+  tolerence_ = new double(0);
+  turn_ = new double(0);
+
+    nerd::Preferences::GetInstance().AddListener(
+    VISION_TURN_SPEED.key,
+    turn_);
+
+    nerd::Preferences::GetInstance().AddListener(
+    VISION_TOLERANCE.key,
+    tolerence_);
 }
 
 // Called when the command is initially scheduled.
@@ -25,20 +37,14 @@ void AlignWithTarget::Execute() {
   double Center_X = frc::SmartDashboard::GetNumber(
     VISION_CENTER_X.key,
     VISION_CENTER_X.value);
-  double Center_Y = frc::SmartDashboard::GetNumber(
-    VISION_CENTER_Y.key,
-    VISION_CENTER_Y.value);
 
-  double turn;
+  bool reverse = Center_X < 0;
 
-  if (-50 < Center_X && Center_X < 50) {
-    turn = 0;
-  } else if (Center_X > 0) {
-    turn = 0.3;
-  } else if (Center_X < 0) {
-    turn = -0.3;
+  if (-*tolerence_ < Center_X && Center_X < *tolerence_) {
+    drivetrain_->ArcadeDrive(0, 0, false);
   }
-  drivetrain_->ArcadeDrive(0, turn, false);
+
+  drivetrain_->ArcadeDrive(0, *turn_ * (reverse ? -1.0 : 1.0), false);
 }
 
 // Called once the command ends or is interrupted.
@@ -52,5 +58,5 @@ bool AlignWithTarget::IsFinished() {
     VISION_CENTER_X.key,
     VISION_CENTER_X.value);
 
-  return -50 < Center_X && Center_X < 50; 
+  return -*tolerence_ < Center_X && Center_X < *tolerence_;
 }
