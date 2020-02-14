@@ -151,7 +151,6 @@ void ApplyConfig::Initialize() {
     SET_REEL_SPEED.key,
     SET_REEL_SPEED.value,
     false);
-
 }
 
 // Called repeatedly when this Command is scheduled to run
