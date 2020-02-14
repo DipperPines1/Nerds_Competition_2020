@@ -31,12 +31,12 @@ void AlignWithTarget::Execute() {
 
   double turn;
 
-  if (-50 < Center_X || Center_X < 50) {
+  if (-50 < Center_X && Center_X < 50) {
     turn = 0;
   } else if (Center_X > 0) {
-    turn = -0.5;
+    turn = 0.3;
   } else if (Center_X < 0) {
-    turn = 0.5;
+    turn = -0.3;
   }
   drivetrain_->ArcadeDrive(0, turn, false);
 }
@@ -52,5 +52,5 @@ bool AlignWithTarget::IsFinished() {
     VISION_CENTER_X.key,
     VISION_CENTER_X.value);
 
-  return -50 < Center_X || Center_X < 50; 
+  return -50 < Center_X && Center_X < 50; 
 }
