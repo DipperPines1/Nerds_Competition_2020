@@ -5,35 +5,27 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
-#include "commands/SpeedSwitch.h"
+#include "commands/ToggleStopper.h"
 
-#include "Config.h"
-#include "nerds/Preferences.h"
+#include "subsystems/Climber.h"
 
-SpeedSwitch::SpeedSwitch() {
+ToggleStopper::ToggleStopper(Climber* climber) :
+  climber_(climber) {
   // Use addRequirements() here to declare subsystem dependencies.
+  AddRequirements({climber_});
 }
 
-/**
- * @brief The command that gets the preference from switch_speed, bound to button A
- * 
- */
-void SpeedSwitch::Initialize() {
-  bool switch_speed_ = nerd::Preferences::GetInstance().GetPreference<bool>(
-    SWITCH_SPEED_PREFERENCES.key,
-    SWITCH_SPEED_PREFERENCES.value);
-
-  nerd::Preferences::GetInstance().AddPreference(
-    SWITCH_SPEED_PREFERENCES.key,
-    !switch_speed_,
-    true);
+// Called when the command is initially scheduled.
+void ToggleStopper::Initialize() {
+  bool state = climber_->GetStopper();
+  climber_->SetStopper(!state);
 }
 
 // Called repeatedly when this Command is scheduled to run
-void SpeedSwitch::Execute() {}
+void ToggleStopper::Execute() {}
 
 // Called once the command ends or is interrupted.
-void SpeedSwitch::End(bool interrupted) {}
+void ToggleStopper::End(bool interrupted) {}
 
 // Returns true when the command should end.
-bool SpeedSwitch::IsFinished() { return true; }
+bool ToggleStopper::IsFinished() { return true; }

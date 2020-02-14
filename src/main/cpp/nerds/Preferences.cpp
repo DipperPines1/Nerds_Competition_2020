@@ -10,6 +10,7 @@
 #include <sstream>
 
 #include <frc/DriverStation.h>
+
 #include <networktables/EntryListenerFlags.h>
 #include <networktables/NetworkTableInstance.h>
 
@@ -193,7 +194,9 @@ bool nerd::Preferences::AddPreference<bool>(std::string key,
 }
 
 template<>
-double nerd::Preferences::GetPreference<double>(std::string key, double default_value) {
+double nerd::Preferences::GetPreference<double>(
+    std::string key,
+    double default_value) {
     auto instance = nt::NetworkTableInstance::GetDefault();
     auto table = instance.GetTable("Preference");
 
@@ -208,7 +211,9 @@ double nerd::Preferences::GetPreference<double>(std::string key, double default_
 }
 
 template<>
-std::string nerd::Preferences::GetPreference<std::string>(std::string key, std::string default_value) {
+std::string nerd::Preferences::GetPreference<std::string>(
+    std::string key,
+    std::string default_value) {
     auto instance = nt::NetworkTableInstance::GetDefault();
     auto table = instance.GetTable("Preference");
 
@@ -223,7 +228,9 @@ std::string nerd::Preferences::GetPreference<std::string>(std::string key, std::
 }
 
 template<>
-bool nerd::Preferences::GetPreference<bool>(std::string key, bool default_value) {
+bool nerd::Preferences::GetPreference<bool>(
+    std::string key,
+    bool default_value) {
     auto instance = nt::NetworkTableInstance::GetDefault();
     auto table = instance.GetTable("Preference");
 

@@ -60,6 +60,8 @@ const nerd::ConfigKey<bool> JOYSTICKS_REVERSE_FORWARD{
   "Joysticks/Drive/Reverse",
   false
 };
+
+// Switch Speed
 const nerd::ConfigKey<bool> SWITCH_SPEED_PREFERENCES{
   "Joysticks/Low Speed",
   false
@@ -150,3 +152,9 @@ const nerd::ConfigKey<double> AUTONOMOUS_TURN_TIME_ON_TARGET {
   1
 };
 // End Autonomous Parameters
+
+// Reel values
+const nerd::ConfigKey<double> SET_REEL_SPEED{
+  "Joysticks/Reel Speed",
+  2
+};

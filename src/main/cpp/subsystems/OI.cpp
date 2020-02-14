@@ -10,7 +10,6 @@
 #include <sstream>
 
 #include <frc/DriverStation.h>
-
 #include "Constants.h"
 
 OI::OI() :
@@ -44,7 +43,10 @@ OI::OI() :
     right_([this] () -> bool {
         int pov = this->GetPOV();
         return pov >= DPAD_RIGHT - 45 && pov <= DPAD_RIGHT + 45;
-    })
+    }),
+    driver_START_(&driver_, BUTTON_START),
+    driver_BACK_(&driver_, BUTTON_BACK)
+
 {}
 
 // This method will be called once per scheduler run
@@ -66,7 +68,7 @@ void OI::BindCommandButton(int button, frc2::Command* command) {
         return;
     case BUTTON_B:
         bound_commands_.push_back(command);
-        driver_B_.WhenHeld(command, true);
+        driver_B_.WhenPressed(command, true);
         return;
     case BUTTON_X:
         bound_commands_.push_back(command);
@@ -74,7 +76,7 @@ void OI::BindCommandButton(int button, frc2::Command* command) {
         return;
     case BUTTON_Y:
         bound_commands_.push_back(command);
-        driver_Y_.WhenPressed(command, true);
+        driver_Y_.WhenHeld(command, true);
         return;
     case BUTTON_LB:
         bound_commands_.push_back(command);
