@@ -20,7 +20,7 @@ DriveJoystick::DriveJoystick(Drivetrain* drivetrain, OI* oi)
   : drivetrain_(drivetrain),
     oi_(oi) {
   // Use addRequirements() here to declare subsystem dependencies.
-  AddRequirements({drivetrain_, oi_});
+  AddRequirements({drivetrain_});
 
   drive_max_speed_high_ = new double(0);
   drive_max_speed_low_ = new double(0);

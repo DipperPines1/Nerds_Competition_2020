@@ -10,13 +10,19 @@
 #include <frc2/command/CommandBase.h>
 #include <frc2/command/CommandHelper.h>
 
-/** @brief change between high and low speed mode
- * 
+class Launcher;
+
+/**
+ * An example command.
+ *
+ * <p>Note that this extends CommandHelper, rather extending CommandBase
+ * directly; this is crucially important, or else the decorator functions in
+ * Command will *not* work!
  */
-class SpeedSwitch
-    : public frc2::CommandHelper<frc2::CommandBase, SpeedSwitch> {
+class SetConveyor
+    : public frc2::CommandHelper<frc2::CommandBase, SetConveyor> {
  public:
-  SpeedSwitch();
+  SetConveyor(bool reverse, Launcher* launcher);
 
   void Initialize() override;
 
@@ -25,6 +31,8 @@ class SpeedSwitch
   void End(bool interrupted) override;
 
   bool IsFinished() override;
+
  private:
-  void ConfigureButtonBindings();
+ Launcher* launcher_;
+ bool reverse_;
 };

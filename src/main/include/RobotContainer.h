@@ -15,6 +15,7 @@
 #include "commands/DriveJoystick.h"
 #include "commands/TurnByDegree.h"
 #include "subsystems/Drivetrain.h"
+#include "subsystems/Launcher.h"
 #include "subsystems/OI.h"
 
 /**
@@ -33,6 +34,7 @@ class RobotContainer {
  private:
   // The robot's subsystems and commands are defined here...
   Drivetrain drivetrain_;
+  Launcher launcher_;
   OI oi_;
 
   ApplyConfig apply_config_;

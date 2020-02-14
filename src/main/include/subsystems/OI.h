@@ -13,7 +13,6 @@
 #include <frc/Joystick.h>
 
 
-
 class OI : public frc2::SubsystemBase {
  public:
   OI();
@@ -32,6 +31,8 @@ class OI : public frc2::SubsystemBase {
    */
   double GetAxis(int axis);
 
+  int GetPOV();
+
   /**
    * @brief Binds a command to a button
    * 
@@ -41,10 +42,22 @@ class OI : public frc2::SubsystemBase {
    */
   void BindCommandButton(int button, frc2::Command* command);
 
+  void BindCommandTrigger(int trigger, frc2::Command* command);
+
  private:
   frc::Joystick driver_;
   frc2::JoystickButton driver_A_;
   frc2::JoystickButton driver_B_;
+  frc2::JoystickButton driver_X_;
+  frc2::JoystickButton driver_Y_;
+  frc2::JoystickButton driver_LB_;
+  frc2::JoystickButton driver_RB_;
+  frc2::Button trigger_left_;
+  frc2::Button trigger_right_;
+  frc2::Button up_;
+  frc2::Button down_;
+  frc2::Button left_;
+  frc2::Button right_;
 
   std::vector<frc2::Command*> bound_commands_;
 };

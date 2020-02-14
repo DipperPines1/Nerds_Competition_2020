@@ -66,6 +66,41 @@ const nerd::ConfigKey<bool> SWITCH_SPEED_PREFERENCES{
 };
 // End Joysticks
 
+// Launcher values
+const nerd::ConfigKey<double> LAUNCHER_CONTROLLER_P{
+  "Launcher/Controller/P",
+  6e-5
+};
+const nerd::ConfigKey<double> LAUNCHER_CONTROLLER_I{
+  "Launcher/Controller/I",
+  0
+};
+const nerd::ConfigKey<double> LAUNCHER_CONTROLLER_D{
+  "Launcher/Controller/D",
+  0
+};
+const nerd::ConfigKey<double> LAUNCHER_MAX_SPEED{
+  "Launcher/Controller/Max Speed",
+  0.8
+};
+const nerd::ConfigKey<double> LAUNCHER_MIN_SPEED{
+  "Launcher/Controller/Min Speed",
+  0.25
+};
+const nerd::ConfigKey<double> LAUNCHER_CURRENT_SPEED{
+  "Launcher/Current Speed",
+  5
+};
+const nerd::ConfigKey<double> LAUNCHER_INTAKE_SPEED{
+  "Launcher/Intake Speed",
+  5
+};
+const nerd::ConfigKey<double> LAUNCHER_CONVEYOR_SPEED{
+  "Launcher/Conveyor Speed",
+  5
+};
+// End Launcher
+
 // Autonomous PID
 const nerd::ConfigKey<double> AUTO_TURN_P{
   "Autonomous/Turn/P",

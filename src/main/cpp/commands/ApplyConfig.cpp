@@ -63,6 +63,41 @@ void ApplyConfig::Initialize() {
     false);
   // End Joysticks
 
+  // Launcher
+  nerd::Preferences::GetInstance().AddPreference(
+    LAUNCHER_CONTROLLER_P.key,
+    LAUNCHER_CONTROLLER_P.value,
+    false);
+  nerd::Preferences::GetInstance().AddPreference(
+    LAUNCHER_CONTROLLER_I.key,
+    LAUNCHER_CONTROLLER_I.value,
+    false);
+  nerd::Preferences::GetInstance().AddPreference(
+    LAUNCHER_CONTROLLER_D.key,
+    LAUNCHER_CONTROLLER_D.value,
+    false);
+  nerd::Preferences::GetInstance().AddPreference(
+    LAUNCHER_MAX_SPEED.key,
+    LAUNCHER_MAX_SPEED.value,
+    false);
+  nerd::Preferences::GetInstance().AddPreference(
+    LAUNCHER_MIN_SPEED.key,
+    LAUNCHER_MIN_SPEED.value,
+    false);
+  nerd::Preferences::GetInstance().AddPreference(
+    LAUNCHER_CURRENT_SPEED.key,
+    LAUNCHER_CURRENT_SPEED.value,
+    false);
+  nerd::Preferences::GetInstance().AddPreference(
+    LAUNCHER_CONVEYOR_SPEED.key,
+    LAUNCHER_CONVEYOR_SPEED.value,
+    false);
+  nerd::Preferences::GetInstance().AddPreference(
+    LAUNCHER_INTAKE_SPEED.key,
+    LAUNCHER_INTAKE_SPEED.value,
+    false);
+  // End Launcher
+
   // Autonomous PID
   nerd::Preferences::GetInstance().AddPreference(
     AUTO_TURN_P.key,
@@ -112,7 +147,7 @@ void ApplyConfig::Initialize() {
     AUTONOMOUS_TURN_TIME_ON_TARGET.value,
     false);
   // End Autonomous Parameters
-  }
+}
 
 // Called repeatedly when this Command is scheduled to run
 void ApplyConfig::Execute() {}
