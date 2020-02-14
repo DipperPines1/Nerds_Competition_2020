@@ -22,7 +22,7 @@ class Launcher;
 class RunIntake
     : public frc2::CommandHelper<frc2::CommandBase, RunIntake> {
  public:
-  RunIntake(Launcher* launcher);
+  RunIntake(bool reverse, Launcher* launcher);
 
   void Initialize() override;
 
@@ -34,4 +34,5 @@ class RunIntake
 
  private:
   Launcher* launcher_;
+  bool reverse_;
 };

@@ -30,6 +30,10 @@ constexpr int BUTTON_LB = 5;
 constexpr int BUTTON_RB = 6;
 constexpr int BUTTON_BACK = 7;
 constexpr int BUTTON_START = 8;
+constexpr int DPAD_UP = 0;
+constexpr int DPAD_DOWN = 180;
+constexpr int DPAD_LEFT = 270;
+constexpr int DPAD_RIGHT = 90;
 
 // axis ID
 constexpr int AXIS_LEFT_X = 0;

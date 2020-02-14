@@ -11,10 +11,11 @@
 #include "nerds/Preferences.h"
 #include "subsystems/Launcher.h"
 
-SetConveyor::SetConveyor(Launcher* launcher) :
-  launcher_(launcher) {
+SetConveyor::SetConveyor(bool reverse, Launcher* launcher) :
+  launcher_(launcher),
+  reverse_(reverse) {
   // Use addRequirements() here to declare subsystem dependencies.
-  //AddRequirements({launcher_});
+  // AddRequirements({launcher_});
 }
 
 // Called when the command is initially scheduled.
@@ -25,7 +26,13 @@ void SetConveyor::Execute() {
   double speed = nerd::Preferences::GetInstance().GetPreference(
     LAUNCHER_CONVEYOR_SPEED.key,
     LAUNCHER_CONVEYOR_SPEED.value);
-  launcher_->RunConveyor(-speed);
+
+  if (reverse_) {
+    launcher_->RunConveyor(speed);
+  } else {
+    launcher_->RunConveyor(-speed);
+  }
+
 }
 
 // Called once the command ends or is interrupted.

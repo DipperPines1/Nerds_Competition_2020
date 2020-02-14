@@ -11,10 +11,11 @@
 #include "nerds/Preferences.h"
 #include "subsystems/Launcher.h"
 
-RunIntake::RunIntake(Launcher* launcher) :
-launcher_(launcher) {
+RunIntake::RunIntake(bool reverse, Launcher* launcher) :
+  launcher_(launcher),
+  reverse_(reverse) {
   // Use addRequirements() here to declare subsystem dependencies.
-  //AddRequirements({launcher_});
+  // AddRequirements({launcher_});
 }
 
 // Called when the command is initially scheduled.
@@ -25,7 +26,12 @@ void RunIntake::Execute() {
   double speed = nerd::Preferences::GetInstance().GetPreference(
     LAUNCHER_INTAKE_SPEED.key,
     LAUNCHER_INTAKE_SPEED.value);
-  launcher_->RunIntake(speed);
+
+  if (reverse_) {
+    launcher_->RunIntake(-speed);
+  } else {
+    launcher_->RunIntake(speed);
+  }
 }
 
 // Called once the command ends or is interrupted.

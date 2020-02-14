@@ -31,10 +31,13 @@ RobotContainer::RobotContainer()
 void RobotContainer::ConfigureButtonBindings() {
   frc::SmartDashboard::PutData("Commands/Load Config", &apply_config_);
 
-  oi_.BindCommandButton(BUTTON_A, new SpeedSwitch());
+  oi_.BindCommandButton(BUTTON_A, new SpeedSwitch())
+  oi_.BindCommandButton(BUTTON_LB, new RunIntake(false, &launcher_));
+  oi_.BindCommandButton(BUTTON_RB, new RunIntake(true, &launcher_));
+  
   oi_.BindCommandTrigger(TRIGGER_RIGHT, new SetLauncher(&launcher_));
-  oi_.BindCommandButton(BUTTON_LB, new RunIntake(&launcher_));
-  oi_.BindCommandTrigger(TRIGGER_LEFT, new SetConveyor(&launcher_));
+  oi_.BindCommandTrigger(TRIGGER_LEFT, new SetConveyor(false, &launcher_));
+  oi_.BindCommandTrigger(DPAD_LEFT, new SetConveyor(true, &launcher_));
 }
 frc2::Command* RobotContainer::GetAutonomousCommand() {
   // An example command will be run in autonomous

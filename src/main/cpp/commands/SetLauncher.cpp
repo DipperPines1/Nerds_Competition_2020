@@ -27,14 +27,12 @@ void SetLauncher::Execute() {
   double speed = nerd::Preferences::GetInstance().GetPreference(
     LAUNCHER_CURRENT_SPEED.key,
     LAUNCHER_CURRENT_SPEED.value);
-  launcher_->SetLauncherSpeed(speed);
-  std::cout << "Start Launcher" << std::endl;
+  launcher_->SetLauncherSpeed(-speed);
 }
 
 // Called once the command ends or is interrupted.
 void SetLauncher::End(bool interrupted) {
   launcher_->SetLauncherSpeed(0);
-  std::cout << "End Launcher" << std::endl;
 }
 
 // Returns true when the command should end.

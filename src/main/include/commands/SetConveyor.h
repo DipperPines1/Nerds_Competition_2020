@@ -22,7 +22,7 @@ class Launcher;
 class SetConveyor
     : public frc2::CommandHelper<frc2::CommandBase, SetConveyor> {
  public:
-  SetConveyor(Launcher* launcher);
+  SetConveyor(bool reverse, Launcher* launcher);
 
   void Initialize() override;
 
@@ -34,4 +34,5 @@ class SetConveyor
 
  private:
  Launcher* launcher_;
+ bool reverse_;
 };
