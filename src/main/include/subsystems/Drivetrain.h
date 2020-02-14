@@ -9,11 +9,11 @@
 
 #include <frc2/command/SubsystemBase.h>
 
-#include <ctre/phoenix/motorcontrol/can/WPI_VictorSPX.h>
 #include <frc/drive/DifferentialDrive.h>
 #include <frc/SpeedControllerGroup.h>
 #include <AHRS.h>
 #include <frc/Encoder.h>
+#include <frc/VictorSP.h>
 
 class Drivetrain : public frc2::SubsystemBase {
  public:
@@ -66,17 +66,17 @@ class Drivetrain : public frc2::SubsystemBase {
  private:
   // Components (e.g. motor controllers and sensors) should generally be
   // declared private and exposed only through public methods.
-  ctre::phoenix::motorcontrol::can::WPI_VictorSPX front_left_;
-  ctre::phoenix::motorcontrol::can::WPI_VictorSPX front_right_;
-  ctre::phoenix::motorcontrol::can::WPI_VictorSPX back_left_;
-  ctre::phoenix::motorcontrol::can::WPI_VictorSPX back_right_;
+  frc::VictorSP front_left_;
+  frc::VictorSP front_right_;
+  frc::VictorSP back_left_;
+  frc::VictorSP back_right_;
 
   frc::SpeedControllerGroup left_;
   frc::SpeedControllerGroup right_;
 
   frc::DifferentialDrive drive_;
 
-  AHRS gyro;
+  // AHRS gyro;
 
   frc::Encoder encoder_left;
   frc::Encoder encoder_right;

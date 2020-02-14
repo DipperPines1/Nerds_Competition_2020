@@ -20,7 +20,7 @@ Drivetrain::Drivetrain() :
     left_(front_left_, back_left_),
     right_(front_right_, back_right_),
     drive_(left_, right_),
-    gyro(frc::SerialPort::Port::kUSB1),
+    // gyro(frc::SerialPort::Port::kUSB1),
     encoder_left(DIO_ENCODER_LEFT_A, DIO_ENCODER_LEFT_B, false),
     encoder_right(DIO_ENCODER_RIGHT_A, DIO_ENCODER_RIGHT_B, true)
 {
@@ -40,7 +40,7 @@ void Drivetrain::ArcadeDrive(double speed, double turn, bool squared) {
 }
 
 double Drivetrain::GetHeading() {
-    return gyro.GetYaw();
+    return 0; //gyro.GetYaw();
 }
 
 double Drivetrain::GetDistanceLeft() {
