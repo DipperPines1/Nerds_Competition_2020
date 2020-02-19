@@ -48,9 +48,7 @@ OI::OI() :
     right_([this] () -> bool {
         int pov = this->GetPOV();
         return pov >= DPAD_RIGHT - 45 && pov <= DPAD_RIGHT + 45;
-    })
-
-{
+    }) {
     frc::SmartDashboard::PutBoolean(
         POV_ENABLED.key,
         false);
