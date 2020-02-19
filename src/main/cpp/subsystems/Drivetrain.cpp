@@ -27,7 +27,7 @@ Drivetrain::Drivetrain() :
     gyro(frc::SerialPort::Port::kUSB1),
     encoder_left(DIO_ENCODER_LEFT_A, DIO_ENCODER_LEFT_B, false),
     encoder_right(DIO_ENCODER_RIGHT_A, DIO_ENCODER_RIGHT_B, true),
-    odometry({units::degree_t(gyro.GetYaw() + 180)})
+    odometry({units::degree_t(gyro.GetYaw())})
 {
     encoder_left.SetDistancePerPulse(K_ENCODER_DISTANCE_PER_PULSE);
     encoder_right.SetDistancePerPulse(K_ENCODER_DISTANCE_PER_PULSE);
@@ -38,12 +38,14 @@ Drivetrain::Drivetrain() :
 
 // This method will be called once per scheduler run
 void Drivetrain::Periodic() {
-    double heading = gyro.GetAngle();
+    /*double heading = 360 - gyro.GetAngle();
     heading = std::remainder(heading, 360);
 
     if (heading < 0) {
         heading = 360 + heading;
-    }
+    }*/
+
+    double heading = -gyro.GetAngle();
 
     frc::Rotation2d heading_update{units::degree_t(heading)};
 

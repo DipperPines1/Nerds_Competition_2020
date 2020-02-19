@@ -18,6 +18,7 @@
 #include "commands/DriveJoystick.h"
 #include "subsystems/Drivetrain.h"
 #include "subsystems/OI.h"
+#include "nerds/RamseteCommandReportable.h"
 
 /**
  * This class is where the bulk of the robot should be declared.  Since
@@ -68,7 +69,7 @@ class RobotContainer {
   ApplyConfig apply_config_;
   DriveJoystick drive_joy_;
 
-  std::shared_ptr<frc2::RamseteCommand> autonomous_drive;
+  std::shared_ptr<nerd::RamseteCommandReportable> autonomous_drive;
 
   // Ramsete Listener Pointers
   double* feed_forward_ks_;

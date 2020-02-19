@@ -23,6 +23,7 @@
 #include "commands/SpeedSwitch.h"
 #include "Config.h"
 #include "nerds/Preferences.h"
+#include "nerds/RamseteCommandReportable.h"
 
 RobotContainer::RobotContainer()
   : drivetrain_(),
@@ -80,7 +81,10 @@ void RobotContainer::DriveThroughPath(
   double max = *ramsete_max_speed_;
   double min = *ramsete_min_speed_;
 
-  autonomous_drive.reset(new frc2::RamseteCommand(
+  frc2::PIDController left_PID(*kp_drive_velocity_, 0.0, 0.0);
+  frc2::PIDController right_PID(*kp_drive_velocity_, 0.0, 0.0);
+
+  autonomous_drive.reset(new nerd::RamseteCommandReportable(
     path,
     [this]() {
       return drivetrain_.GetPose();
@@ -91,9 +95,9 @@ void RobotContainer::DriveThroughPath(
     [this] {
       return drivetrain_.WheelSpeed();
     },
-    frc2::PIDController(*kp_drive_velocity_, 0.0, 0.0),
-    frc2::PIDController(*kp_drive_velocity_, 0.0, 0.0),
-    [this, max, min](units::volt_t left, units::volt_t right) {
+    left_PID,
+    right_PID,
+    [=](units::volt_t left, units::volt_t right) {
       double left_input = left.to<double>()/12;
       double right_input = right.to<double>()/12;
 
@@ -109,6 +113,16 @@ void RobotContainer::DriveThroughPath(
 
       left_speed *= left_input > 0 ? 1 : -1;
       right_speed *= right_input > 0 ? 1 : -1;
+
+      double left_output = left_PID.GetPositionError();
+      double left_setpoint = left_PID.GetSetpoint();
+      double right_output = right_PID.GetPositionError();
+      double right_setpoint = right_PID.GetSetpoint();
+
+      frc::SmartDashboard::PutNumber("Ramsete/Left Setpoint", left_setpoint);
+      frc::SmartDashboard::PutNumber("Ramsete/Right Setpoint", right_setpoint);
+      frc::SmartDashboard::PutNumber("Ramsete/Left Output", left_output);
+      frc::SmartDashboard::PutNumber("Ramsete/Right Output", right_output);
 
       frc::SmartDashboard::PutNumber("Ramsete/left", left.to<double>());
       frc::SmartDashboard::PutNumber("Ramsete/right", right.to<double>());
