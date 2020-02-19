@@ -7,11 +7,12 @@
 
 #pragma once
 
+#include <vector>
+
 #include <frc2/command/SubsystemBase.h>
 
 #include <frc2/command/button/JoystickButton.h>
 #include <frc/Joystick.h>
-
 
 class OI : public frc2::SubsystemBase {
  public:

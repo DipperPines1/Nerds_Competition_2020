@@ -5,24 +5,17 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
-#pragma once
+#include "subsystems/Conveyor.h"
 
-#include <frc2/command/SubsystemBase.h>
-#include <rev/CANSparkMax.h>
+#include "Constants.h"
 
-class Launcher : public frc2::SubsystemBase {
- public:
-  Launcher();
 
-  /**
-   * Will be called periodically whenever the CommandScheduler runs.
-   */
-  void Periodic();
+Conveyor::Conveyor() :
+conveyor_(PWM_LAUNCHER_CONVEYOR) {}
 
-  void SetLauncherSpeed(double speed);
+// This method will be called once per scheduler run
+void Conveyor::Periodic() {}
 
- private:
-  void SetupListeners();
-
-  rev::CANSparkMax shooter_;
-};
+void Conveyor::RunConveyor(double speed) {
+  conveyor_.Set(speed);
+}

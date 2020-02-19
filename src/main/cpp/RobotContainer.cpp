@@ -35,16 +35,17 @@ RobotContainer::RobotContainer()
 void RobotContainer::ConfigureButtonBindings() {
   frc::SmartDashboard::PutData("Commands/Load Config", &apply_config_);
 
-  oi_.BindCommandButton(BUTTON_A, new SpeedSwitch());
-  oi_.BindCommandButton(BUTTON_X, new ToggleExtender(&climber_));
-  oi_.BindCommandButton(BUTTON_LB, new RunIntake(false, &launcher_));
-  oi_.BindCommandButton(BUTTON_RB, new RunIntake(true, &launcher_));
-
-  oi_.BindCommandTrigger(TRIGGER_RIGHT, new SetLauncher(&launcher_));
-  oi_.BindCommandTrigger(TRIGGER_LEFT, new SetConveyor(false, &launcher_));
-  oi_.BindCommandTrigger(DPAD_LEFT, new SetConveyor(true, &launcher_));
-  oi_.BindCommandButton(BUTTON_Y, new SetReelSpeed(&climber_));
+  oi_.BindCommandButton(BUTTON_START, new SpeedSwitch());
+  oi_.BindCommandButton(BUTTON_LB, new RunIntake(false, &intake_));
+  oi_.BindCommandButton(BUTTON_RB, new RunIntake(true, &intake_));
+  oi_.BindCommandButton(BUTTON_A, new SetLauncher(&launcher_));
   oi_.BindCommandButton(BUTTON_B, new ToggleStopper(&climber_));
+
+  oi_.BindCommandTrigger(DPAD_UP, new ToggleExtender(&climber_));
+  oi_.BindCommandTrigger(DPAD_DOWN, new SetReelSpeed(false, &climber_));
+  oi_.BindCommandTrigger(DPAD_LEFT, new SetReelSpeed(true, &climber_));
+  oi_.BindCommandTrigger(TRIGGER_LEFT, new SetConveyor(false, &conveyor_));
+  oi_.BindCommandTrigger(TRIGGER_RIGHT, new SetConveyor(true, &conveyor_));
 }
 frc2::Command* RobotContainer::GetAutonomousCommand() {
   // An example command will be run in autonomous

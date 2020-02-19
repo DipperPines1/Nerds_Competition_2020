@@ -9,13 +9,13 @@
 
 #include "Config.h"
 #include "nerds/Preferences.h"
-#include "subsystems/Launcher.h"
+#include "subsystems/Intake.h"
 
-RunIntake::RunIntake(bool reverse, Launcher* launcher) :
-  launcher_(launcher),
+RunIntake::RunIntake(bool reverse, Intake* intake) :
+  intake_(intake),
   reverse_(reverse) {
   // Use addRequirements() here to declare subsystem dependencies.
-  // AddRequirements({launcher_});
+  AddRequirements({intake_});
 }
 
 // Called when the command is initially scheduled.
@@ -28,15 +28,15 @@ void RunIntake::Execute() {
     LAUNCHER_INTAKE_SPEED.value);
 
   if (reverse_) {
-    launcher_->RunIntake(-speed);
+    intake_->RunIntake(-speed);
   } else {
-    launcher_->RunIntake(speed);
+    intake_->RunIntake(speed);
   }
 }
 
 // Called once the command ends or is interrupted.
 void RunIntake::End(bool interrupted) {
-  launcher_->RunIntake(0);
+  intake_->RunIntake(0);
 }
 
 // Returns true when the command should end.

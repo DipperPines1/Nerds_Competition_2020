@@ -16,7 +16,7 @@ SetLauncher::SetLauncher(Launcher* launcher) :
   launcher_(launcher)
 {
   // Use addRequirements() here to declare subsystem dependencies.
-  // AddRequirements({launcher});
+  AddRequirements({launcher});
 }
 
 // Called when the command is initially scheduled.

@@ -158,3 +158,9 @@ const nerd::ConfigKey<double> SET_REEL_SPEED{
   "Joysticks/Reel Speed",
   2
 };
+
+// POV
+const nerd::ConfigKey<bool> POV_ENABLED{
+  "Joysticks/POV Enabled",
+  true
+};

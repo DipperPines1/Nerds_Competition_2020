@@ -10,7 +10,7 @@
 #include <frc2/command/CommandBase.h>
 #include <frc2/command/CommandHelper.h>
 
-class Launcher;
+class Intake;
 
 /**
  * An example command.
@@ -22,7 +22,7 @@ class Launcher;
 class RunIntake
     : public frc2::CommandHelper<frc2::CommandBase, RunIntake> {
  public:
-  RunIntake(bool reverse, Launcher* launcher);
+  RunIntake(bool reverse, Intake* launcher);
 
   void Initialize() override;
 
@@ -33,6 +33,6 @@ class RunIntake
   bool IsFinished() override;
 
  private:
-  Launcher* launcher_;
+  Intake* intake_;
   bool reverse_;
 };

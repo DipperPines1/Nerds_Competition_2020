@@ -8,21 +8,23 @@
 #pragma once
 
 #include <frc2/command/SubsystemBase.h>
-#include <rev/CANSparkMax.h>
+#include <frc/VictorSP.h>
 
-class Launcher : public frc2::SubsystemBase {
+
+class Conveyor : public frc2::SubsystemBase {
  public:
-  Launcher();
+  Conveyor();
 
   /**
    * Will be called periodically whenever the CommandScheduler runs.
    */
   void Periodic();
 
-  void SetLauncherSpeed(double speed);
+  void RunConveyor(double speed);
+
 
  private:
-  void SetupListeners();
-
-  rev::CANSparkMax shooter_;
+  // Components (e.g. motor controllers and sensors) should generally be
+  // declared private and exposed only through public methods.
+  frc::VictorSP conveyor_;
 };

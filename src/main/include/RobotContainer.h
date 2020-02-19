@@ -17,7 +17,9 @@
 #include "commands/ToggleExtender.h"
 #include "commands/ToggleStopper.h"
 #include "subsystems/Climber.h"
+#include "subsystems/Conveyor.h"
 #include "subsystems/Drivetrain.h"
+#include "subsystems/Intake.h"
 #include "subsystems/Launcher.h"
 #include "subsystems/OI.h"
 
@@ -37,7 +39,9 @@ class RobotContainer {
  private:
   // The robot's subsystems and commands are defined here...
   Climber climber_;
+  Conveyor conveyor_;
   Drivetrain drivetrain_;
+  Intake intake_;
   Launcher launcher_;
   OI oi_;
 

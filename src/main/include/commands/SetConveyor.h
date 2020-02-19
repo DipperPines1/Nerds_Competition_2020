@@ -10,7 +10,7 @@
 #include <frc2/command/CommandBase.h>
 #include <frc2/command/CommandHelper.h>
 
-class Launcher;
+class Conveyor;
 
 /**
  * An example command.
@@ -22,7 +22,7 @@ class Launcher;
 class SetConveyor
     : public frc2::CommandHelper<frc2::CommandBase, SetConveyor> {
  public:
-  SetConveyor(bool reverse, Launcher* launcher);
+  SetConveyor(bool reverse, Conveyor* launcher);
 
   void Initialize() override;
 
@@ -33,6 +33,6 @@ class SetConveyor
   bool IsFinished() override;
 
  private:
- Launcher* launcher_;
- bool reverse_;
+    Conveyor* conveyor_;
+    bool reverse_;
 };

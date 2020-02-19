@@ -11,8 +11,9 @@
 #include "nerds/Preferences.h"
 #include "subsystems/Climber.h"
 
-SetReelSpeed::SetReelSpeed(Climber* climber) :
-  climber_(climber) {
+SetReelSpeed::SetReelSpeed(bool reverse, Climber* climber) :
+  climber_(climber),
+  reverse_(reverse) {
   // Use addRequirements() here to declare subsystem dependencies.
   AddRequirements({climber_});
 }
@@ -22,10 +23,15 @@ void SetReelSpeed::Initialize() {}
 
 // Called repeatedly when this Command is scheduled to run
 void SetReelSpeed::Execute() {
-   double speed = nerd::Preferences::GetInstance().GetPreference(
-    SET_REEL_SPEED.key,
-    SET_REEL_SPEED.value);
-  climber_->SetReelSpeed(speed);
+  double speed = nerd::Preferences::GetInstance().GetPreference(
+  SET_REEL_SPEED.key,
+  SET_REEL_SPEED.value);
+
+  if (reverse_) {
+    climber_->SetReelSpeed(-speed);
+  } else {
+    climber_->SetReelSpeed(speed);
+  }
 }
 
 // Called once the command ends or is interrupted.

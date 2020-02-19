@@ -22,7 +22,7 @@ class Climber;
 class SetReelSpeed
     : public frc2::CommandHelper<frc2::CommandBase, SetReelSpeed> {
  public:
-  SetReelSpeed(Climber* climber);
+  SetReelSpeed(bool reverse, Climber* climber);
 
   void Initialize() override;
 
@@ -34,4 +34,5 @@ class SetReelSpeed
  
  private:
   Climber* climber_;
+  bool reverse_;
 };

@@ -16,9 +16,7 @@
 #include "nerds/Preferences.h"
 
 Launcher::Launcher() :
-  shooter_(CAN_LAUNCHER_MASTER, rev::CANSparkMax::MotorType::kBrushless),
-  intake_(CAN_LAUNCHER_INTAKE),
-  conveyor_(PWM_LAUNCHER_CONVEYOR) {
+  shooter_(CAN_LAUNCHER_MASTER, rev::CANSparkMax::MotorType::kBrushless) {
   SetupListeners();
 
   double p = nerd::Preferences::GetInstance().GetPreference(
@@ -61,14 +59,6 @@ void Launcher::SetLauncherSpeed(double speed) {
 
   // controller.SetReference(speed, rev::ControlType::kVelocity);
   shooter_.Set(speed);
-}
-
-void Launcher::RunIntake(double speed) {
-  intake_.Set(ctre::phoenix::motorcontrol::ControlMode::PercentOutput, speed);
-}
-
-void Launcher::RunConveyor(double speed) {
-  conveyor_.Set(speed);
 }
 
 void Launcher::SetupListeners() {
@@ -118,7 +108,7 @@ void Launcher::SetupListeners() {
       int flag) -> void {
         double value = new_value->GetDouble();
         auto controller = this->shooter_.GetPIDController();
-        //controller.SetOutputRange(controller.GetOutputMin(), value);
+        // controller.SetOutputRange(controller.GetOutputMin(), value);
       });
 
   nerd::Preferences::GetInstance().AddFunctionListener(
@@ -131,6 +121,6 @@ void Launcher::SetupListeners() {
       int flag) -> void {
         double value = new_value->GetDouble();
         auto controller = this->shooter_.GetPIDController();
-        //controller.SetOutputRange(value, controller.GetOutputMax());
+        // controller.SetOutputRange(value, controller.GetOutputMax());
       });
 }
