@@ -9,6 +9,7 @@
 
 #include <frc2/command/CommandBase.h>
 #include <frc2/command/CommandHelper.h>
+#include <frc/controller/PIDController.h>
 
 class Drivetrain;
 
@@ -33,7 +34,14 @@ class AlignWithTarget
   bool IsFinished() override;
 
  private:
+  void SetupListeners();
   Drivetrain* drivetrain_;
   double* tolerence_;
   double* turn_;
+  frc2::PIDController vision_PID_;
+  double* p_;
+  double* i_;
+  double* d_;
+  frc::Timer timer_;
+  double* timeontarget_;
 };

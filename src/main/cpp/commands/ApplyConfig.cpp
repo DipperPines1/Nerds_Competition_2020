@@ -120,6 +120,18 @@ void ApplyConfig::Initialize() {
     false);  nerd::Preferences::GetInstance().AddPreference(
     VISION_TOLERANCE.key,
     VISION_TOLERANCE.value,
+    false);  nerd::Preferences::GetInstance().AddPreference(
+    VISION_PID_P.key,
+    VISION_PID_P.value,
+    false);  nerd::Preferences::GetInstance().AddPreference(
+    VISION_PID_I.key,
+    VISION_PID_I.value,
+    false);  nerd::Preferences::GetInstance().AddPreference(
+    VISION_PID_D.key,
+    VISION_PID_D.value,
+    false);  nerd::Preferences::GetInstance().AddPreference(
+    PID_TIME_ON_TARGET.key,
+    PID_TIME_ON_TARGET.value,
     false);
   }
 

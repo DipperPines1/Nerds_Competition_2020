@@ -134,3 +134,21 @@ const nerd::ConfigKey<double> VISION_TOLERANCE {
   0
 };
 // End Vision Parameters
+
+// start of vision PID parameters
+const nerd::ConfigKey<double> VISION_PID_P{
+  "Vision/PID/P",
+  0.5
+};
+const nerd::ConfigKey<double> VISION_PID_I{
+  "Vision/PID/I",
+  0
+};
+const nerd::ConfigKey<double> VISION_PID_D{
+  "Vision/PID/D",
+  0
+};
+const nerd::ConfigKey<double> PID_TIME_ON_TARGET{
+  "Vision/PID/Timer",
+  0
+};
