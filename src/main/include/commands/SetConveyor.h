@@ -33,6 +33,6 @@ class SetConveyor
   bool IsFinished() override;
 
  private:
- Launcher* launcher_;
- bool reverse_;
+    Launcher* launcher_;
+    bool reverse_;
 };

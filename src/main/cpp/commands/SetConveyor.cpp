@@ -32,7 +32,6 @@ void SetConveyor::Execute() {
   } else {
     launcher_->RunConveyor(-speed);
   }
-
 }
 
 // Called once the command ends or is interrupted.
