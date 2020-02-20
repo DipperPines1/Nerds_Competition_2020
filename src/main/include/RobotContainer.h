@@ -11,6 +11,7 @@
 #include <frc2/command/Command.h>
 
 #include "commands/ApplyConfig.h"
+#include "commands/ConveyorVariable.h"
 #include "commands/DriveByDistance.h"
 #include "commands/DriveJoystick.h"
 #include "commands/TurnByDegree.h"
@@ -48,6 +49,7 @@ class RobotContainer {
 
   ApplyConfig apply_config_;
   DriveJoystick drive_joy_;
+  ConveyorVariable variable_;
 
   void ConfigureButtonBindings();
 };

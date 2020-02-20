@@ -25,11 +25,13 @@ RobotContainer::RobotContainer()
     climber_(),
     oi_(),
     apply_config_(),
-    drive_joy_(&drivetrain_, &oi_) {
+    drive_joy_(&drivetrain_, &oi_),
+    variable_(&conveyor_, &oi_) {
   ConfigureButtonBindings();
 
   // Set default commands
   drivetrain_.SetDefaultCommand(drive_joy_);
+  conveyor_.SetDefaultCommand(variable_);
 }
 
 void RobotContainer::ConfigureButtonBindings() {
@@ -42,10 +44,10 @@ void RobotContainer::ConfigureButtonBindings() {
   oi_.BindCommandButton(BUTTON_B, new ToggleStopper(&climber_));
 
   oi_.BindCommandTrigger(DPAD_UP, new ToggleExtender(&climber_));
-  oi_.BindCommandTrigger(DPAD_DOWN, new SetReelSpeed(false, &climber_));
-  oi_.BindCommandTrigger(DPAD_LEFT, new SetReelSpeed(true, &climber_));
-  oi_.BindCommandTrigger(TRIGGER_LEFT, new SetConveyor(false, &conveyor_));
-  oi_.BindCommandTrigger(TRIGGER_RIGHT, new SetConveyor(true, &conveyor_));
+  oi_.BindCommandTrigger(DPAD_LEFT, new SetReelSpeed(false, &climber_));
+  oi_.BindCommandTrigger(DPAD_DOWN, new SetReelSpeed(true, &climber_));
+  // oi_.BindCommandTrigger(TRIGGER_LEFT, new SetConveyor(false, &conveyor_));
+  // oi_.BindCommandTrigger(TRIGGER_RIGHT, new SetConveyor(true, &conveyor_));
 }
 frc2::Command* RobotContainer::GetAutonomousCommand() {
   // An example command will be run in autonomous

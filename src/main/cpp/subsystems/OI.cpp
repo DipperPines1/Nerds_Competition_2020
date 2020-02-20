@@ -121,11 +121,11 @@ void OI::BindCommandTrigger(int trigger, frc2::Command* command) {
     switch (trigger) {
     case TRIGGER_LEFT:
         bound_commands_.push_back(command);
-        trigger_left_.ToggleWhenPressed(command, true);
+        trigger_left_.WhenHeld(command, true);
         return;
     case TRIGGER_RIGHT:
         bound_commands_.push_back(command);
-        trigger_right_.ToggleWhenPressed(command, true);
+        trigger_right_.WhenHeld(command, true);
         return;
     case DPAD_LEFT:
         bound_commands_.push_back(command);
