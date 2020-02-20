@@ -84,6 +84,9 @@ void RobotContainer::DriveThroughPath(
   frc2::PIDController left_PID(*kp_drive_velocity_, 0.0, 0.0);
   frc2::PIDController right_PID(*kp_drive_velocity_, 0.0, 0.0);
 
+  frc::Transform2d transform = drivetrain_.GetPose() - initial_pose;
+  path = path.TransformBy(transform);
+
   autonomous_drive.reset(new nerd::RamseteCommandReportable(
     path,
     [this]() {
