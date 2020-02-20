@@ -19,9 +19,7 @@ AlignWithTarget::AlignWithTarget(Drivetrain* drivetrain)
   timer_() {
   // Use AddRequirements() here to declare subsystem dependencies.
   AddRequirements({drivetrain_});
-
-  tolerence_ = new double(0);
-  turn_ = new double(0);
+  SetupListeners();
   vision_PID_.SetSetpoint(0);
 }
 
@@ -29,6 +27,9 @@ AlignWithTarget::AlignWithTarget(Drivetrain* drivetrain)
 void AlignWithTarget::Initialize() {
   vision_PID_.SetPID(*p_, *i_, *d_);
   vision_PID_.SetTolerance(*tolerence_);
+
+  running_ = false;
+  timer_.Reset();
 }
 
 // Called repeatedly when this Command is scheduled to run
@@ -37,7 +38,21 @@ void AlignWithTarget::Execute() {
     VISION_CENTER_X.key,
     VISION_CENTER_X.value);
 
-  double turn = vision_PID_.Calculate(Center_X);
+  double output = vision_PID_.Calculate(Center_X);
+
+  double turn;
+  if (vision_PID_.AtSetpoint()) {
+    turn = 0;
+  } else {
+    double slope = *turn_max_ - *turn_min_;
+    turn = slope * std::fabs(output) + *turn_min_;
+
+    if (turn > *turn_max_) {
+      turn = *turn_max_;
+    }
+
+    turn *= output > 0 ? 1 : -1;
+  }
 
   drivetrain_->ArcadeDrive(0, -turn, false);
 }
@@ -45,21 +60,24 @@ void AlignWithTarget::Execute() {
 // Called once the command ends or is interrupted.
 void AlignWithTarget::End(bool interrupted) {
     drivetrain_->ArcadeDrive(0, 0, false);
-    vision_PID_.Reset()
+    vision_PID_.Reset();
 }
 
 // Returns true when the command should end.
 bool AlignWithTarget::IsFinished() {
-  double Center_X = frc::SmartDashboard::GetNumber(
-    VISION_CENTER_X.key,
-    VISION_CENTER_X.value);
   if (vision_PID_.AtSetpoint()) {
-    timer_.Start();
-  }else{
+    if (!running_) {
+      timer_.Start();
+      running_ = true;
+    } else {
+      return timer_.Get().to<double>() > *timeontarget_;
+    }
+  } else if (running_) {
     timer_.Reset();
+    running_ = false;
   }
 
-  return -*tolerence_ < Center_X && Center_X < *tolerence_;
+  return false;
 }
 
 void AlignWithTarget::SetupListeners() {
@@ -79,10 +97,14 @@ void AlignWithTarget::SetupListeners() {
   nerd::Preferences::GetInstance().AddListener(
   PID_TIME_ON_TARGET.key,
   timeontarget_);
-  turn_ = new double(0);
+  turn_max_ = new double(0);
   nerd::Preferences::GetInstance().AddListener(
-  VISION_TURN_SPEED.key,
-  turn_);
+  VISION_TURN_MAX_SPEED.key,
+  turn_max_);
+  turn_min_ = new double(0);
+  nerd::Preferences::GetInstance().AddListener(
+  VISION_TURN_MIN_SPEED.key,
+  turn_min_);
   tolerence_ = new double(0);
   nerd::Preferences::GetInstance().AddListener(
   VISION_TOLERANCE.key,

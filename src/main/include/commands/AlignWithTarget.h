@@ -10,6 +10,7 @@
 #include <frc2/command/CommandBase.h>
 #include <frc2/command/CommandHelper.h>
 #include <frc/controller/PIDController.h>
+#include <frc2/Timer.h>
 
 class Drivetrain;
 
@@ -37,11 +38,14 @@ class AlignWithTarget
   void SetupListeners();
   Drivetrain* drivetrain_;
   double* tolerence_;
-  double* turn_;
+  double* turn_max_;
+  double* turn_min_;
   frc2::PIDController vision_PID_;
   double* p_;
   double* i_;
   double* d_;
-  frc::Timer timer_;
+  frc2::Timer timer_;
   double* timeontarget_;
+
+  bool running_;
 };

@@ -125,8 +125,12 @@ const nerd::ConfigKey<double> VISION_CENTER_Y {
   "Vision/Center/Y",
   0
 };
-const nerd::ConfigKey<double> VISION_TURN_SPEED  {
-  "Vision/Turn/speed",
+const nerd::ConfigKey<double> VISION_TURN_MAX_SPEED  {
+  "Vision/Turn/Max Speed",
+  0
+};
+const nerd::ConfigKey<double> VISION_TURN_MIN_SPEED  {
+  "Vision/Turn/Min Speed",
   0
 };
 const nerd::ConfigKey<double> VISION_TOLERANCE {
@@ -150,5 +154,5 @@ const nerd::ConfigKey<double> VISION_PID_D{
 };
 const nerd::ConfigKey<double> PID_TIME_ON_TARGET{
   "Vision/PID/Timer",
-  0
+  1
 };
