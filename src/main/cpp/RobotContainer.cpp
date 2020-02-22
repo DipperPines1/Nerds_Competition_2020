@@ -51,11 +51,11 @@ void RobotContainer::ConfigureButtonBindings() {
 
 frc2::Command* RobotContainer::GetAutonomousCommand() {
   frc2::SequentialCommandGroup* command = new frc2::SequentialCommandGroup(
-    DriveByDistance(120, &drivetrain_),
+    DriveByDistance(24, &drivetrain_),
     frc2::ParallelRaceGroup{
-      SetConveyor(false, &launcher_),
-      SetLauncher(&launcher_).WithTimeout(5_s)
+      SetLauncher(&launcher_),
+      SetConveyor(false, &launcher_).WithTimeout(5_s)
     },
-    DriveByDistance(-120, &drivetrain_));
+    DriveByDistance(-24, &drivetrain_));
   return command;
-}
+} 
