@@ -153,6 +153,45 @@ const nerd::ConfigKey<double> AUTONOMOUS_TURN_TIME_ON_TARGET {
 };
 // End Autonomous Parameters
 
+// Start Of Vision Parameters
+const nerd::ConfigKey<double> VISION_CENTER_X {
+  "Vision/Center/X",
+  0
+};
+const nerd::ConfigKey<double> VISION_CENTER_Y {
+  "Vision/Center/Y",
+  0
+};
+const nerd::ConfigKey<double> VISION_TURN_MAX_SPEED  {
+  "Vision/Turn/Max Speed",
+  0
+};
+const nerd::ConfigKey<double> VISION_TURN_MIN_SPEED  {
+  "Vision/Turn/Min Speed",
+  0
+};
+const nerd::ConfigKey<double> VISION_TOLERANCE {
+  "Vision/Turn/Tolerence",
+  0
+};
+// End Vision Parameters
+
+// start of vision PID parameters
+const nerd::ConfigKey<double> VISION_PID_P{
+  "Vision/PID/P",
+  0.5
+};
+const nerd::ConfigKey<double> VISION_PID_I{
+  "Vision/PID/I",
+  0
+};
+const nerd::ConfigKey<double> VISION_PID_D{
+  "Vision/PID/D",
+  0
+};
+const nerd::ConfigKey<double> PID_TIME_ON_TARGET{
+  "Vision/PID/Timer",
+  1
 // Reel values
 const nerd::ConfigKey<double> SET_REEL_SPEED{
   "Joysticks/Reel Speed",

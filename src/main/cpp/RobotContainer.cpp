@@ -15,6 +15,7 @@
 #include "commands/SetConveyor.h"
 #include "commands/SetReelSpeed.h"
 #include "commands/SpeedSwitch.h"
+#include "commands/AlignWithTarget.h"
 #include "commands/ToggleExtender.h"
 #include "commands/ToggleStopper.h"
 
@@ -35,6 +36,8 @@ RobotContainer::RobotContainer()
 void RobotContainer::ConfigureButtonBindings() {
   frc::SmartDashboard::PutData("Commands/Load Config", &apply_config_);
 
+  oi_.BindCommandButton(BUTTON_A, new DriveByDistance(120, &drivetrain_));
+  oi_.BindCommandButton(BUTTON_B, new AlignWithTarget(&drivetrain_));
   oi_.BindCommandButton(BUTTON_A, new SpeedSwitch());
   oi_.BindCommandButton(BUTTON_X, new ToggleExtender(&climber_));
   oi_.BindCommandButton(BUTTON_LB, new RunIntake(false, &launcher_));
@@ -44,7 +47,6 @@ void RobotContainer::ConfigureButtonBindings() {
   oi_.BindCommandTrigger(TRIGGER_LEFT, new SetConveyor(false, &launcher_));
   oi_.BindCommandTrigger(DPAD_LEFT, new SetConveyor(true, &launcher_));
   oi_.BindCommandButton(BUTTON_Y, new SetReelSpeed(&climber_));
-  oi_.BindCommandButton(BUTTON_B, new ToggleStopper(&climber_));
 }
 frc2::Command* RobotContainer::GetAutonomousCommand() {
   // An example command will be run in autonomous
