@@ -10,6 +10,7 @@
 #include <sstream>
 
 #include <frc/DriverStation.h>
+
 #include <networktables/EntryListenerFlags.h>
 #include <networktables/NetworkTableInstance.h>
 
@@ -106,6 +107,25 @@ bool nerd::Preferences::AddListener<bool>(std::string key,
     return true;
 }
 
+bool nerd::Preferences::AddFunctionListener(std::string key, nt::TableEntryListener function) {
+    auto instance = nt::NetworkTableInstance::GetDefault();
+    auto table = instance.GetTable("Preference");
+
+    if (!table->ContainsKey(key)) {
+        std::stringstream warning;
+        warning << "Key: " << key << " does not exist. (Function)";
+        frc::DriverStation::ReportWarning(warning.str());
+        return false;
+    }
+
+    table->AddEntryListener(
+        key,
+        function,
+        nt::EntryListenerFlags::kUpdate | nt::EntryListenerFlags::kNew | nt::EntryListenerFlags::kLocal
+    );
+    return true;
+}
+
 template<>
 bool nerd::Preferences::AddPreference<double>(std::string key,
     double value,
@@ -174,7 +194,9 @@ bool nerd::Preferences::AddPreference<bool>(std::string key,
 }
 
 template<>
-double nerd::Preferences::GetPreference<double>(std::string key, double default_value) {
+double nerd::Preferences::GetPreference<double>(
+    std::string key,
+    double default_value) {
     auto instance = nt::NetworkTableInstance::GetDefault();
     auto table = instance.GetTable("Preference");
 
@@ -189,7 +211,9 @@ double nerd::Preferences::GetPreference<double>(std::string key, double default_
 }
 
 template<>
-std::string nerd::Preferences::GetPreference<std::string>(std::string key, std::string default_value) {
+std::string nerd::Preferences::GetPreference<std::string>(
+    std::string key,
+    std::string default_value) {
     auto instance = nt::NetworkTableInstance::GetDefault();
     auto table = instance.GetTable("Preference");
 
@@ -204,7 +228,9 @@ std::string nerd::Preferences::GetPreference<std::string>(std::string key, std::
 }
 
 template<>
-bool nerd::Preferences::GetPreference<bool>(std::string key, bool default_value) {
+bool nerd::Preferences::GetPreference<bool>(
+    std::string key,
+    bool default_value) {
     auto instance = nt::NetworkTableInstance::GetDefault();
     auto table = instance.GetTable("Preference");
 
@@ -215,5 +241,5 @@ bool nerd::Preferences::GetPreference<bool>(std::string key, bool default_value)
         warning << "Key: " << key << " does not exist. (Bool)";
         frc::DriverStation::ReportWarning(warning.str());
         return default_value;
-    } 
-}    
+    }
+}

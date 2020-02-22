@@ -14,7 +14,11 @@
 #include "commands/DriveByDistance.h"
 #include "commands/DriveJoystick.h"
 #include "commands/TurnByDegree.h"
+#include "commands/ToggleExtender.h"
+#include "commands/ToggleStopper.h"
+#include "subsystems/Climber.h"
 #include "subsystems/Drivetrain.h"
+#include "subsystems/Launcher.h"
 #include "subsystems/OI.h"
 
 /**
@@ -32,8 +36,11 @@ class RobotContainer {
 
  private:
   // The robot's subsystems and commands are defined here...
+  Climber climber_;
   Drivetrain drivetrain_;
+  Launcher launcher_;
   OI oi_;
+
 
   ApplyConfig apply_config_;
   DriveJoystick drive_joy_;

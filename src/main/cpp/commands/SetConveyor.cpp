@@ -5,35 +5,40 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
-#include "commands/SpeedSwitch.h"
+#include "commands/SetConveyor.h"
 
 #include "Config.h"
 #include "nerds/Preferences.h"
+#include "subsystems/Launcher.h"
 
-SpeedSwitch::SpeedSwitch() {
+SetConveyor::SetConveyor(bool reverse, Launcher* launcher) :
+  launcher_(launcher),
+  reverse_(reverse) {
   // Use addRequirements() here to declare subsystem dependencies.
+  // AddRequirements({launcher_});
 }
 
-/**
- * @brief The command that gets the preference from switch_speed, bound to button A
- * 
- */
-void SpeedSwitch::Initialize() {
-  bool switch_speed_ = nerd::Preferences::GetInstance().GetPreference<bool>(
-    SWITCH_SPEED_PREFERENCES.key,
-    SWITCH_SPEED_PREFERENCES.value);
-
-  nerd::Preferences::GetInstance().AddPreference(
-    SWITCH_SPEED_PREFERENCES.key,
-    !switch_speed_,
-    true);
-}
+// Called when the command is initially scheduled.
+void SetConveyor::Initialize() {}
 
 // Called repeatedly when this Command is scheduled to run
-void SpeedSwitch::Execute() {}
+void SetConveyor::Execute() {
+  double speed = nerd::Preferences::GetInstance().GetPreference(
+    LAUNCHER_CONVEYOR_SPEED.key,
+    LAUNCHER_CONVEYOR_SPEED.value);
+
+  if (reverse_) {
+    launcher_->RunConveyor(speed);
+  } else {
+    launcher_->RunConveyor(-speed);
+  }
+
+}
 
 // Called once the command ends or is interrupted.
-void SpeedSwitch::End(bool interrupted) {}
+void SetConveyor::End(bool interrupted) {
+  launcher_->RunConveyor(0);
+}
 
 // Returns true when the command should end.
-bool SpeedSwitch::IsFinished() { return true; }
+bool SetConveyor::IsFinished() { return false; }

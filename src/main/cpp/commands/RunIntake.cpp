@@ -5,35 +5,39 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
-#include "commands/SpeedSwitch.h"
+#include "commands/RunIntake.h"
 
 #include "Config.h"
 #include "nerds/Preferences.h"
+#include "subsystems/Launcher.h"
 
-SpeedSwitch::SpeedSwitch() {
+RunIntake::RunIntake(bool reverse, Launcher* launcher) :
+  launcher_(launcher),
+  reverse_(reverse) {
   // Use addRequirements() here to declare subsystem dependencies.
+  // AddRequirements({launcher_});
 }
 
-/**
- * @brief The command that gets the preference from switch_speed, bound to button A
- * 
- */
-void SpeedSwitch::Initialize() {
-  bool switch_speed_ = nerd::Preferences::GetInstance().GetPreference<bool>(
-    SWITCH_SPEED_PREFERENCES.key,
-    SWITCH_SPEED_PREFERENCES.value);
-
-  nerd::Preferences::GetInstance().AddPreference(
-    SWITCH_SPEED_PREFERENCES.key,
-    !switch_speed_,
-    true);
-}
+// Called when the command is initially scheduled.
+void RunIntake::Initialize() {}
 
 // Called repeatedly when this Command is scheduled to run
-void SpeedSwitch::Execute() {}
+void RunIntake::Execute() {
+  double speed = nerd::Preferences::GetInstance().GetPreference(
+    LAUNCHER_INTAKE_SPEED.key,
+    LAUNCHER_INTAKE_SPEED.value);
+
+  if (reverse_) {
+    launcher_->RunIntake(-speed);
+  } else {
+    launcher_->RunIntake(speed);
+  }
+}
 
 // Called once the command ends or is interrupted.
-void SpeedSwitch::End(bool interrupted) {}
+void RunIntake::End(bool interrupted) {
+  launcher_->RunIntake(0);
+}
 
 // Returns true when the command should end.
-bool SpeedSwitch::IsFinished() { return true; }
+bool RunIntake::IsFinished() { return false; }
