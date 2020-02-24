@@ -10,6 +10,7 @@
 #include <frc/smartdashboard/SmartDashboard.h>
 #include <frc2/command/SequentialCommandGroup.h>
 #include <frc2/command/ParallelRaceGroup.h>
+#include <frc2/command/WaitCommand.h>
 
 #include "Constants.h"
 #include "commands/RunIntake.h"
@@ -51,11 +52,11 @@ void RobotContainer::ConfigureButtonBindings() {
 
 frc2::Command* RobotContainer::GetAutonomousCommand() {
   frc2::SequentialCommandGroup* command = new frc2::SequentialCommandGroup(
-    DriveByDistance(24, &drivetrain_),
-    frc2::ParallelRaceGroup{
-      SetLauncher(&launcher_),
-      SetConveyor(false, &launcher_).WithTimeout(5_s)
-    },
+    frc2::ParallelRaceGroup(
+    SetLauncher(&launcher_),
+      frc2::SequentialCommandGroup(
+        frc2::WaitCommand(2_s),
+        SetConveyor(false, &launcher_).WithTimeout(2_s))),
     DriveByDistance(-24, &drivetrain_));
   return command;
-} 
+}
