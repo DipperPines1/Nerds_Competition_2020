@@ -20,15 +20,15 @@ SetLauncher::SetLauncher(Launcher* launcher) :
 }
 
 // Called when the command is initially scheduled.
-void SetLauncher::Initialize() {}
-
-// Called repeatedly when this Command is scheduled to run
-void SetLauncher::Execute() { 
+void SetLauncher::Initialize() {
   double speed = nerd::Preferences::GetInstance().GetPreference(
     LAUNCHER_CURRENT_SPEED.key,
     LAUNCHER_CURRENT_SPEED.value);
   launcher_->SetLauncherSpeed(-speed);
 }
+
+// Called repeatedly when this Command is scheduled to run
+void SetLauncher::Execute() {}
 
 // Called once the command ends or is interrupted.
 void SetLauncher::End(bool interrupted) {

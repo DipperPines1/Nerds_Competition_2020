@@ -71,7 +71,7 @@ const nerd::ConfigKey<bool> SWITCH_SPEED_PREFERENCES{
 // Launcher values
 const nerd::ConfigKey<double> LAUNCHER_CONTROLLER_P{
   "Launcher/Controller/P",
-  6e-5
+  0.0005
 };
 const nerd::ConfigKey<double> LAUNCHER_CONTROLLER_I{
   "Launcher/Controller/I",
@@ -80,6 +80,10 @@ const nerd::ConfigKey<double> LAUNCHER_CONTROLLER_I{
 const nerd::ConfigKey<double> LAUNCHER_CONTROLLER_D{
   "Launcher/Controller/D",
   0
+};
+const nerd::ConfigKey<double> LAUNCHER_CONTROLLER_F{
+  "Launcher/Controller/F",
+  0.00022
 };
 const nerd::ConfigKey<double> LAUNCHER_MAX_SPEED{
   "Launcher/Controller/Max Speed",

@@ -28,6 +28,9 @@ Launcher::Launcher() :
   double d = nerd::Preferences::GetInstance().GetPreference(
     LAUNCHER_CONTROLLER_D.key,
     LAUNCHER_CONTROLLER_D.value);
+  double f = nerd::Preferences::GetInstance().GetPreference(
+    LAUNCHER_CONTROLLER_F.key,
+    LAUNCHER_CONTROLLER_F.value);
   double max = nerd::Preferences::GetInstance().GetPreference(
     LAUNCHER_MAX_SPEED.key,
     LAUNCHER_MAX_SPEED.value);
@@ -40,6 +43,7 @@ Launcher::Launcher() :
   controller.SetP(p);
   controller.SetI(i);
   controller.SetD(d);
+  controller.SetFF(f);
   // controller.SetOutputRange(min, max);
 }
 
@@ -57,8 +61,7 @@ void Launcher::Periodic() {
 void Launcher::SetLauncherSpeed(double speed) {
   rev::CANPIDController controller = shooter_.GetPIDController();
 
-  // controller.SetReference(speed, rev::ControlType::kVelocity);
-  shooter_.Set(speed);
+  controller.SetReference(speed, rev::ControlType::kVelocity);
 }
 
 void Launcher::SetupListeners() {
@@ -96,6 +99,18 @@ void Launcher::SetupListeners() {
       int flag) -> void {
         double value = new_value->GetDouble();
         this->shooter_.GetPIDController().SetD(value);
+      });
+
+  nerd::Preferences::GetInstance().AddFunctionListener(
+    LAUNCHER_CONTROLLER_F.key,
+    [this] (
+      auto table,
+      auto name,
+      auto entry,
+      auto new_value,
+      int flag) -> void {
+        double value = new_value->GetDouble();
+        this->shooter_.GetPIDController().SetFF(value);
       });
 
   nerd::Preferences::GetInstance().AddFunctionListener(
