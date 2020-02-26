@@ -73,3 +73,6 @@ constexpr int RIGHT_CHANNEL = 3;
 // PWM channels
 constexpr int PWM_REEL_LEFT = 0;
 constexpr int PWM_REEL_RIGHT = 1;
+
+// Sensors
+constexpr int SENSORS_ = 0;

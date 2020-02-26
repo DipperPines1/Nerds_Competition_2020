@@ -5,35 +5,38 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
-#include "commands/SetLauncher.h"
+#include "commands/Sensors.h"
 
+#include "subsystems/Conveyor.h"
 #include "Config.h"
 #include "nerds/Preferences.h"
-#include "subsystems/Launcher.h"
 
-
-SetLauncher::SetLauncher(Launcher* launcher) :
-  launcher_(launcher)
-{
+Sensors::Sensors(Conveyor* conveyor) :
+  conveyor_(conveyor),
+  sensor_input_(0),
+  sensor_output_(0) {
   // Use addRequirements() here to declare subsystem dependencies.
-  AddRequirements({launcher});
+  AddRequirements({conveyor_});
 }
 
 // Called when the command is initially scheduled.
-void SetLauncher::Initialize() {}
+void Sensors::Initialize() {}
 
 // Called repeatedly when this Command is scheduled to run
-void SetLauncher::Execute() {
+void Sensors::Execute() {
   double speed = nerd::Preferences::GetInstance().GetPreference(
-    LAUNCHER_CURRENT_SPEED.key,
-    LAUNCHER_CURRENT_SPEED.value);
-  launcher_->SetLauncherSpeed(-speed);
+    LAUNCHER_CONVEYOR_SPEED.key,
+    LAUNCHER_CONVEYOR_SPEED.value);
+
+  bool detected = sensor_input_.Get();
+
+  if (detected) {
+    conveyor_->RunConveyor(speed);
+  }
 }
 
 // Called once the command ends or is interrupted.
-void SetLauncher::End(bool interrupted) {
-  launcher_->SetLauncherSpeed(0);
-}
+void Sensors::End(bool interrupted) {}
 
 // Returns true when the command should end.
-bool SetLauncher::IsFinished() { return false; }
+bool Sensors::IsFinished() { return true; }
