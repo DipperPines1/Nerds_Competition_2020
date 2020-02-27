@@ -9,11 +9,13 @@
 
 #include <frc/smartdashboard/SmartDashboard.h>
 #include <frc2/command/Command.h>
+#include <frc2/command/button/Trigger.h>
 
 #include "commands/ApplyConfig.h"
 #include "commands/ConveyorVariable.h"
 #include "commands/DriveByDistance.h"
 #include "commands/DriveJoystick.h"
+#include "commands/SetConveyor.h"
 #include "commands/TurnByDegree.h"
 #include "commands/ToggleExtender.h"
 #include "commands/ToggleStopper.h"
@@ -46,10 +48,12 @@ class RobotContainer {
   Launcher launcher_;
   OI oi_;
 
-
   ApplyConfig apply_config_;
   DriveJoystick drive_joy_;
   ConveyorVariable variable_;
+  SetConveyor feed_ball_;
+
+  frc2::Trigger ball_feed_;
 
   void ConfigureButtonBindings();
 };

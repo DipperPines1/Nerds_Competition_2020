@@ -38,6 +38,10 @@ void ConveyorVariable::Execute() {
 
   double output = speed * input;
 
+  if (output <= 0 && conveyor_->IsBallDetected()) {
+    output = -speed;
+  }
+
   conveyor_->RunConveyor(output);
 }
 

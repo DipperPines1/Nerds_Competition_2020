@@ -101,11 +101,26 @@ const nerd::ConfigKey<double> LAUNCHER_INTAKE_SPEED{
   "Launcher/Intake Speed",
   5
 };
+const nerd::ConfigKey<bool> LAUNCHER_OVERRIDE{
+  "Launcher/Override",
+  false
+};
+const nerd::ConfigKey<double> LAUNCHER_TOLERANCE{
+  "Launcher/Tolerance",
+  50
+};
+// End Launcher
+
+// Conveyor
 const nerd::ConfigKey<double> LAUNCHER_CONVEYOR_SPEED{
   "Launcher/Conveyor Speed",
   5
 };
-// End Launcher
+const nerd::ConfigKey<bool> CONVEYOR_FEED_OVERRIDE{
+  "Conveyor/Feed/Override",
+  false
+};
+// End Conveyor
 
 // Autonomous PID
 const nerd::ConfigKey<double> AUTO_TURN_P{

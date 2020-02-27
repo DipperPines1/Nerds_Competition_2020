@@ -7,15 +7,33 @@
 
 #include "subsystems/Conveyor.h"
 
+#include "Config.h"
 #include "Constants.h"
+#include "nerds/Preferences.h"
 
+#include <frc/smartdashboard/SmartDashboard.h>
 
 Conveyor::Conveyor() :
-conveyor_(PWM_LAUNCHER_CONVEYOR) {}
+conveyor_(PWM_LAUNCHER_CONVEYOR),
+ball_sensor_(DIO_BALL_SENSOR) {
+  feed_override_ = new bool(false);
+  nerd::Preferences::GetInstance().AddListener(
+    CONVEYOR_FEED_OVERRIDE.key,
+    feed_override_
+  );
+}
 
 // This method will be called once per scheduler run
-void Conveyor::Periodic() {}
+void Conveyor::Periodic() {
+  frc::SmartDashboard::PutBoolean(
+    "Conveyor/Ball is Detected",
+    IsBallDetected());
+}
 
 void Conveyor::RunConveyor(double speed) {
   conveyor_.Set(speed);
+}
+
+bool Conveyor::IsBallDetected() {
+  return !ball_sensor_.Get() && !*feed_override_;
 }

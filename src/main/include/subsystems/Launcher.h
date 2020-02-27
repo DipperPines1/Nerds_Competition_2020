@@ -21,6 +21,8 @@ class Launcher : public frc2::SubsystemBase {
 
   void SetLauncherSpeed(double speed);
 
+  double GetLauncherSpeed();
+
  private:
   void SetupListeners();
 

@@ -53,15 +53,17 @@ void Launcher::Periodic() {
   frc::SmartDashboard::PutNumber(
     "SparkMax/Encoder/Velocity",
     encoder.GetVelocity());
-  frc::SmartDashboard::PutNumber(
-    "SparkMax/Duty Cycle",
-    shooter_.GetAppliedOutput());
 }
 
 void Launcher::SetLauncherSpeed(double speed) {
   rev::CANPIDController controller = shooter_.GetPIDController();
 
   controller.SetReference(speed, rev::ControlType::kVelocity);
+}
+
+double Launcher::GetLauncherSpeed() {
+   auto encoder = shooter_.GetEncoder();
+   return encoder.GetVelocity();
 }
 
 void Launcher::SetupListeners() {

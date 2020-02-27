@@ -26,12 +26,16 @@ RobotContainer::RobotContainer()
     oi_(),
     apply_config_(),
     drive_joy_(&drivetrain_, &oi_),
-    variable_(&conveyor_, &oi_) {
+    variable_(&conveyor_, &oi_),
+    feed_ball_(false, &conveyor_),
+    ball_feed_([this] () -> bool {return this->conveyor_.IsBallDetected();}) {
   ConfigureButtonBindings();
 
   // Set default commands
   drivetrain_.SetDefaultCommand(drive_joy_);
   conveyor_.SetDefaultCommand(variable_);
+
+  // ball_feed_.WhileActiveOnce(feed_ball_, true);
 }
 
 void RobotContainer::ConfigureButtonBindings() {
