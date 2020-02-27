@@ -158,3 +158,55 @@ const nerd::ConfigKey<double> SET_REEL_SPEED{
   "Joysticks/Reel Speed",
   2
 };
+
+// Ramsete
+const nerd::ConfigKey<double> FEEDFORWARD_KS {
+  "Ramsete/Feed Forward/KS",
+  0.1
+};
+
+const nerd::ConfigKey<double> FEEDFORWARD_KA {
+  "Ramsete/Feed Forward/KA",
+  0
+};
+
+const nerd::ConfigKey<double> FEEDFORWARD_KV {
+  "Ramsete/Feed Forward/KV",
+  0.0811
+};
+
+const nerd::ConfigKey<double> KP_DRIVE_VELOCITY {
+  "Ramsete/Drive/Velocity",
+  0.05
+};
+
+const nerd::ConfigKey<double> K_MAX_SPEED {
+  "Ramsete/Trajectory/Max Speed",
+  1
+};
+
+const nerd::ConfigKey<double> K_MAX_ACCELERATION {
+  "Ramsete/Trajectory/Max Acceleration",
+  0.5
+};
+
+const nerd::ConfigKey<double> K_RAMSETE_B {
+  "Ramsete/Controller/B",
+  2
+};
+
+const nerd::ConfigKey<double> K_RAMSETE_ZETA {
+  "Ramsete/Controller/Zeta",
+  0.2
+};
+
+const nerd::ConfigKey<double> RAMSETE_DRIVE_MAX_SPEED {
+  "Ramsete/Drive/Max Speed",
+  0.85
+};
+
+const nerd::ConfigKey<double> RAMSETE_DRIVE_MIN_SPEED {
+  "Ramsete/Drive/Min Speed",
+  0.25
+};
+// end Ramsete

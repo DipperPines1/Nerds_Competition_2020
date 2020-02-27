@@ -45,5 +45,17 @@ class RobotContainer {
   ApplyConfig apply_config_;
   DriveJoystick drive_joy_;
 
+  // Ramsete Listener Pointers
+  double* feed_forward_ks_;
+  double* feed_forward_ka_;
+  double* feed_forward_kv_;
+  double* kp_drive_velocity_;
+  double* k_max_speed_;
+  double* k_max_acceleration_;
+  double* k_ramsete_b_;
+  double* k_ramsete_zeta_;
+  double* ramsete_max_speed_;
+  double* ramsete_min_speed_;
+  
   void ConfigureButtonBindings();
 };

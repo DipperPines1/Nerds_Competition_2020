@@ -14,6 +14,7 @@
 #include <frc/SpeedControllerGroup.h>
 #include <AHRS.h>
 #include <frc/Encoder.h>
+#include <frc/kinematics/DifferentialDriveOdometry.h>
 
 class Drivetrain : public frc2::SubsystemBase {
  public:
@@ -63,6 +64,27 @@ class Drivetrain : public frc2::SubsystemBase {
    */
   double AverageDistance();
 
+  /**
+   * @brief gets the pose of the robot
+   * 
+   * @return frc::Pose2d 
+   */
+  frc::Pose2d GetPose();
+
+/**
+ * @brief Sets the voltage limit for tank drive
+ * 
+ * @param left 
+ * @param right 
+ */
+  void TankDriveVolts(units::volt_t left, units::volt_t right);
+/**
+ * @brief Gets the Wheel Speed
+ * 
+ * @return double 
+ */
+  frc::DifferentialDriveWheelSpeeds GetWheelSpeed();
+
  private:
   // Components (e.g. motor controllers and sensors) should generally be
   // declared private and exposed only through public methods.
@@ -80,4 +102,6 @@ class Drivetrain : public frc2::SubsystemBase {
 
   frc::Encoder encoder_left;
   frc::Encoder encoder_right;
+
+  frc::DifferentialDriveOdometry odometry;
 };

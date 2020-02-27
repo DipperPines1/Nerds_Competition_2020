@@ -7,6 +7,8 @@
 
 #pragma once
 
+#include <units/units.h>
+
 // CAN Devices
 constexpr int CAN_DRIVE_FRONT_RIGHT = 3;
 constexpr int CAN_DRIVE_BACK_RIGHT = 4;
@@ -73,3 +75,6 @@ constexpr int RIGHT_CHANNEL = 3;
 // PWM channels
 constexpr int PWM_REEL_LEFT = 0;
 constexpr int PWM_REEL_RIGHT = 1;
+
+// Track Width
+units::meter_t TRACK_WIDTH = 0.60325_m;

@@ -24,33 +24,57 @@ Drivetrain::Drivetrain() :
     encoder_left(DIO_ENCODER_LEFT_A, DIO_ENCODER_LEFT_B, false),
     encoder_right(DIO_ENCODER_RIGHT_A, DIO_ENCODER_RIGHT_B, true)
 {
-    encoder_left.SetDistancePerPulse(WHEEL_DIAMETER * PI / PULSES_PER_REVOLUTION);
-    encoder_right.SetDistancePerPulse(WHEEL_DIAMETER * PI / PULSES_PER_REVOLUTION);
+    encoder_left.SetDistancePerPulse(
+        WHEEL_DIAMETER * PI / PULSES_PER_REVOLUTION
+);
+    encoder_right.SetDistancePerPulse(
+        WHEEL_DIAMETER * PI / PULSES_PER_REVOLUTION
+);
 
     encoder_left.SetReverseDirection(true);
     encoder_right.SetReverseDirection(false);
-
 }
 
 // This method will be called once per scheduler run
-void Drivetrain::Periodic() {}
+void Drivetrain::Periodic() {
+    odometry.Update(frc::Rotation2d(units::degree_t(GetHeading())),
+        units::meter_t(encoder_left.GetDistance()),
+        units::meter_t(encoder_right.GetDistance()));
+}
 
 void Drivetrain::ArcadeDrive(double speed, double turn, bool squared) {
-    drive_.ArcadeDrive(speed, turn, squared);
+  drive_.ArcadeDrive(speed, turn, squared);
 }
 
 double Drivetrain::GetHeading() {
-    return gyro.GetYaw();
+  return gyro.GetYaw();
 }
 
 double Drivetrain::GetDistanceLeft() {
-    return encoder_left.GetDistance();
+  return encoder_left.GetDistance();
 }
 
 double Drivetrain::GetDistanceRight() {
-    return encoder_right.GetDistance();
+  return encoder_right.GetDistance();
 }
 
 double Drivetrain::AverageDistance() {
-    return (encoder_left.GetDistance() + encoder_right.GetDistance()) / 2.0;
+  return (encoder_left.GetDistance() + encoder_right.GetDistance()) / 2.0;
+}
+
+frc::Pose2d Drivetrain::GetPose() {
+  return odometry.GetPose();
+}
+
+void Drivetrain::TankDriveVolts(units::volt_t left, units::volt_t right) {
+  double right_speed = right.to<double>() / 12;
+  double left_speed = left.to<double>() / 12;
+  drive_.TankDrive(left_speed, right_speed);
+}
+
+frc::DifferentialDriveWheelSpeeds Drivetrain::GetWheelSpeed() {
+  return frc::DifferentialDriveWheelSpeeds {
+      units::meters_per_second_squared_t(encoder_left.GetRate()),
+      units::meters_per_second_squared_t(encoder_right.GetRate())
+  }
 }
