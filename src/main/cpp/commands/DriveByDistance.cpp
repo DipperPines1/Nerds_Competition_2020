@@ -10,11 +10,10 @@
 #include <algorithm>
 #include <cmath>
 
-#include "subsystems/Drivetrain.h"
 #include "Config.h"
 #include "Constants.h"
 #include "nerds/Preferences.h"
-
+#include "subsystems/Drivetrain.h"
 
 DriveByDistance::DriveByDistance(double distance, Drivetrain* drivetrain)
   : drivetrain_(drivetrain),
