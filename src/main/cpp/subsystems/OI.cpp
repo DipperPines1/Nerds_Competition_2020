@@ -110,6 +110,10 @@ void OI::BindCommandButton(int button, frc2::Command* command) {
     bound_commands_.push_back(command);
     driver_START_.ToggleWhenPressed(command, true);
     return;
+  case BUTTON_BACK:
+    bound_commands_.push_back(command);
+    driver_BACK_.ToggleWhenPressed(command, true);
+    return;
   default:
     std::stringstream warning;
     warning << "Button: " << button << " does not exist.";

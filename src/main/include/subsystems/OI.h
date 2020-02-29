@@ -52,14 +52,14 @@ class OI : public frc2::SubsystemBase {
   frc2::JoystickButton driver_Y_;
   frc2::JoystickButton driver_LB_;
   frc2::JoystickButton driver_RB_;
+  frc2::JoystickButton driver_START_;
+  frc2::JoystickButton driver_BACK_;
   frc2::Button trigger_left_;
   frc2::Button trigger_right_;
   frc2::Button up_;
   frc2::Button down_;
   frc2::Button left_;
   frc2::Button right_;
-  frc2::JoystickButton driver_START_;
-  frc2::JoystickButton driver_BACK_;
 
   std::vector<frc2::Command*> bound_commands_;
 };

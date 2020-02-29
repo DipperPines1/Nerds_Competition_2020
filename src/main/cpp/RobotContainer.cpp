@@ -20,9 +20,9 @@
 
 
 RobotContainer::RobotContainer()
-  : drivetrain_(),
+  : climber_(),
+    drivetrain_(),
     launcher_(),
-    climber_(),
     oi_(),
     apply_config_(),
     drive_joy_(&drivetrain_, &oi_),
