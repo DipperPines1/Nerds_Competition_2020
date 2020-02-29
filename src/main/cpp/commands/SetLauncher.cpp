@@ -13,8 +13,7 @@
 
 
 SetLauncher::SetLauncher(Launcher* launcher) :
-  launcher_(launcher)
-{
+  launcher_(launcher) {
   // Use addRequirements() here to declare subsystem dependencies.
   AddRequirements({launcher});
 }

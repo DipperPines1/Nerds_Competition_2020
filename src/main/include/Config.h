@@ -109,6 +109,10 @@ const nerd::ConfigKey<double> LAUNCHER_TOLERANCE{
   "Launcher/Tolerance",
   50
 };
+const nerd::ConfigKey<bool> LAUNCHER_UP_TO_SPEED{
+  "Launcher/Up to Speed",
+  false
+};
 // End Launcher
 
 // Conveyor

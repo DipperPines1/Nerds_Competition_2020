@@ -7,11 +7,10 @@
 
 #pragma once
 
-#include <frc2/command/SubsystemBase.h>
 #include <frc/DoubleSolenoid.h>
 #include <frc/Solenoid.h>
 #include <frc/VictorSP.h>
-
+#include <frc2/command/SubsystemBase.h>
 
 class Climber : public frc2::SubsystemBase {
  public:

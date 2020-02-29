@@ -8,8 +8,9 @@
 #pragma once
 
 #include <frc2/command/SubsystemBase.h>
-#include <frc/VictorSP.h>
 #include <frc/DigitalInput.h>
+#include <frc/VictorSP.h>
+
 
 
 class Conveyor : public frc2::SubsystemBase {

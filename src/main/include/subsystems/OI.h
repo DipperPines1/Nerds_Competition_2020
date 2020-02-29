@@ -9,10 +9,9 @@
 
 #include <vector>
 
-#include <frc2/command/SubsystemBase.h>
-
-#include <frc2/command/button/JoystickButton.h>
 #include <frc/Joystick.h>
+#include <frc2/command/SubsystemBase.h>
+#include <frc2/command/button/JoystickButton.h>
 
 class OI : public frc2::SubsystemBase {
  public:

@@ -31,7 +31,7 @@ class SetReelSpeed
   void End(bool interrupted) override;
 
   bool IsFinished() override;
- 
+
  private:
   Climber* climber_;
   bool reverse_;

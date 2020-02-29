@@ -7,11 +7,11 @@
 
 #include "subsystems/Conveyor.h"
 
+#include <frc/smartdashboard/SmartDashboard.h>
+
 #include "Config.h"
 #include "Constants.h"
 #include "nerds/Preferences.h"
-
-#include <frc/smartdashboard/SmartDashboard.h>
 
 Conveyor::Conveyor() :
 conveyor_(PWM_LAUNCHER_CONVEYOR),
@@ -19,8 +19,7 @@ ball_sensor_(DIO_BALL_SENSOR) {
   feed_override_ = new bool(false);
   nerd::Preferences::GetInstance().AddListener(
     CONVEYOR_FEED_OVERRIDE.key,
-    feed_override_
-  );
+    feed_override_);
 }
 
 // This method will be called once per scheduler run

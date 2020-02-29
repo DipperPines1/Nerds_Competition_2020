@@ -50,9 +50,24 @@ Launcher::Launcher() :
 // This method will be called once per scheduler run
 void Launcher::Periodic() {
   auto encoder = shooter_.GetEncoder();
+  double velocity = -encoder.GetVelocity();
   frc::SmartDashboard::PutNumber(
     "SparkMax/Encoder/Velocity",
-    encoder.GetVelocity());
+    velocity);
+
+  double desired_speed = nerd::Preferences::GetInstance().GetPreference(
+    LAUNCHER_CURRENT_SPEED.key,
+    LAUNCHER_CURRENT_SPEED.value);
+
+  double tolerance = nerd::Preferences::GetInstance().GetPreference(
+    LAUNCHER_TOLERANCE.key,
+    LAUNCHER_TOLERANCE.value);
+
+  double offset = velocity - desired_speed;
+
+  frc::SmartDashboard::PutBoolean(
+  LAUNCHER_UP_TO_SPEED.key,
+  std::fabs(offset) < tolerance);
 }
 
 void Launcher::SetLauncherSpeed(double speed) {
@@ -62,8 +77,8 @@ void Launcher::SetLauncherSpeed(double speed) {
 }
 
 double Launcher::GetLauncherSpeed() {
-   auto encoder = shooter_.GetEncoder();
-   return encoder.GetVelocity();
+  auto encoder = shooter_.GetEncoder();
+  return encoder.GetVelocity();
 }
 
 void Launcher::SetupListeners() {

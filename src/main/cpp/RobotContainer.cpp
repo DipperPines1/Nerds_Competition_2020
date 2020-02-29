@@ -11,8 +11,8 @@
 
 #include "Constants.h"
 #include "commands/RunIntake.h"
-#include "commands/SetLauncher.h"
 #include "commands/SetConveyor.h"
+#include "commands/SetLauncher.h"
 #include "commands/SetReelSpeed.h"
 #include "commands/SpeedSwitch.h"
 #include "commands/ToggleExtender.h"
@@ -41,11 +41,11 @@ RobotContainer::RobotContainer()
 void RobotContainer::ConfigureButtonBindings() {
   frc::SmartDashboard::PutData("Commands/Load Config", &apply_config_);
 
-  oi_.BindCommandButton(BUTTON_START, new SpeedSwitch());
-  oi_.BindCommandButton(BUTTON_LB, new RunIntake(false, &intake_));
-  oi_.BindCommandButton(BUTTON_RB, new RunIntake(true, &intake_));
   oi_.BindCommandButton(BUTTON_A, new SetLauncher(&launcher_));
   oi_.BindCommandButton(BUTTON_B, new ToggleStopper(&climber_));
+  oi_.BindCommandButton(BUTTON_LB, new RunIntake(false, &intake_));
+  oi_.BindCommandButton(BUTTON_RB, new RunIntake(true, &intake_));
+  oi_.BindCommandButton(BUTTON_START, new SpeedSwitch());
 
   oi_.BindCommandTrigger(DPAD_UP, new ToggleExtender(&climber_));
   oi_.BindCommandTrigger(DPAD_LEFT, new SetReelSpeed(false, &climber_));
