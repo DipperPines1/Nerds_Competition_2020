@@ -7,24 +7,24 @@
 
 #pragma once
 
+#include <ctre/phoenix/motorcontrol/can/WPI_TalonSRX.h>
 #include <frc2/command/SubsystemBase.h>
-#include <rev/CANSparkMax.h>
 
-class Launcher : public frc2::SubsystemBase {
+class Intake : public frc2::SubsystemBase {
  public:
-  Launcher();
+  Intake();
 
   /**
    * Will be called periodically whenever the CommandScheduler runs.
    */
   void Periodic();
 
-  void SetLauncherSpeed(double speed);
+  void RunIntake(double speed);
 
-  double GetLauncherSpeed();
 
  private:
-  void SetupListeners();
+  // Components (e.g. motor controllers and sensors) should generally be
+  // declared private and exposed only through public methods.
+  ctre::phoenix::motorcontrol::can::WPI_TalonSRX intake_;
 
-  rev::CANSparkMax shooter_;
 };

@@ -5,26 +5,19 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
-#pragma once
+#include "subsystems/Intake.h"
 
-#include <frc2/command/SubsystemBase.h>
-#include <rev/CANSparkMax.h>
+#include "Config.h"
+#include "Constants.h"
 
-class Launcher : public frc2::SubsystemBase {
- public:
-  Launcher();
 
-  /**
-   * Will be called periodically whenever the CommandScheduler runs.
-   */
-  void Periodic();
+Intake::Intake() :
+  intake_(CAN_LAUNCHER_INTAKE)
+{}
 
-  void SetLauncherSpeed(double speed);
+// This method will be called once per scheduler run
+void Intake::Periodic() {}
 
-  double GetLauncherSpeed();
-
- private:
-  void SetupListeners();
-
-  rev::CANSparkMax shooter_;
-};
+void Intake::RunIntake(double speed) {
+  intake_.Set(ctre::phoenix::motorcontrol::ControlMode::PercentOutput, speed);
+}

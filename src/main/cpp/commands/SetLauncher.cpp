@@ -13,17 +13,16 @@
 
 
 SetLauncher::SetLauncher(Launcher* launcher) :
-  launcher_(launcher)
-{
+  launcher_(launcher) {
   // Use addRequirements() here to declare subsystem dependencies.
-  // AddRequirements({launcher});
+  AddRequirements({launcher});
 }
 
 // Called when the command is initially scheduled.
 void SetLauncher::Initialize() {}
 
 // Called repeatedly when this Command is scheduled to run
-void SetLauncher::Execute() { 
+void SetLauncher::Execute() {
   double speed = nerd::Preferences::GetInstance().GetPreference(
     LAUNCHER_CURRENT_SPEED.key,
     LAUNCHER_CURRENT_SPEED.value);

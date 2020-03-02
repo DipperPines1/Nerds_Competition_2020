@@ -10,7 +10,8 @@
 #include <frc2/command/CommandBase.h>
 #include <frc2/command/CommandHelper.h>
 
-class Intake;
+class OI;
+class Conveyor;
 
 /**
  * An example command.
@@ -19,10 +20,10 @@ class Intake;
  * directly; this is crucially important, or else the decorator functions in
  * Command will *not* work!
  */
-class RunIntake
-    : public frc2::CommandHelper<frc2::CommandBase, RunIntake> {
+class ConveyorVariable
+    : public frc2::CommandHelper<frc2::CommandBase, ConveyorVariable> {
  public:
-  RunIntake(bool reverse, Intake* launcher);
+  ConveyorVariable(Conveyor* conveyor, OI* oi);
 
   void Initialize() override;
 
@@ -33,6 +34,6 @@ class RunIntake
   bool IsFinished() override;
 
  private:
-  Intake* intake_;
-  bool reverse_;
+  OI* oi_;
+  Conveyor* conveyor_;
 };

@@ -71,7 +71,7 @@ const nerd::ConfigKey<bool> SWITCH_SPEED_PREFERENCES{
 // Launcher values
 const nerd::ConfigKey<double> LAUNCHER_CONTROLLER_P{
   "Launcher/Controller/P",
-  6e-5
+  0.0005
 };
 const nerd::ConfigKey<double> LAUNCHER_CONTROLLER_I{
   "Launcher/Controller/I",
@@ -80,6 +80,10 @@ const nerd::ConfigKey<double> LAUNCHER_CONTROLLER_I{
 const nerd::ConfigKey<double> LAUNCHER_CONTROLLER_D{
   "Launcher/Controller/D",
   0
+};
+const nerd::ConfigKey<double> LAUNCHER_CONTROLLER_F{
+  "Launcher/Controller/F",
+  0.00022
 };
 const nerd::ConfigKey<double> LAUNCHER_MAX_SPEED{
   "Launcher/Controller/Max Speed",
@@ -97,11 +101,30 @@ const nerd::ConfigKey<double> LAUNCHER_INTAKE_SPEED{
   "Launcher/Intake Speed",
   5
 };
+const nerd::ConfigKey<bool> LAUNCHER_OVERRIDE{
+  "Launcher/Override",
+  false
+};
+const nerd::ConfigKey<double> LAUNCHER_TOLERANCE{
+  "Launcher/Tolerance",
+  50
+};
+const nerd::ConfigKey<bool> LAUNCHER_UP_TO_SPEED{
+  "Launcher/Up to Speed",
+  false
+};
+// End Launcher
+
+// Conveyor
 const nerd::ConfigKey<double> LAUNCHER_CONVEYOR_SPEED{
   "Launcher/Conveyor Speed",
   5
 };
-// End Launcher
+const nerd::ConfigKey<bool> CONVEYOR_FEED_OVERRIDE{
+  "Conveyor/Feed/Override",
+  false
+};
+// End Conveyor
 
 // Autonomous PID
 const nerd::ConfigKey<double> AUTO_TURN_P{
@@ -196,4 +219,10 @@ const nerd::ConfigKey<double> PID_TIME_ON_TARGET{
 const nerd::ConfigKey<double> SET_REEL_SPEED{
   "Joysticks/Reel Speed",
   2
+};
+
+// POV
+const nerd::ConfigKey<bool> POV_ENABLED{
+  "Joysticks/POV Enabled",
+  true
 };

@@ -77,6 +77,10 @@ void ApplyConfig::Initialize() {
     LAUNCHER_CONTROLLER_D.value,
     false);
   nerd::Preferences::GetInstance().AddPreference(
+    LAUNCHER_CONTROLLER_F.key,
+    LAUNCHER_CONTROLLER_F.value,
+    false);
+  nerd::Preferences::GetInstance().AddPreference(
     LAUNCHER_MAX_SPEED.key,
     LAUNCHER_MAX_SPEED.value,
     false);
@@ -89,14 +93,29 @@ void ApplyConfig::Initialize() {
     LAUNCHER_CURRENT_SPEED.value,
     false);
   nerd::Preferences::GetInstance().AddPreference(
+    LAUNCHER_INTAKE_SPEED.key,
+    LAUNCHER_INTAKE_SPEED.value,
+    false);
+  nerd::Preferences::GetInstance().AddPreference(
+    LAUNCHER_OVERRIDE.key,
+    LAUNCHER_OVERRIDE.value,
+    false);
+  nerd::Preferences::GetInstance().AddPreference(
+    LAUNCHER_TOLERANCE.key,
+    LAUNCHER_TOLERANCE.value,
+    false);
+  // End Launcher
+
+  // Conveyor
+  nerd::Preferences::GetInstance().AddPreference(
     LAUNCHER_CONVEYOR_SPEED.key,
     LAUNCHER_CONVEYOR_SPEED.value,
     false);
   nerd::Preferences::GetInstance().AddPreference(
-    LAUNCHER_INTAKE_SPEED.key,
-    LAUNCHER_INTAKE_SPEED.value,
+    CONVEYOR_FEED_OVERRIDE.key,
+    CONVEYOR_FEED_OVERRIDE.value,
     false);
-  // End Launcher
+  // End Conveyor
 
   // Autonomous PID
   nerd::Preferences::GetInstance().AddPreference(

@@ -16,9 +16,7 @@
 #include "nerds/Preferences.h"
 
 Launcher::Launcher() :
-  shooter_(CAN_LAUNCHER_MASTER, rev::CANSparkMax::MotorType::kBrushless),
-  intake_(CAN_LAUNCHER_INTAKE),
-  conveyor_(PWM_LAUNCHER_CONVEYOR) {
+  shooter_(CAN_LAUNCHER_MASTER, rev::CANSparkMax::MotorType::kBrushless) {
   SetupListeners();
 
   double p = nerd::Preferences::GetInstance().GetPreference(
@@ -30,6 +28,9 @@ Launcher::Launcher() :
   double d = nerd::Preferences::GetInstance().GetPreference(
     LAUNCHER_CONTROLLER_D.key,
     LAUNCHER_CONTROLLER_D.value);
+  double f = nerd::Preferences::GetInstance().GetPreference(
+    LAUNCHER_CONTROLLER_F.key,
+    LAUNCHER_CONTROLLER_F.value);
   double max = nerd::Preferences::GetInstance().GetPreference(
     LAUNCHER_MAX_SPEED.key,
     LAUNCHER_MAX_SPEED.value);
@@ -42,33 +43,42 @@ Launcher::Launcher() :
   controller.SetP(p);
   controller.SetI(i);
   controller.SetD(d);
+  controller.SetFF(f);
   // controller.SetOutputRange(min, max);
 }
 
 // This method will be called once per scheduler run
 void Launcher::Periodic() {
   auto encoder = shooter_.GetEncoder();
+  double velocity = -encoder.GetVelocity();
   frc::SmartDashboard::PutNumber(
     "SparkMax/Encoder/Velocity",
-    encoder.GetVelocity());
-  frc::SmartDashboard::PutNumber(
-    "SparkMax/Duty Cycle",
-    shooter_.GetAppliedOutput());
+    velocity);
+
+  double desired_speed = nerd::Preferences::GetInstance().GetPreference(
+    LAUNCHER_CURRENT_SPEED.key,
+    LAUNCHER_CURRENT_SPEED.value);
+
+  double tolerance = nerd::Preferences::GetInstance().GetPreference(
+    LAUNCHER_TOLERANCE.key,
+    LAUNCHER_TOLERANCE.value);
+
+  double offset = velocity - desired_speed;
+
+  frc::SmartDashboard::PutBoolean(
+  LAUNCHER_UP_TO_SPEED.key,
+  std::fabs(offset) < tolerance);
 }
 
 void Launcher::SetLauncherSpeed(double speed) {
   rev::CANPIDController controller = shooter_.GetPIDController();
 
-  // controller.SetReference(speed, rev::ControlType::kVelocity);
-  shooter_.Set(speed);
+  controller.SetReference(speed, rev::ControlType::kVelocity);
 }
 
-void Launcher::RunIntake(double speed) {
-  intake_.Set(ctre::phoenix::motorcontrol::ControlMode::PercentOutput, speed);
-}
-
-void Launcher::RunConveyor(double speed) {
-  conveyor_.Set(speed);
+double Launcher::GetLauncherSpeed() {
+  auto encoder = shooter_.GetEncoder();
+  return encoder.GetVelocity();
 }
 
 void Launcher::SetupListeners() {
@@ -109,6 +119,18 @@ void Launcher::SetupListeners() {
       });
 
   nerd::Preferences::GetInstance().AddFunctionListener(
+    LAUNCHER_CONTROLLER_F.key,
+    [this] (
+      auto table,
+      auto name,
+      auto entry,
+      auto new_value,
+      int flag) -> void {
+        double value = new_value->GetDouble();
+        this->shooter_.GetPIDController().SetFF(value);
+      });
+
+  nerd::Preferences::GetInstance().AddFunctionListener(
     LAUNCHER_MAX_SPEED.key,
     [this] (
       auto table,
@@ -118,7 +140,7 @@ void Launcher::SetupListeners() {
       int flag) -> void {
         double value = new_value->GetDouble();
         auto controller = this->shooter_.GetPIDController();
-        //controller.SetOutputRange(controller.GetOutputMin(), value);
+        // controller.SetOutputRange(controller.GetOutputMin(), value);
       });
 
   nerd::Preferences::GetInstance().AddFunctionListener(
@@ -131,6 +153,6 @@ void Launcher::SetupListeners() {
       int flag) -> void {
         double value = new_value->GetDouble();
         auto controller = this->shooter_.GetPIDController();
-        //controller.SetOutputRange(value, controller.GetOutputMax());
+        // controller.SetOutputRange(value, controller.GetOutputMax());
       });
 }
