@@ -71,7 +71,7 @@ const nerd::ConfigKey<bool> SWITCH_SPEED_PREFERENCES{
 // Launcher values
 const nerd::ConfigKey<double> LAUNCHER_CONTROLLER_P{
   "Launcher/Controller/P",
-  6e-5
+  0.0005
 };
 const nerd::ConfigKey<double> LAUNCHER_CONTROLLER_I{
   "Launcher/Controller/I",
@@ -80,6 +80,10 @@ const nerd::ConfigKey<double> LAUNCHER_CONTROLLER_I{
 const nerd::ConfigKey<double> LAUNCHER_CONTROLLER_D{
   "Launcher/Controller/D",
   0
+};
+const nerd::ConfigKey<double> LAUNCHER_CONTROLLER_F{
+  "Launcher/Controller/F",
+  0.00022
 };
 const nerd::ConfigKey<double> LAUNCHER_MAX_SPEED{
   "Launcher/Controller/Max Speed",
@@ -97,11 +101,30 @@ const nerd::ConfigKey<double> LAUNCHER_INTAKE_SPEED{
   "Launcher/Intake Speed",
   5
 };
+const nerd::ConfigKey<bool> LAUNCHER_OVERRIDE{
+  "Launcher/Override",
+  false
+};
+const nerd::ConfigKey<double> LAUNCHER_TOLERANCE{
+  "Launcher/Tolerance",
+  50
+};
+const nerd::ConfigKey<bool> LAUNCHER_UP_TO_SPEED{
+  "Launcher/Up to Speed",
+  false
+};
+// End Launcher
+
+// Conveyor
 const nerd::ConfigKey<double> LAUNCHER_CONVEYOR_SPEED{
   "Launcher/Conveyor Speed",
   5
 };
-// End Launcher
+const nerd::ConfigKey<bool> CONVEYOR_FEED_OVERRIDE{
+  "Conveyor/Feed/Override",
+  false
+};
+// End Conveyor
 
 // Autonomous PID
 const nerd::ConfigKey<double> AUTO_TURN_P{
@@ -153,8 +176,57 @@ const nerd::ConfigKey<double> AUTONOMOUS_TURN_TIME_ON_TARGET {
 };
 // End Autonomous Parameters
 
+// Start Of Vision Parameters
+const nerd::ConfigKey<double> VISION_CENTER_X {
+  "Vision/Center/X",
+  0
+};
+const nerd::ConfigKey<double> VISION_CENTER_Y {
+  "Vision/Center/Y",
+  0
+};
+const nerd::ConfigKey<double> VISION_TURN_MAX_SPEED  {
+  "Vision/Turn/Max Speed",
+  0
+};
+const nerd::ConfigKey<double> VISION_TURN_MIN_SPEED  {
+  "Vision/Turn/Min Speed",
+  0
+};
+const nerd::ConfigKey<double> VISION_TOLERANCE {
+  "Vision/Turn/Tolerence",
+  0
+};
+// End Vision Parameters
+
+// Start Vision PID
+const nerd::ConfigKey<double> VISION_PID_P{
+  "Vision/PID/P",
+  0.5
+};
+const nerd::ConfigKey<double> VISION_PID_I{
+  "Vision/PID/I",
+  0
+};
+const nerd::ConfigKey<double> VISION_PID_D{
+  "Vision/PID/D",
+  0
+};
+const nerd::ConfigKey<double> PID_TIME_ON_TARGET{
+  "Vision/PID/Timer",
+  1
+};
+// End vision PID
+
 // Reel values
 const nerd::ConfigKey<double> SET_REEL_SPEED{
   "Joysticks/Reel Speed",
   2
 };
+
+// POV
+const nerd::ConfigKey<bool> POV_ENABLED{
+  "Joysticks/POV Enabled",
+  true
+};
+// End POV

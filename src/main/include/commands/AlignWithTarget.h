@@ -9,8 +9,10 @@
 
 #include <frc2/command/CommandBase.h>
 #include <frc2/command/CommandHelper.h>
+#include <frc/controller/PIDController.h>
+#include <frc2/Timer.h>
 
-class Intake;
+class Drivetrain;
 
 /**
  * An example command.
@@ -19,10 +21,10 @@ class Intake;
  * directly; this is crucially important, or else the decorator functions in
  * Command will *not* work!
  */
-class RunIntake
-    : public frc2::CommandHelper<frc2::CommandBase, RunIntake> {
+class AlignWithTarget
+    : public frc2::CommandHelper<frc2::CommandBase, AlignWithTarget> {
  public:
-  RunIntake(bool reverse, Intake* launcher);
+  explicit AlignWithTarget(Drivetrain* drivetrain);
 
   void Initialize() override;
 
@@ -33,6 +35,17 @@ class RunIntake
   bool IsFinished() override;
 
  private:
-  Intake* intake_;
-  bool reverse_;
+  void SetupListeners();
+  Drivetrain* drivetrain_;
+  double* tolerence_;
+  double* turn_max_;
+  double* turn_min_;
+  frc2::PIDController vision_PID_;
+  double* p_;
+  double* i_;
+  double* d_;
+  frc2::Timer timer_;
+  double* timeontarget_;
+
+  bool running_;
 };

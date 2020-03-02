@@ -9,13 +9,13 @@
 
 #include "Config.h"
 #include "nerds/Preferences.h"
-#include "subsystems/Launcher.h"
+#include "subsystems/Conveyor.h"
 
-SetConveyor::SetConveyor(bool reverse, Launcher* launcher) :
-  launcher_(launcher),
+SetConveyor::SetConveyor(bool reverse, Conveyor* conveyor) :
+  conveyor_(conveyor),
   reverse_(reverse) {
   // Use addRequirements() here to declare subsystem dependencies.
-  // AddRequirements({launcher_});
+  AddRequirements({conveyor_});
 }
 
 // Called when the command is initially scheduled.
@@ -28,15 +28,15 @@ void SetConveyor::Execute() {
     LAUNCHER_CONVEYOR_SPEED.value);
 
   if (reverse_) {
-    launcher_->RunConveyor(speed);
+    conveyor_->RunConveyor(speed);
   } else {
-    launcher_->RunConveyor(-speed);
+    conveyor_->RunConveyor(-speed);
   }
 }
 
 // Called once the command ends or is interrupted.
 void SetConveyor::End(bool interrupted) {
-  launcher_->RunConveyor(0);
+  conveyor_->RunConveyor(0);
 }
 
 // Returns true when the command should end.

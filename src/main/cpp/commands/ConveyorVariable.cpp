@@ -5,39 +5,50 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
-#include "commands/SetReelSpeed.h"
+#include "commands/ConveyorVariable.h"
 
 #include "Config.h"
-#include "nerds/Preferences.h"
-#include "subsystems/Climber.h"
+#include "Constants.h"
 
-SetReelSpeed::SetReelSpeed(bool reverse, Climber* climber) :
-  climber_(climber),
-  reverse_(reverse) {
+#include "nerds/Preferences.h"
+
+#include "subsystems/Conveyor.h"
+#include "subsystems/OI.h"
+
+ConveyorVariable::ConveyorVariable(Conveyor* conveyor, OI* oi) :
+  oi_(oi),
+  conveyor_(conveyor) {
   // Use addRequirements() here to declare subsystem dependencies.
-  AddRequirements({climber_});
+  AddRequirements({conveyor_});
 }
 
 // Called when the command is initially scheduled.
-void SetReelSpeed::Initialize() {}
+void ConveyorVariable::Initialize() {}
 
 // Called repeatedly when this Command is scheduled to run
-void SetReelSpeed::Execute() {
+void ConveyorVariable::Execute() {
   double speed = nerd::Preferences::GetInstance().GetPreference(
-  SET_REEL_SPEED.key,
-  SET_REEL_SPEED.value);
+    LAUNCHER_CONVEYOR_SPEED.key,
+    LAUNCHER_CONVEYOR_SPEED.value);
 
-  if (reverse_) {
-    climber_->SetReelSpeed(-speed);
-  } else {
-    climber_->SetReelSpeed(speed);
+  double left = oi_->GetAxis(TRIGGER_LEFT);
+  double right = oi_->GetAxis(TRIGGER_RIGHT);
+
+  double input = right - left;
+
+  double output = speed * input;
+
+  if (output <= 0 && conveyor_->IsBallDetected()) {
+    output = -speed;
   }
+
+  conveyor_->RunConveyor(output);
 }
 
 // Called once the command ends or is interrupted.
-void SetReelSpeed::End(bool interrupted) {
-  climber_->SetReelSpeed(0);
+void ConveyorVariable::End(bool interrupted) {
+  conveyor_->RunConveyor(0);
 }
 
 // Returns true when the command should end.
-bool SetReelSpeed::IsFinished() { return false; }
+bool ConveyorVariable::IsFinished() { return false; }

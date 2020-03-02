@@ -77,6 +77,10 @@ void ApplyConfig::Initialize() {
     LAUNCHER_CONTROLLER_D.value,
     false);
   nerd::Preferences::GetInstance().AddPreference(
+    LAUNCHER_CONTROLLER_F.key,
+    LAUNCHER_CONTROLLER_F.value,
+    false);
+  nerd::Preferences::GetInstance().AddPreference(
     LAUNCHER_MAX_SPEED.key,
     LAUNCHER_MAX_SPEED.value,
     false);
@@ -89,14 +93,36 @@ void ApplyConfig::Initialize() {
     LAUNCHER_CURRENT_SPEED.value,
     false);
   nerd::Preferences::GetInstance().AddPreference(
+    LAUNCHER_INTAKE_SPEED.key,
+    LAUNCHER_INTAKE_SPEED.value,
+    false);
+  nerd::Preferences::GetInstance().AddPreference(
+    LAUNCHER_OVERRIDE.key,
+    LAUNCHER_OVERRIDE.value,
+    false);
+  nerd::Preferences::GetInstance().AddPreference(
+    LAUNCHER_TOLERANCE.key,
+    LAUNCHER_TOLERANCE.value,
+    false);
+  // End Launcher
+
+  // Conveyor
+  nerd::Preferences::GetInstance().AddPreference(
     LAUNCHER_CONVEYOR_SPEED.key,
     LAUNCHER_CONVEYOR_SPEED.value,
     false);
   nerd::Preferences::GetInstance().AddPreference(
-    LAUNCHER_INTAKE_SPEED.key,
-    LAUNCHER_INTAKE_SPEED.value,
+    CONVEYOR_FEED_OVERRIDE.key,
+    CONVEYOR_FEED_OVERRIDE.value,
     false);
-  // End Launcher
+  // End Conveyor
+
+  // Reel
+  nerd::Preferences::GetInstance().AddPreference(
+    SET_REEL_SPEED.key,
+    SET_REEL_SPEED.value,
+    false);
+  // End Reel
 
   // Autonomous PID
   nerd::Preferences::GetInstance().AddPreference(
@@ -147,10 +173,37 @@ void ApplyConfig::Initialize() {
     AUTONOMOUS_TURN_TIME_ON_TARGET.value,
     false);
   // End Autonomous Parameters
-  nerd::Preferences::GetInstance().AddPreference(
-    SET_REEL_SPEED.key,
-    SET_REEL_SPEED.value,
-    false);
+
+  // Start Vision Parameters
+    nerd::Preferences::GetInstance().AddPreference(
+      VISION_TURN_MAX_SPEED.key,
+      VISION_TURN_MAX_SPEED.value,
+      false);
+    nerd::Preferences::GetInstance().AddPreference(
+      VISION_TURN_MIN_SPEED.key,
+      VISION_TURN_MIN_SPEED.value,
+      false);
+    nerd::Preferences::GetInstance().AddPreference(
+      VISION_TOLERANCE.key,
+      VISION_TOLERANCE.value,
+      false);
+    nerd::Preferences::GetInstance().AddPreference(
+      VISION_PID_P.key,
+      VISION_PID_P.value,
+      false);
+    nerd::Preferences::GetInstance().AddPreference(
+      VISION_PID_I.key,
+      VISION_PID_I.value,
+      false);
+    nerd::Preferences::GetInstance().AddPreference(
+      VISION_PID_D.key,
+      VISION_PID_D.value,
+      false);
+    nerd::Preferences::GetInstance().AddPreference(
+      PID_TIME_ON_TARGET.key,
+      PID_TIME_ON_TARGET.value,
+      false);
+  // End Vision Parameters
 }
 
 // Called repeatedly when this Command is scheduled to run

@@ -51,6 +51,7 @@ constexpr int DIO_ENCODER_LEFT_A = 0;
 constexpr int DIO_ENCODER_LEFT_B = 1;
 constexpr int DIO_ENCODER_RIGHT_A = 2;
 constexpr int DIO_ENCODER_RIGHT_B = 3;
+constexpr int DIO_BALL_SENSOR = 4;
 
 // Encoder constants
 constexpr double WHEEL_DIAMETER = 5.5;

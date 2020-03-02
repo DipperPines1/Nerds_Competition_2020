@@ -7,11 +7,10 @@
 
 #pragma once
 
-#include <frc2/command/SubsystemBase.h>
 #include <frc/DoubleSolenoid.h>
 #include <frc/Solenoid.h>
 #include <frc/VictorSP.h>
-
+#include <frc2/command/SubsystemBase.h>
 
 class Climber : public frc2::SubsystemBase {
  public:
@@ -51,8 +50,8 @@ class Climber : public frc2::SubsystemBase {
   // Components (e.g. motor controllers and sensors) should generally be
   // declared private and exposed only through public methods.
   frc::DoubleSolenoid extender_;
-  frc::Solenoid stopper_left_;
-  frc::Solenoid stopper_right_;
   frc::VictorSP reel_left_;
   frc::VictorSP reel_right_;
+  frc::Solenoid stopper_left_;
+  frc::Solenoid stopper_right_;
 };

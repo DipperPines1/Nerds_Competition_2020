@@ -10,11 +10,10 @@
 #include <algorithm>
 #include <cmath>
 
-#include "subsystems/Drivetrain.h"
 #include "Config.h"
 #include "Constants.h"
 #include "nerds/Preferences.h"
-
+#include "subsystems/Drivetrain.h"
 
 DriveByDistance::DriveByDistance(double distance, Drivetrain* drivetrain)
   : drivetrain_(drivetrain),
@@ -68,10 +67,11 @@ void DriveByDistance::Execute() {
 
   if (current_distance > final_distance_ + *autonomous_drive_tolerance_) {
     speed = -1;
-  } else if (current_distance < final_distance_ - *autonomous_drive_tolerance_) {
-    speed = 1;
-  } else {
-    speed = 0;
+  } else if (
+    current_distance < final_distance_ - *autonomous_drive_tolerance_) {
+      speed = 1;
+    } else {
+      speed = 0;
   }
 
   speed = std::min({initial_accel, final_accel, max}) * speed;

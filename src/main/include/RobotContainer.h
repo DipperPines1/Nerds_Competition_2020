@@ -9,15 +9,20 @@
 
 #include <frc/smartdashboard/SmartDashboard.h>
 #include <frc2/command/Command.h>
+#include <frc2/command/button/Trigger.h>
 
 #include "commands/ApplyConfig.h"
+#include "commands/ConveyorVariable.h"
 #include "commands/DriveByDistance.h"
 #include "commands/DriveJoystick.h"
+#include "commands/SetConveyor.h"
 #include "commands/TurnByDegree.h"
 #include "commands/ToggleExtender.h"
 #include "commands/ToggleStopper.h"
 #include "subsystems/Climber.h"
+#include "subsystems/Conveyor.h"
 #include "subsystems/Drivetrain.h"
+#include "subsystems/Intake.h"
 #include "subsystems/Launcher.h"
 #include "subsystems/OI.h"
 
@@ -37,13 +42,18 @@ class RobotContainer {
  private:
   // The robot's subsystems and commands are defined here...
   Climber climber_;
+  Conveyor conveyor_;
   Drivetrain drivetrain_;
+  Intake intake_;
   Launcher launcher_;
   OI oi_;
 
-
   ApplyConfig apply_config_;
   DriveJoystick drive_joy_;
+  ConveyorVariable variable_;
+  SetConveyor feed_ball_;
+
+  frc2::Trigger ball_feed_;
 
   void ConfigureButtonBindings();
 };
