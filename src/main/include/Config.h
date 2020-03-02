@@ -199,7 +199,7 @@ const nerd::ConfigKey<double> VISION_TOLERANCE {
 };
 // End Vision Parameters
 
-// start of vision PID parameters
+// Start Vision PID
 const nerd::ConfigKey<double> VISION_PID_P{
   "Vision/PID/P",
   0.5
@@ -216,6 +216,7 @@ const nerd::ConfigKey<double> PID_TIME_ON_TARGET{
   "Vision/PID/Timer",
   1
 };
+// End vision PID
 
 // Reel values
 const nerd::ConfigKey<double> SET_REEL_SPEED{
@@ -228,3 +229,4 @@ const nerd::ConfigKey<bool> POV_ENABLED{
   "Joysticks/POV Enabled",
   true
 };
+// End POV
