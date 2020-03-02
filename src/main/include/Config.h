@@ -215,6 +215,8 @@ const nerd::ConfigKey<double> VISION_PID_D{
 const nerd::ConfigKey<double> PID_TIME_ON_TARGET{
   "Vision/PID/Timer",
   1
+};
+
 // Reel values
 const nerd::ConfigKey<double> SET_REEL_SPEED{
   "Joysticks/Reel Speed",
