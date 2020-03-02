@@ -31,12 +31,6 @@ Launcher::Launcher() :
   double f = nerd::Preferences::GetInstance().GetPreference(
     LAUNCHER_CONTROLLER_F.key,
     LAUNCHER_CONTROLLER_F.value);
-  double max = nerd::Preferences::GetInstance().GetPreference(
-    LAUNCHER_MAX_SPEED.key,
-    LAUNCHER_MAX_SPEED.value);
-  double min = nerd::Preferences::GetInstance().GetPreference(
-    LAUNCHER_MIN_SPEED.key,
-    LAUNCHER_MIN_SPEED.value);
 
   rev::CANPIDController controller = shooter_.GetPIDController();
 
@@ -128,31 +122,5 @@ void Launcher::SetupListeners() {
       int flag) -> void {
         double value = new_value->GetDouble();
         this->shooter_.GetPIDController().SetFF(value);
-      });
-
-  nerd::Preferences::GetInstance().AddFunctionListener(
-    LAUNCHER_MAX_SPEED.key,
-    [this] (
-      auto table,
-      auto name,
-      auto entry,
-      auto new_value,
-      int flag) -> void {
-        double value = new_value->GetDouble();
-        auto controller = this->shooter_.GetPIDController();
-        // controller.SetOutputRange(controller.GetOutputMin(), value);
-      });
-
-  nerd::Preferences::GetInstance().AddFunctionListener(
-    LAUNCHER_MIN_SPEED.key,
-    [this] (
-      auto table,
-      auto name,
-      auto entry,
-      auto new_value,
-      int flag) -> void {
-        double value = new_value->GetDouble();
-        auto controller = this->shooter_.GetPIDController();
-        // controller.SetOutputRange(value, controller.GetOutputMax());
       });
 }
