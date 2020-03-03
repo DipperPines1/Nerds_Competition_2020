@@ -62,7 +62,13 @@ frc2::Command* RobotContainer::GetAutonomousCommand() {
     SetLauncher(&launcher_),
       frc2::SequentialCommandGroup(
         frc2::WaitCommand(2_s),
-        SetConveyor(false, &launcher_).WithTimeout(2_s))),
-    DriveByDistance(-24, &drivetrain_));
+        SetConveyor(false, &conveyor_).WithTimeout(2_s))),
+    TurnByDegree(90, &drivetrain_),
+    DriveByDistance(66.91, &drivetrain_),
+    TurnByDegree(90, &drivetrain_),
+    DriveByDistance(120.63, &drivetrain_),
+    frc2::ParallelRaceGroup(
+      RunIntake(false, &intake_),
+      DriveByDistance(138.27, &drivetrain_)));
   return command;
 }
