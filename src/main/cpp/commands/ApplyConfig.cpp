@@ -204,6 +204,21 @@ void ApplyConfig::Initialize() {
       PID_TIME_ON_TARGET.value,
       false);
   // End Vision Parameters
+
+  // Start Early Game Autonomous
+    nerd::Preferences::GetInstance().AddPreference(
+      FOLLOW_LINE.key,
+      FOLLOW_LINE.value,
+      false);
+    nerd::Preferences::GetInstance().AddPreference(
+      LINE_TO_BALL.key,
+      LINE_TO_BALL.value,
+      false);
+    nerd::Preferences::GetInstance().AddPreference(
+      GRAB_BALLS.key,
+      GRAB_BALLS.value,
+      false);
+  // End Early Game Autonomous
 }
 
 // Called repeatedly when this Command is scheduled to run

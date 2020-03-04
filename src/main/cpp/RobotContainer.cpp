@@ -12,6 +12,7 @@
 #include <frc2/command/ParallelRaceGroup.h>
 #include <frc2/command/WaitCommand.h>
 
+#include "Config.h"
 #include "Constants.h"
 #include "commands/RunIntake.h"
 #include "commands/SetConveyor.h"
@@ -21,6 +22,7 @@
 #include "commands/AlignWithTarget.h"
 #include "commands/ToggleExtender.h"
 #include "commands/ToggleStopper.h"
+#include "nerds/Preferences.h"
 
 
 RobotContainer::RobotContainer()
@@ -57,6 +59,16 @@ void RobotContainer::ConfigureButtonBindings() {
 }
 
 frc2::Command* RobotContainer::GetAutonomousCommand() {
+  double follow_line = nerd::Preferences::GetInstance().GetPreference(
+    FOLLOW_LINE.key,
+    FOLLOW_LINE.value);
+  double line_to_ball = nerd::Preferences::GetInstance().GetPreference(
+    LINE_TO_BALL.key,
+    LINE_TO_BALL.value);
+  double grab_ball = nerd::Preferences::GetInstance().GetPreference(
+    GRAB_BALLS.key,
+    GRAB_BALLS.value);
+
   frc2::SequentialCommandGroup* command = new frc2::SequentialCommandGroup(
     frc2::ParallelRaceGroup(
     SetLauncher(&launcher_),
@@ -64,11 +76,11 @@ frc2::Command* RobotContainer::GetAutonomousCommand() {
         frc2::WaitCommand(2_s),
         SetConveyor(false, &conveyor_).WithTimeout(2_s))),
     TurnByDegree(90, &drivetrain_),
-    DriveByDistance(66.91, &drivetrain_),
+    DriveByDistance(follow_line, &drivetrain_),
     TurnByDegree(90, &drivetrain_),
-    DriveByDistance(120.63, &drivetrain_),
+    DriveByDistance(line_to_ball, &drivetrain_),
     frc2::ParallelRaceGroup(
       RunIntake(false, &intake_),
-      DriveByDistance(138.27, &drivetrain_)));
+      DriveByDistance(grab_ball, &drivetrain_)));
   return command;
 }
