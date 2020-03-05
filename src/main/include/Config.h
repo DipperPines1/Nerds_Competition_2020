@@ -244,4 +244,8 @@ const nerd::ConfigKey<double> GRAB_BALLS{
   "Autonomous/Early Game/Grab Balls",
   138.27
 };
+const nerd::ConfigKey<double> SHOOTER_TIMEOUT{
+  "Autonomous/Early Game/Shooter Timeout",
+  10
+};
 // End Early game Autonomous

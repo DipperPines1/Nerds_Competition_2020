@@ -218,6 +218,10 @@ void ApplyConfig::Initialize() {
       GRAB_BALLS.key,
       GRAB_BALLS.value,
       false);
+    nerd::Preferences::GetInstance().AddPreference(
+      SHOOTER_TIMEOUT.key,
+      SHOOTER_TIMEOUT.value,
+      false);
   // End Early Game Autonomous
 }
 

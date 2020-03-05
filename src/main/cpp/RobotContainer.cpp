@@ -14,6 +14,7 @@
 
 #include "Config.h"
 #include "Constants.h"
+#include "commands/AutoShoot.h"
 #include "commands/RunIntake.h"
 #include "commands/SetConveyor.h"
 #include "commands/SetLauncher.h"
@@ -42,6 +43,9 @@ RobotContainer::RobotContainer()
   conveyor_.SetDefaultCommand(variable_);
 
   // ball_feed_.WhileActiveOnce(feed_ball_, true);
+  auto_chooser_.SetDefaultOption("Shooter Auto", 1);
+  auto_chooser_.AddOption("Simple Auto", 2);
+  frc::SmartDashboard::PutData("Autonomous/Autonomous Mode", &auto_chooser_);
 }
 
 void RobotContainer::ConfigureButtonBindings() {
@@ -68,13 +72,16 @@ frc2::Command* RobotContainer::GetAutonomousCommand() {
   double grab_ball = nerd::Preferences::GetInstance().GetPreference(
     GRAB_BALLS.key,
     GRAB_BALLS.value);
+    double timeout = nerd::Preferences::GetInstance().GetPreference(
+      SHOOTER_TIMEOUT.key,
+      SHOOTER_TIMEOUT.value);
 
-  frc2::SequentialCommandGroup* command = new frc2::SequentialCommandGroup(
-    frc2::ParallelRaceGroup(
-    SetLauncher(&launcher_),
-      frc2::SequentialCommandGroup(
-        frc2::WaitCommand(2_s),
-        SetConveyor(false, &conveyor_).WithTimeout(2_s))),
+  int choice = auto_chooser_.GetSelected();
+
+  frc2::Command* command;
+  if (choice == 1) {
+    command = new frc2::SequentialCommandGroup(
+    AutoShoot(&conveyor_, &launcher_).WithTimeout(units::second_t(timeout)),
     TurnByDegree(90, &drivetrain_),
     DriveByDistance(follow_line, &drivetrain_),
     TurnByDegree(90, &drivetrain_),
@@ -82,5 +89,12 @@ frc2::Command* RobotContainer::GetAutonomousCommand() {
     frc2::ParallelRaceGroup(
       RunIntake(false, &intake_),
       DriveByDistance(grab_ball, &drivetrain_)));
+  } else if (choice == 2) {
+    command = new frc2::SequentialCommandGroup(
+      AutoShoot(&conveyor_, &launcher_).WithTimeout(units::second_t(timeout)),
+      DriveByDistance(-20, &drivetrain_));
+  } else {
+    command = new frc2::WaitCommand(2_s);
+  }
   return command;
 }
