@@ -230,3 +230,22 @@ const nerd::ConfigKey<bool> POV_ENABLED{
   true
 };
 // End POV
+
+// Early game autonomous
+const nerd::ConfigKey<double> FOLLOW_LINE{
+  "Autonomous/Early Game/Follow Line",
+  66.91
+};
+const nerd::ConfigKey<double> LINE_TO_BALL{
+  "Autonomous/Early Game/Line To Balls",
+  120.63
+};
+const nerd::ConfigKey<double> GRAB_BALLS{
+  "Autonomous/Early Game/Grab Balls",
+  138.27
+};
+const nerd::ConfigKey<double> SHOOTER_TIMEOUT{
+  "Autonomous/Early Game/Shooter Timeout",
+  10
+};
+// End Early game Autonomous

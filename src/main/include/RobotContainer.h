@@ -10,6 +10,7 @@
 #include <frc/smartdashboard/SmartDashboard.h>
 #include <frc2/command/Command.h>
 #include <frc2/command/button/Trigger.h>
+#include <frc/smartdashboard/SendableChooser.h>
 
 #include "commands/ApplyConfig.h"
 #include "commands/ConveyorVariable.h"
@@ -56,4 +57,6 @@ class RobotContainer {
   frc2::Trigger ball_feed_;
 
   void ConfigureButtonBindings();
+
+  frc::SendableChooser<int>  auto_chooser_;
 };
