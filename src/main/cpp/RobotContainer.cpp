@@ -72,9 +72,9 @@ frc2::Command* RobotContainer::GetAutonomousCommand() {
   double grab_ball = nerd::Preferences::GetInstance().GetPreference(
     GRAB_BALLS.key,
     GRAB_BALLS.value);
-    double timeout = nerd::Preferences::GetInstance().GetPreference(
-      SHOOTER_TIMEOUT.key,
-      SHOOTER_TIMEOUT.value);
+  double timeout = nerd::Preferences::GetInstance().GetPreference(
+    SHOOTER_TIMEOUT.key,
+    SHOOTER_TIMEOUT.value);
 
   int choice = auto_chooser_.GetSelected();
 
