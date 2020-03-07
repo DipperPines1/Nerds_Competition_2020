@@ -17,6 +17,11 @@ class DriveByDistance
     : public frc2::CommandHelper<frc2::CommandBase, DriveByDistance> {
  public:
   DriveByDistance(double distance, Drivetrain*);
+  DriveByDistance(
+    double distance,
+    double min_speed,
+    double max_speed,
+    Drivetrain*);
 
   void Initialize() override;
 

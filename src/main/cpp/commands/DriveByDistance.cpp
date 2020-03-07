@@ -37,6 +37,15 @@ DriveByDistance::DriveByDistance(double distance, Drivetrain* drivetrain)
   PID_.EnableContinuousInput(-180, 180);
 }
 
+DriveByDistance::DriveByDistance(double distance,
+  double min_speed,
+  double max_speed,
+  Drivetrain* drivetrain)
+  : DriveByDistance(distance, drivetrain) {
+    autonomous_drive_min_speed_ = new double(min_speed);
+    autonomous_drive_max_speed_ = new double(max_speed);
+  }
+
 // Called when the command is initially scheduled.
 void DriveByDistance::Initialize() {
   initial_heading_ = drivetrain_->GetHeading();
