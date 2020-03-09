@@ -75,20 +75,33 @@ frc2::Command* RobotContainer::GetAutonomousCommand() {
   double timeout = nerd::Preferences::GetInstance().GetPreference(
     SHOOTER_TIMEOUT.key,
     SHOOTER_TIMEOUT.value);
+  double first_turn = nerd::Preferences::GetInstance().GetPreference(
+    FIRST_TURN.key,
+    FIRST_TURN.value);
+  double second_turn = nerd::Preferences::GetInstance().GetPreference(
+    SECOND_TURN.key,
+    SECOND_TURN.value);
 
   int choice = auto_chooser_.GetSelected();
+
+  double min_speed = nerd::Preferences::GetInstance().GetPreference(
+    EARLY_MIN_SPEED.key,
+    EARLY_MIN_SPEED.value);
+  double max_speed = nerd::Preferences::GetInstance().GetPreference(
+    EARLY_MAX_SPEED.key,
+    EARLY_MAX_SPEED.value);
 
   frc2::Command* command;
   if (choice == 1) {
     command = new frc2::SequentialCommandGroup(
     AutoShoot(&conveyor_, &launcher_).WithTimeout(units::second_t(timeout)),
-    TurnByDegree(90, &drivetrain_),
+    TurnByDegree(first_turn, &drivetrain_),
     DriveByDistance(follow_line, &drivetrain_),
-    TurnByDegree(90, &drivetrain_),
+    TurnByDegree(second_turn, &drivetrain_),
     DriveByDistance(line_to_ball, &drivetrain_),
     frc2::ParallelRaceGroup(
       RunIntake(false, &intake_),
-      DriveByDistance(grab_ball, &drivetrain_)));
+      DriveByDistance(grab_ball, min_speed, max_speed, &drivetrain_)));
   } else if (choice == 2) {
     command = new frc2::SequentialCommandGroup(
       AutoShoot(&conveyor_, &launcher_).WithTimeout(units::second_t(timeout)),

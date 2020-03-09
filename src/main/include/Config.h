@@ -244,8 +244,24 @@ const nerd::ConfigKey<double> GRAB_BALLS{
   "Autonomous/Early Game/Grab Balls",
   138.27
 };
+const nerd::ConfigKey<double> FIRST_TURN{
+  "Autonomous/Early Game/First Turn",
+  90
+};
+const nerd::ConfigKey<double> SECOND_TURN{
+  "Autonomous/Early Game/Second Turn",
+  90
+};
 const nerd::ConfigKey<double> SHOOTER_TIMEOUT{
   "Autonomous/Early Game/Shooter Timeout",
   10
+};
+const nerd::ConfigKey<double> EARLY_MAX_SPEED{
+  "Autonomous/Early Game/ Max Speed",
+  0.5
+};
+const nerd::ConfigKey<double> EARLY_MIN_SPEED{
+  "Autonomous/Early Game/Min Speed",
+  0.2
 };
 // End Early game Autonomous

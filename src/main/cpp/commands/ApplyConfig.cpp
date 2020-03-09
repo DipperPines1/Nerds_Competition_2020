@@ -219,8 +219,24 @@ void ApplyConfig::Initialize() {
       GRAB_BALLS.value,
       false);
     nerd::Preferences::GetInstance().AddPreference(
+      FIRST_TURN.key,
+      FIRST_TURN.value,
+      false);
+    nerd::Preferences::GetInstance().AddPreference(
+      SECOND_TURN.key,
+      SECOND_TURN.value,
+      false);
+    nerd::Preferences::GetInstance().AddPreference(
       SHOOTER_TIMEOUT.key,
       SHOOTER_TIMEOUT.value,
+      false);
+    nerd::Preferences::GetInstance().AddPreference(
+      EARLY_MAX_SPEED.key,
+      EARLY_MAX_SPEED.value,
+      false);
+    nerd::Preferences::GetInstance().AddPreference(
+      EARLY_MIN_SPEED.key,
+      EARLY_MIN_SPEED.value,
       false);
   // End Early Game Autonomous
 }
