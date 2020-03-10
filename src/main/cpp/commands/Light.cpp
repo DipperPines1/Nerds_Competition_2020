@@ -5,37 +5,27 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
-#include "commands/SetLauncher.h"
-
-#include "Config.h"
-#include "nerds/Preferences.h"
+#include "commands/Light.h"
 #include "subsystems/Launcher.h"
+#include "nerds/Preferences.h"
 
-
-SetLauncher::SetLauncher(Launcher* launcher) :
+Light::Light(Launcher* launcher) :
   launcher_(launcher) {
   // Use addRequirements() here to declare subsystem dependencies.
-  AddRequirements({launcher});
 }
 
 // Called when the command is initially scheduled.
-void SetLauncher::Initialize() {
+void Light::Initialize() {
   launcher_->SetLight(true);
 }
 
 // Called repeatedly when this Command is scheduled to run
-void SetLauncher::Execute() {
-  double speed = nerd::Preferences::GetInstance().GetPreference(
-    LAUNCHER_CURRENT_SPEED.key,
-    LAUNCHER_CURRENT_SPEED.value);
-  launcher_->SetLauncherSpeed(-speed);
-}
+void Light::Execute() {}
 
 // Called once the command ends or is interrupted.
-void SetLauncher::End(bool interrupted) {
-  launcher_->SetLauncherSpeed(0);
+void Light::End(bool interrupted) {
   launcher_->SetLight(false);
 }
 
 // Returns true when the command should end.
-bool SetLauncher::IsFinished() { return false; }
+bool Light::IsFinished() { return false; }

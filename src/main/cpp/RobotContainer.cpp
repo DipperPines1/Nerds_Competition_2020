@@ -29,6 +29,7 @@ RobotContainer::RobotContainer()
     drive_joy_(&drivetrain_, &oi_),
     variable_(&conveyor_, &oi_),
     feed_ball_(false, &conveyor_),
+    light_toggle_(&launcher_),
     ball_feed_([this] () -> bool {return this->conveyor_.IsBallDetected();}) {
   ConfigureButtonBindings();
 
@@ -41,6 +42,7 @@ RobotContainer::RobotContainer()
 
 void RobotContainer::ConfigureButtonBindings() {
   frc::SmartDashboard::PutData("Commands/Load Config", &apply_config_);
+  frc::SmartDashboard::PutData("Commands/Light", &light_toggle_);
 
   oi_.BindCommandButton(BUTTON_A, new SetLauncher(&launcher_));
   oi_.BindCommandButton(BUTTON_B, new AlignWithTarget(&drivetrain_));

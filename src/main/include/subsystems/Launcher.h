@@ -9,6 +9,7 @@
 
 #include <frc2/command/SubsystemBase.h>
 #include <rev/CANSparkMax.h>
+#include <frc/Relay.h>
 
 class Launcher : public frc2::SubsystemBase {
  public:
@@ -23,8 +24,11 @@ class Launcher : public frc2::SubsystemBase {
 
   double GetLauncherSpeed();
 
+  void SetLight(bool on);
+
  private:
   void SetupListeners();
 
   rev::CANSparkMax shooter_;
+  frc::Relay light_;
 };

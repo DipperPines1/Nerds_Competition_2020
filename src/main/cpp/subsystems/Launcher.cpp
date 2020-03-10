@@ -10,13 +10,15 @@
 #include <frc/smartdashboard/SmartDashboard.h>
 #include <rev/CANPIDController.h>
 #include <rev/ControlType.h>
+#include <frc/Relay.h>
 
 #include "Config.h"
 #include "Constants.h"
 #include "nerds/Preferences.h"
 
 Launcher::Launcher() :
-  shooter_(CAN_LAUNCHER_MASTER, rev::CANSparkMax::MotorType::kBrushless) {
+  shooter_(CAN_LAUNCHER_MASTER, rev::CANSparkMax::MotorType::kBrushless),
+  light_(RELAY_PORT) {
   SetupListeners();
 
   double p = nerd::Preferences::GetInstance().GetPreference(
@@ -73,6 +75,14 @@ void Launcher::SetLauncherSpeed(double speed) {
 double Launcher::GetLauncherSpeed() {
   auto encoder = shooter_.GetEncoder();
   return encoder.GetVelocity();
+}
+
+void Launcher::SetLight(bool on) {
+  if (on) {
+    light_.Set(frc::Relay::kForward);
+  } else {
+    light_.Set(frc::Relay::kOff);
+  }
 }
 
 void Launcher::SetupListeners() {

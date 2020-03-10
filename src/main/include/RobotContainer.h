@@ -15,6 +15,7 @@
 #include "commands/ConveyorVariable.h"
 #include "commands/DriveByDistance.h"
 #include "commands/DriveJoystick.h"
+#include "commands/Light.h"
 #include "commands/SetConveyor.h"
 #include "commands/TurnByDegree.h"
 #include "commands/ToggleExtender.h"
@@ -52,6 +53,7 @@ class RobotContainer {
   DriveJoystick drive_joy_;
   ConveyorVariable variable_;
   SetConveyor feed_ball_;
+  Light light_toggle_;
 
   frc2::Trigger ball_feed_;
 

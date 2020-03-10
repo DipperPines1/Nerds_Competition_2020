@@ -74,3 +74,7 @@ constexpr int RIGHT_CHANNEL = 3;
 // PWM channels
 constexpr int PWM_REEL_LEFT = 0;
 constexpr int PWM_REEL_RIGHT = 1;
+
+// Relay channels
+constexpr int  RELAY_PORT = 0;
+// End Relay channels
